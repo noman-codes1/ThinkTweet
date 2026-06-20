@@ -14,18 +14,23 @@ const mySchema = {
       properties: {
         evidenceStrength: {
           type: "number",
+          description : "Return a score based on evidence you could find to satisfy the claim."
         },
         logicalConsistency: {
           type: "number",
+          description : "Return a score based on how inherently consistent the claim is"
         },
         generalizationRisk: {
           type: "number",
+          description : "Return a score based on how much risk of generalization is present"
         },
         confirmationBias: {
           type: "number",
+          description : "Return a score based on how much biasness it might hold"
         },
         nuanceAndContext: {
           type: "number",
+          description : "Return a score based on how much claim contains the naunce and context"
         },
       },
       required: [
@@ -41,18 +46,24 @@ const mySchema = {
       items: {
         type: "string",
       },
+      minItems : 1,
+      maxItems : 3
     },
     weaknesses: {
       type: "array",
       items: {
         type: "string",
       },
+      minItems : 1,
+      maxItems : 3
     },
     nuances: {
       type: "array",
       items: {
         type: "string",
       },
+      minItems : 1,
+      maxItems : 3
     },
     summary: {
       type: "string",

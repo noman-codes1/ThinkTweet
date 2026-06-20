@@ -7,7 +7,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "bdev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -15,7 +15,10 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "groq-sdk": "^1.2.1"
+    "groq-sdk": "^1.2.1",
+    "mongodb": "^7.3.0",
+    "mongoose": "^9.7.0",
+    "twitter-api-v2": "^1.29.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
