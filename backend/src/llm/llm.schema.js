@@ -14,23 +14,38 @@ const mySchema = {
       properties: {
         evidenceStrength: {
           type: "number",
-          description : "Return a score based on evidence you could find to satisfy the claim."
+          description:
+            "Return a score based on evidence you could find to satisfy the claim.",
+          minimum: 0,
+          maximum: 100,
         },
         logicalConsistency: {
           type: "number",
-          description : "Return a score based on how inherently consistent the claim is"
+          description:
+            "Return a score based on how inherently consistent the claim is",
+          minimum: 0,
+          maximum: 100,
         },
         generalizationRisk: {
           type: "number",
-          description : "Return a score based on how much risk of generalization is present"
+          description:
+            "Return a score based on how much risk of generalization is present",
+          minimum: 0,
+          maximum: 100,
         },
         confirmationBias: {
           type: "number",
-          description : "Return a score based on how much biasness it might hold"
+          description:
+            "Return a score based on how much biasness it might hold",
+          minimum: 0,
+          maximum: 100,
         },
         nuanceAndContext: {
           type: "number",
-          description : "Return a score based on how much claim contains the naunce and context"
+          description:
+            "Return a score based on how much claim contains the naunce and context",
+          minimum: 0,
+          maximum: 100,
         },
       },
       required: [
@@ -46,24 +61,24 @@ const mySchema = {
       items: {
         type: "string",
       },
-      minItems : 1,
-      maxItems : 3
+      minItems: 1,
+      maxItems: 3,
     },
     weaknesses: {
       type: "array",
       items: {
         type: "string",
       },
-      minItems : 1,
-      maxItems : 3
+      minItems: 1,
+      maxItems: 3,
     },
     nuances: {
       type: "array",
       items: {
         type: "string",
       },
-      minItems : 1,
-      maxItems : 3
+      minItems: 1,
+      maxItems: 3,
     },
     summary: {
       type: "string",
@@ -79,4 +94,4 @@ const mySchema = {
   ],
 };
 
-export default mySchema
+export default mySchema;

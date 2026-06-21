@@ -1,28 +1,57 @@
 import { anaylsisServices } from "./analysis.services.js";
 import { extractionOfTweetData } from "../extraction/extraction.tweet.js";
 import { validationServices } from "../validation/validation.services.js";
+import { analyzedTweetVar } from "./analysis.schemaModel.js";
 
 export async function analysisControllerLogic(req, res) {
-  console.log(req.body);
+  console.log("Inside analysis controllerLogic() func");
+  console.log("Body : ", req.body);
 
   try {
     //performing all the validation logic
-    console.log(req.body.url)
-    const textClaim = await validationServices(req.body.url);
+    console.log(`Extracted url from the Body: ${req.body.url}`);
+    const jsObject = await validationServices(req.body.url);
+    console.log("Returned value from validationServicesFunc is \n",jsObject);
 
-    // analysing the models by using multiple models
-    await anaylsisServices(textClaim);
+    console.log("Validation, quering database, fetch x api (if any) completed");
+
+    //rejecting the request if the tweet age is less than 7 day
+    //logic here
+
+    //quering the database to check whether data exists or not
+    console.log("Looking in the database for the analyzedData..")
+    const doesExists = await analyzedTweetVar.exists({
+      tweetId: jsObject.textId,
+    });
+    console.log(`Does database contains analyzedData? ${!!doesExists}`)
+
+    let data;
+    if (doesExists) {
+      console.log("Inside If Block")
+      data = await analyzedTweetVar.findOne({ tweetId: jsObject.textId });
+    } else {
+      console.log("Inside Else Block")
+      console.log("LLM will run now");
+      // analysing the models by using multiple models
+      data = await anaylsisServices(jsObject.textClaim, jsObject.textId);
+    }
+    
+    console.log("The data to be sent:\n", data)
+    console.log("Sent the final output to the frontend");
+    //returning the value to the frontend
     res.json({
-      success : true,
-      message: "You have reached controller",
+      success: true,
+      statusCode: 200,
+      message: data,
     });
   } catch (error) {
+    console.log("Program is terminated. Some error occured");
     console.log(error.message);
-    console.log(error.statusCode)
+    console.log(error.statusCode|| "");
     res.json({
       success: false,
       message: error.message,
-      errCode : error.statusCode
+      errCode: error.statusCode,
     });
   }
 }

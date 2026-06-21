@@ -15,12 +15,16 @@ app.use(
 );
 
 //without this express cannot read the json coming from other sources
+//use is the name of the function
 app.use(express.json());
 
 //to check server is running or not
 app.get("/", (req, res) => {
   res.send("Hello from the server");
 });
+
+//test
+console.log("In a index.js files")
 
 //sending to the tweet router
 app.use("/tweet", analysisRouter)

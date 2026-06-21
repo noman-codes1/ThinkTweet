@@ -16,8 +16,7 @@ const rulesForAi = `
 - Ad hominem attacks
 - Slippery slope reasoning
 10. State uncertainty when evidence is insufficient.
-11. Return all scores out of 100
-12. Scores should be directly proportional to the corresponding fields. For example, if a field 
+11. Scores should be directly proportional to the corresponding fields. For example, if a field 
     is evidenceStrength, a score of 100 indicates very strong supporting evidence, while lower scores 
     indicate weaker evidence.`;
 

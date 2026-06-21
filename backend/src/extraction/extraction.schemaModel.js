@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const testSchema = new Schema({
+const tweetSchema = new Schema({
     tweetId: {
-        type: Number,
+        type: String,
         unique : true,
         required: true
     },
@@ -16,10 +16,11 @@ const testSchema = new Schema({
         required: true
     },
     isFeminism: {
-        type: Boolean,
-        default : false,
+        type: String,
+        enum : ["yes", "no", "unknown"],
+        default : "unknown",
         required : true
     }
 })
 
-export const tweetDataVar = mongoose.model("tweet_data", testSchema)
+export const tweetDataVar = mongoose.model("tweet_data", tweetSchema)

@@ -17,16 +17,31 @@ modifiedSchema = JSON.parse(modifiedSchema); //converting back to js object to p
 // console.log(JSON.stringify(modifiedSchema, null, 2));
 
 //function to get reponse from GemeniAI
+//params : piece of text to analyze
 export async function geminiApiCall(params) {
-  const response = await geminiAi.models.generateContent({
-    model: "gemini-3.5-flash",
-    contents: `Paper Citations : ${papersCitation}. Claim to analyze : ${params}`,
-    config: {
-      systemInstruction: rulesForAi,
-      responseMimeType: "application/json",
-      responseSchema: modifiedSchema,
-    },
-  });
+  console.log("Inside Gemini API Call")
+  try {
+    console.log("Inside try block")
+    const response = await geminiAi.models.generateContent({
+      model: "gemini-3.5-flash",
+      contents: `Paper Citations : ${papersCitation}. Claim to analyze : ${params}`,
+      config: {
+        systemInstruction: rulesForAi,
+        responseMimeType: "application/json",
+        responseSchema: modifiedSchema,
+      },
+    });
 
-  return JSON.parse(response.text);
+    console.log("LLM responded...")
+    console.log("Returning the value")
+
+    return JSON.parse(response.text);
+  } catch (error) {
+
+    console.log("Seems some error occured in gemini call...")
+    console.log(error);
+    console.log(error.message);
+    //returning empty error so that other model takes it place without obstructing the entire flow
+    return "";
+  }
 }
