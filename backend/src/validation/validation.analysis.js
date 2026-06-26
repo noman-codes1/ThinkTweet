@@ -1,14 +1,14 @@
-import { ValidationError } from "../errors/errors.customErr.js";
+import { ValidationError } from "../errors/errors.custom.js";
 import { tweetDataVar } from "../extraction/extraction.schemaModel.js";
 import { extractionOfTweetData } from "../extraction/extraction.tweet.js";
 import { checkDomainOfTweet } from "./validation.domainChecker.js";
-import { AIServiceError } from "../errors/errors.customErr.js";
-import { InteralServerError } from "../errors/errors.customErr.js";
+import { AIServiceError } from "../errors/errors.custom.js";
+import { InteralServerError } from "../errors/errors.custom.js";
 
 //function to do all the validation work before reaching llm
 //params : url
-export const validationServices = async (params) => {
-  console.log("Inside validationServices() func");
+export const validationForAnalysis = async (params) => {
+  console.log("Inside validationForAnalysis() func");
   console.log(`Args is recieved as ${params}`);
 
   //checking whether url format is correct or not

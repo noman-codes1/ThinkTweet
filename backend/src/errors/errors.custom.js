@@ -1,4 +1,4 @@
-class AppError extends Error {
+export class AppError extends Error {
     constructor(message, statusCode) {
         super(message)
 
@@ -16,6 +16,12 @@ export class ValidationError extends AppError {
 export class NotFoundError extends AppError {
     constructor (message) {
         super(message, 404)
+    }
+}
+
+export class BadRequestError extends AppError{
+    constructor(message) {
+        super(message, 400)
     }
 }
 

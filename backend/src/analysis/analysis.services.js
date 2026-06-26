@@ -1,7 +1,7 @@
 import { llamaApiCall } from "../llm/llm.llama.js";
 import { geminiApiCall } from "../llm/llm.gemini.js";
 import { openAiApiCall } from "../llm/llm.openai.js";
-import { AIServiceError } from "../errors/errors.customErr.js";
+import { AIServiceError } from "../errors/errors.custom.js";
 import { analyzedTweetVar } from "./analysis.schemaModel.js";
 
 //param1: textClaim and param2: tweetId
