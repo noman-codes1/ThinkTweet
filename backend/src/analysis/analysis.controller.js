@@ -19,7 +19,7 @@ export async function analysisControllerLogic(req, res) {
     
     //performing all the validation logic
     console.log(`Extracted url from the Body: ${req.body.url}`);
-    const jsObject = await validationForAnalysis(req.body.url);
+    const jsObject = await validationForAnalysis(req.body);
     console.log("Returned value from validationServicesFunc is \n", jsObject);
 
     console.log("Validation, quering database, fetch x api (if any) completed");
@@ -48,7 +48,7 @@ export async function analysisControllerLogic(req, res) {
     console.log("The data to be sent:\n", data);
     console.log("Sent the final output to the frontend");
     //returning the value to the frontend
-    res.json({
+    res.status(200).json({
       success: true,
       statusCode: 200,
       message: data,
@@ -57,7 +57,7 @@ export async function analysisControllerLogic(req, res) {
     console.log("Program is terminated. Some error occured");
     console.log(error.message);
     console.log(error.statusCode|| "");
-    res.json({
+    res.status(500).json({
       success: false,
       message: error.message,
       errCode: error.statusCode,

@@ -36,7 +36,8 @@ const mySchema = new Schema({
   created_at: {
     type: Date,
     default: Date.now,
-    expires: 600,
+    required: true,
+    expires: "10m",
   },
 });
 

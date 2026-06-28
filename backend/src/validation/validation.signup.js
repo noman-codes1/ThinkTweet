@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { registeredUserVar } from "../signup/signup.schemaModel.js";
 import validator from "validator"; //returns a js object
 import { BadRequestError } from "../errors/errors.custom.js";
+import { pendingRegistrationVar } from "../signup/signup.pendingModelSchema.js";
 
 export const validationForSignup = async (dataObject) => {
   console.log("Inside validateForSignup() func");
@@ -26,6 +27,9 @@ export const validationForSignup = async (dataObject) => {
   }
   console.log("First Validation Passed.");
 
+  //check the type of data being passed...
+  
+
   //checking validation for email
   const email = dataObject.useremail.trim().toLowerCase();
   console.log(`This is email : ${email}`);
@@ -33,11 +37,17 @@ export const validationForSignup = async (dataObject) => {
     throw new ValidationError("Validation for Email failed.");
   }
 
-  //checking the database whether this email exists or not
+  //checking the 'registered user' database whether this email exists or not
   if (await registeredUserVar.exists({ user_email: email })) {
     throw new ValidationError("This email is already registered.");
   }
   console.log("Second Validation Passed.");
+
+  //checking the database for pending registration to avoid multiple time registration..
+  if(await pendingRegistrationVar.exist({email: email})){
+    throw new ValidationError("Please confirm you account by visit a mail...")
+  }
+  console.log("Third Validation Passed")
 
   //password validation check
   const password = dataObject.userpass;
@@ -45,7 +55,7 @@ export const validationForSignup = async (dataObject) => {
   if (!(password.length >= 14 && password.length <= 40)) {
     throw new ValidationError("Password should be of 14-40 characters");
   }
-  console.log("Third Validation Passed.");
+  console.log("Fourth Validation Passed.");
   console.log("Checking whether the password was leaked before or not...");
 
   //checking the password is blacklist or not

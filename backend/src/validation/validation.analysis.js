@@ -4,22 +4,33 @@ import { extractionOfTweetData } from "../extraction/extraction.tweet.js";
 import { checkDomainOfTweet } from "./validation.domainChecker.js";
 import { AIServiceError } from "../errors/errors.custom.js";
 import { InteralServerError } from "../errors/errors.custom.js";
+import { BadRequestError } from "../errors/errors.custom.js";
 
 //function to do all the validation work before reaching llm
-//params : url
-export const validationForAnalysis = async (params) => {
+export const validationForAnalysis = async (recievedObject) => {
   console.log("Inside validationForAnalysis() func");
-  console.log(`Args is recieved as ${params}`);
+  console.log("Args is recieved as: " ,recievedObject);
+
+  //checking length of url
+  if (Object.keys(recievedObject).length != 1){
+    throw new BadRequestError("Wrong object recieved.")
+  }
+
+  //checking the type of object
+  if (!(typeof recievedObject.url === "string")){
+    throw new BadRequestError("Recieved unexpected object")
+  }
 
   //checking whether url format is correct or not
-  if (!params.startsWith("https://x.com/")) {
+  const url = recievedObject.url.trim()
+  if (!url.startsWith("https://x.com/")) {
     throw new ValidationError("Unsupported URL");
   }
 
   console.log("Successfully, surpassed the first validation");
 
   //extracting the id from the tweet url using regrex
-  const id = params.match(/status\/(\d+)/)?.[1];
+  const id = url.match(/status\/(\d+)/)?.[1];
 
   console.log(typeof id);
   console.log(`Extracted Id from URL : ${id}`);
@@ -29,7 +40,7 @@ export const validationForAnalysis = async (params) => {
     throw new ValidationError("URL seems to be modified.");
   }
 
-  console.log("Successfully, finished second validation");
+  console.log("Successfully, finished validation");
   console.log("Quering the database begins...");
 
   //quering the database to know this tweet id exists or not

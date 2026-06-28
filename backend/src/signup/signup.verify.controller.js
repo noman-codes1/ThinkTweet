@@ -3,6 +3,7 @@ import { pendingRegistrationVar } from "./signup.pendingModelSchema.js";
 import argon2 from "argon2";
 import { ValidationError } from "../errors/errors.custom.js";
 import { BadRequestError } from "../errors/errors.custom.js";
+import { registeredUserVar } from "./signup.schemaModel.js";
 
 //getting directory url
 const __dirname = import.meta.dirname;

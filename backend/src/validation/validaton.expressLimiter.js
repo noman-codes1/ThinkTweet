@@ -47,3 +47,14 @@ export const verifyLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+export const refreshLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  limit: 2, //2 per 10 minute
+  message: {
+    success: false,
+    message : "Too many request. We cannot process."
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+})

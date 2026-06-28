@@ -1,11 +1,14 @@
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 
 export const env = {
-    localport : process.env.PORT,
-    groq : process.env.GROQ_API_KEY,
-    gemini : process.env.GEMINI_API_KEY,
-    xapi : process.env.X_BEARER_TOKEN,
-    mongouri : process.env.MONGO_URI,
-    resend : process.env.RESEND_API_KEY
-}
+  localport: process.env.PORT,
+  groq: process.env.GROQ_API_KEY,
+  gemini: process.env.GEMINI_API_KEY,
+  xapi: process.env.X_BEARER_TOKEN,
+  mongouri: process.env.MONGO_URI,
+  resend: process.env.RESEND_API_KEY,
+  accesskey: process.env.ACCESS_JWT_KEY,
+  refreshkey: process.env.REFRESH_JWT_KEY,
+  frontendurl: process.env.FRONTEND_URL,
+};

@@ -6,6 +6,10 @@ import { env } from "./src/config/env.config.js"
 import signupRouter from "./src/signup/signup.route.js";
 import path from 'path'
 import { globalError } from "./src/errors/errors.global.js";
+import loginRouter from "./src/login/login.route.js";
+import { checkOrgin } from "./src/errors/error.checkOrigin.js";
+import cookieParser from "cookie-parser";
+import refreshRouter from "./src/jwt/jwt.refreshRoute.js";
 
 //return a js object {.....}
 const app = express();
@@ -27,6 +31,12 @@ app.use(express.json({limit: "10kb"})); //limit it to 10kb to avoid large payloa
 //getting the url of the file
 const __dirname = import.meta.dirname
 
+//blocking the code to run if not my origin
+// app.use(checkOrgin)
+
+//using cookie parser
+app.use(cookieParser())
+
 //to server static files
 app.use(express.static(path.join(__dirname, "src", "public")))
 
@@ -39,13 +49,13 @@ app.get("/", (req, res) => {
 console.log("In a index.js files");
 //USE LOGS SERVICES TO LOG INFO...
 
-//sending to the tweet router
+//sending to the dedicated router
 app.use("/tweet", analysisRouter);
-
-//sending to the signup router
 app.use("/signAuth", signupRouter);
+app.use("/logAuth", loginRouter)
+app.use("/refresh", refreshRouter)
 
-//to use global error
+//all global errors will come back to here
 app.use(globalError)
 
 //connecting to the database
