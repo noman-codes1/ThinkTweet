@@ -2,34 +2,36 @@ import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
 const mySchema = new Schema({
-  is_verified: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-  user_name: {
+  user_id: {
     type: String,
     required: true,
+  },
+  sess_id: {
+    type: String,
+    required: true,
+    unique: true,
   },
   user_email: {
     type: String,
     required: true,
-    unique: true,
   },
-  user_pass: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  credits: {
+  credits_bought: {
     type: Number,
     required: true,
-    default: 95
   },
-  stripe_cus_id :{
+  payment_amount: {
+    type: Number,
+    required: true,
+  },
+  plan_bought: {
     type: String,
-    unique: true,
-    default: null
+    required: true,
+    enum: ["premium", "pro", "pro-max"]
+  },
+  has_updated: {
+    type: Boolean,
+    required: true,
+    default: false
   },
   created_at: {
     type: Date,
@@ -38,5 +40,5 @@ const mySchema = new Schema({
   },
 });
 
-//making a model to use work on the database
-export const registeredUserVar = mongoose.model("registered_user", mySchema);
+//exporting the model and working with database
+export const paymentRecordsVar = mongoose.model("payment_records", mySchema);

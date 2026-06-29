@@ -64,7 +64,7 @@ export const loginController = async (req, res, next) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      maxAge: 10 * 60 * 1000,
+      // maxAge: 10 * 60 * 1000,
       path: "/",
     });
 

@@ -58,3 +58,14 @@ export const refreshLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false
 })
+
+export const paymentLimiter = rateLimit({
+  windowMs: 30 * 60 * 1000,
+  limit: 5,
+  message: {
+    success: false,
+    message: "Too many request. We cannot process"
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+})

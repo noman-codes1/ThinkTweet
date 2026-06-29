@@ -11,4 +11,6 @@ export const env = {
   accesskey: process.env.ACCESS_JWT_KEY,
   refreshkey: process.env.REFRESH_JWT_KEY,
   frontendurl: process.env.FRONTEND_URL,
+  stripe: process.env.STRIPE_SECRET_KEY,
+  webhook: process.env.WEBHOOK_SECRET
 };

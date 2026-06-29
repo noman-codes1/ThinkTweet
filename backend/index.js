@@ -10,6 +10,8 @@ import loginRouter from "./src/login/login.route.js";
 import { checkOrgin } from "./src/errors/error.checkOrigin.js";
 import cookieParser from "cookie-parser";
 import refreshRouter from "./src/jwt/jwt.refreshRoute.js";
+import paymentRouter from "./src/payments/payments.routes.js";
+import webhookRouter from "./src/webhook/webhook.route.js";
 
 //return a js object {.....}
 const app = express();
@@ -23,6 +25,9 @@ app.use(
 
 //getting the real ip address even if they are spoofing...
 app.set("trust proxy", 1)
+
+//writing the webhook so that it works well
+app.use("/webhook", webhookRouter);
 
 //without this express cannot read the json coming from other sources
 //use is the name of the function
@@ -54,6 +59,7 @@ app.use("/tweet", analysisRouter);
 app.use("/signAuth", signupRouter);
 app.use("/logAuth", loginRouter)
 app.use("/refresh", refreshRouter)
+app.use("/payment", paymentRouter)
 
 //all global errors will come back to here
 app.use(globalError)
