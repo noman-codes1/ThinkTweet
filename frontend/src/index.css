@@ -1,7 +1,18 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-:root{
+:root {
   padding: 0;
   margin: 0;
-  font-family: sans-serif, Arial, Helvetica;
+  font-family: sans-serif, Arial;
 }
+
+/* Defining custom color */
+@theme {
+  --color-brand-primary: #0f172a;
+  --color-brand-secondary: #64748b;
+  --color-brand-tertionary: #4f46e5;
+  
+}
+
+/* Defining custom breakpoint */
+@custom-variant max-phone (@media (width <= 468px));

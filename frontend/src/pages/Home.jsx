@@ -1,18 +1,14 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-import Hero from '../components/home/Hero'
-import Analyze from '../components/home/Analyze'
-import Footer from '../components/Footer'
+import Hero from '../features/marketing/Hero';
+import Methodology from '../features/marketing/Methodology';
 
 const Home = () => {
   return (
-    <div className='bg-black h-screen'>
-      <Navbar />
-      <Hero />
-      <Analyze /> 
-      <Footer />
+    <div>
+      <Hero/>
+      <Methodology/>
     </div>
-  )
+  );
 }
 
 export default Home
