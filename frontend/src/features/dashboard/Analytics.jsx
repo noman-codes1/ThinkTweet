@@ -26,7 +26,7 @@ const Analytics = () => {
           <h1 className="text-3xl font-bold text-brand-primary">
             Hi, {username} 👋
           </h1>
-          <div className="text-[0.9rem] tracking-wider text-brand-secondary">
+          <div className="text-[0.9rem] tracking-wider text-brand-secondary max-phone:mt-1">
             {newUser ? (
               <p>
                 Welcome to ThinkTweet! You're all set to start analyzing tweets
