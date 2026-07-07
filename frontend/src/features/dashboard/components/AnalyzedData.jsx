@@ -17,7 +17,7 @@ const strWeakNauIcon = "p-1.5 rounded-lg";
 
 const AnalyzedData = () => {
   return (
-    <div className="mt-6 w-2xl">
+    <div className="mt-6">
       {/* Claim Summary */}
       <div className="border shadow-lg mb-6 rounded-lg p-4 border-brand-fourth bg-linear-135 from-[#534de7] via-[#6366f1] to-[#7d87f7]">
         <h3 className="flex items-center text-[#c7d2fe] gap-2 mb-2 uppercase text-sm">
@@ -39,7 +39,7 @@ const AnalyzedData = () => {
       <OverallScore />
 
       {/* Explaining plus, minus and point to consider */}
-      <div className="grid grid-cols-3 gap-4 mt-8">
+      <div className="grid grid-cols-3 gap-4 mt-8 max-md:grid-cols-1">
         {/* Strength */}
         <div
           className={twMerge(

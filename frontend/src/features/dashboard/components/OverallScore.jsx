@@ -7,12 +7,12 @@ import { RiStackFill } from "react-icons/ri";
 
 //static variable
 const overallParamContainer =
-  "text-sm border w-auto flex items-center gap-2 justify-center py-1.5 px-2 text-center rounded-lg border-brand-fourth bg-[#f8fafc] text-brand-secondary";
+  "text-sm border w-auto flex items-center gap-2 justify-center py-1.5 px-2 text-center rounded-lg border-brand-fourth bg-[#f8fafc] text-brand-secondary max-phone:w-max max-phone:px-4";
 const overallParamScoreSpan = "text-brand-primary font-semibold";
 
 const OverallScore = () => {
   return (
-    <div className="border border-brand-fourth bg-white rounded-lg p-4 flex gap-10">
+    <div className="border border-brand-fourth bg-white rounded-lg p-4 flex gap-10 max-md:flex-col max-md:p-6">
       <div className="self-center">
         <div className="relative w-25 h-25 flex items-center justify-center">
           <svg viewBox="0 0 100 100" className="h-24 absolute w-24">
@@ -60,7 +60,7 @@ const OverallScore = () => {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 max-phone:grid-cols-1">
           <p className={overallParamContainer}>
             <FaShieldAlt className="text-[#10b981]" /> Evidence Strength:{" "}
             <span className={overallParamScoreSpan}>91</span>

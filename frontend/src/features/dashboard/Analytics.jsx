@@ -8,9 +8,9 @@ import { twMerge } from "tailwind-merge";
 
 const Analytics = () => {
   //test variable
-  const newUser = false;
+  const newUser = true;
   const username = "Rohani";
-  const credits = 4;
+  const credits = 44;
   const totalAnal = 24;
   const purchaseData = {
     date: "June 15, 2026",
@@ -21,8 +21,8 @@ const Analytics = () => {
   return (
     <div className="w-full">
       {/* Welcoming...*/}
-      <div className="flex mb-8">
-        <div className="">
+      <div className="flex mb-8 max-lg:grid max-lg:grid-cols-3 max-lg:gap-2 max-md:grid-cols-1 max-md:gap-4">
+        <div className="max-lg:col-span-2 max-md:col-span-1">
           <h1 className="text-3xl font-bold text-brand-primary">
             Hi, {username} 👋
           </h1>
@@ -52,7 +52,7 @@ const Analytics = () => {
           </div>
         </div>
         {newUser && (
-          <p className="border border-brand-tertionary text-brand-secondary bg-[#eef2ff] rounded-lg p-2 text-xs ml-auto self-center flex gap-1">
+          <p className="border border-brand-tertionary text-brand-secondary bg-[#eef2ff] rounded-lg p-2 text-xs ml-auto self-center flex gap-1 max-sm:ml-0 max-sm:w-max">
             <FaInfoCircle
               className="self-center text-brand-tertionary"
               size={13}
@@ -65,7 +65,7 @@ const Analytics = () => {
           </p>
         )}
         {credits < 18 && (
-          <p className="flex gap-2 text-xs items-center ml-auto border rounded-lg h-max p-2 border-[#fecdd3] bg-[#fff1f2] text-[#be123c]">
+          <p className="flex gap-2 text-xs items-center ml-auto border rounded-lg h-max p-2 border-[#fecdd3] bg-[#fff1f2] text-[#be123c] max-sm:ml-0 max-sm:w-max">
             <FaCircleExclamation />
             Insufficient Credits &middot; <span>Buy More</span>
           </p>
@@ -73,10 +73,10 @@ const Analytics = () => {
       </div>
 
       {/* Analytics */}
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-5 max-md:grid-cols-1">
         <TotalAnalysisCard anal={totalAnal} newUsr={newUser} />
         <TotalCreditsCard cred={credits} />
-        <BillingCard purData={purchaseData}/>
+        <BillingCard purData={purchaseData} />
       </div>
     </div>
   );

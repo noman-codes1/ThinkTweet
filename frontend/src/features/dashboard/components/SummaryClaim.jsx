@@ -5,7 +5,7 @@ import { FaCoins } from "react-icons/fa6";
 
 const SummaryClaim = () => {
   return (
-    <div className="mt-8 shadow-lg border p-6 rounded-lg bg-white border-[#d3d1f8] duration-250 hover:-translate-y-1 hover:shadow-xl">
+    <div className="mt-8 shadow-lg border p-4 rounded-lg bg-white border-[#d3d1f8] duration-250 hover:-translate-y-1 hover:shadow-xl">
       <h5 className="flex items-center gap-2 mb-4 text-base text-brand-primary">
         <IoDocumentText
           className="p-1.5 rounded-lg text-brand-tertionary bg-[#eef2ff]"
@@ -27,7 +27,7 @@ const SummaryClaim = () => {
         as a compelling hypothesis worth investigating — not a settled
         conclusion.
       </p>
-      <div className="flex gap-6">
+      <div className="flex gap-6 max-phone:flex-col max-phone:gap-2">
         <p className="flex items-center gap-2 text-sm text-brand-secondary">
           <MdOutlineAccessTimeFilled /> Analyzed June 20, 2026 &middot; 3:12 PM
         </p>
