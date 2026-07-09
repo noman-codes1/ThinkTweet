@@ -11,7 +11,7 @@ const Links = ({ isLoggedIn }) => {
   const navArray = [
     { id: 1, path: "/", pageName: "Home" },
     { id: 2, path: "/dashboard", pageName: "Dashboard" },
-    { id: 3, path: "/history", pageName: "History" },
+    { id: 3, path: "/payment", pageName: "Top-Up" },
     { id: 4, path: "/documentation", pageName: "Documentation" },
     { id: 5, path: "/disclaimer", pageName: "Disclaimer" },
     { id: 6, path: "/privacy", pageName: "Privacy" },

@@ -52,7 +52,7 @@ const Analytics = () => {
           </div>
         </div>
         {newUser && (
-          <p className="border border-brand-tertionary text-brand-secondary bg-[#eef2ff] rounded-lg p-2 text-xs ml-auto self-center flex gap-1 max-sm:ml-0 max-sm:w-max">
+          <p className="border border-brand-tertionary text-brand-secondary bg-[#eef2ff] rounded-lg p-2 text-xs ml-auto flex items-center h-max gap-1 max-lg:p-1.5 max-sm:p-2 max-sm:ml-0 max-sm:w-max">
             <FaInfoCircle
               className="self-center text-brand-tertionary"
               size={13}

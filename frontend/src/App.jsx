@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import BuyCredits from "./pages/BuyCredits";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />}/>
+        <Route path="/payment" element={<BuyCredits/>} />
       </Routes>
       <Footer />
     </>
