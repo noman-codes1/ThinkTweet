@@ -12,7 +12,7 @@ const pointers = "flex items-center gap-2 text-base text-brand-primary mb-1.5";
 const packName = "flex items-center tracking-wide gap-2 text-xs uppercase mb-2";
 const creditsCSS = "text-5xl text-brand-primary";
 
-const PlanCard = ({ numOfCredits, isPrem }) => {
+const PlanCard = ({id ,numOfCredits, isPrem, funcToTalkServer }) => {
   return (
     <div
       className={twMerge(
@@ -107,7 +107,7 @@ const PlanCard = ({ numOfCredits, isPrem }) => {
           </li>
         )}
       </ul>
-      <button className="mt-8 flex items-center gap-2 w-full py-3 rounded-lg justify-center text-white duration-200 bg-brand-tertionary hover:cursor-pointer hover:bg-brand-tertionary hover:-translate-y-1">
+      <button onClick={() => funcToTalkServer(id)} className="mt-8 flex items-center gap-2 w-full py-3 rounded-lg justify-center text-white duration-200 bg-brand-tertionary hover:cursor-pointer hover:bg-brand-tertionary hover:-translate-y-1">
         <SiStripe />
         Pay via Stripe
       </button>

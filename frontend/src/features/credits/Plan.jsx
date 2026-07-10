@@ -9,7 +9,7 @@ import { RxDividerVertical } from "react-icons/rx";
 const fourTag =
   "flex items-center gap-2 text-sm text-brand-secondary justify-center";
 
-const Plan = () => {
+const Plan = ({ funcToTalkServer }) => {
   //writing the custom plan
   const customPlan = [
     {
@@ -28,6 +28,7 @@ const Plan = () => {
       isPremium: true,
     },
   ];
+
   return (
     <div className="px-12 pb-40 max-lg:px-4 max-lg:pb-25">
       <div className="grid grid-cols-3 gap-5 items-center mb-10 max-lg:gap-3 max-md:grid-cols-1 max-md:gap-5">
@@ -35,8 +36,10 @@ const Plan = () => {
           return (
             <PlanCard
               key={elem.id}
+              id={elem.id}
               numOfCredits={elem.credits}
               isPrem={elem.isPremium}
+              funcToTalkServer={funcToTalkServer}
             />
           );
         })}
@@ -46,17 +49,17 @@ const Plan = () => {
           <FaLock />
           Secured by Stripe
         </p>
-        <RxDividerVertical className="hidden" color="#e2e8f0" size={20}/>
+        <RxDividerVertical className="hidden" color="#e2e8f0" size={20} />
         <p className={fourTag}>
           <FaShieldHalved />
           256-bit SSL encryption
         </p>
-        <RxDividerVertical className="hidden" color="#e2e8f0" size={20}/>
+        <RxDividerVertical className="hidden" color="#e2e8f0" size={20} />
         <p className={fourTag}>
           <IoMdRefresh />
           Credits added instantly
         </p>
-        <RxDividerVertical className="hidden" color="#e2e8f0" size={20}/>
+        <RxDividerVertical className="hidden" color="#e2e8f0" size={20} />
         <p className={fourTag}>
           <IoMail />
           Receipt emailed automatically
