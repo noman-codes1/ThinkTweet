@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import BuyCredits from "./pages/BuyCredits";
 import ComingSoon from "./pages/ComingSoon";
+import LogIn from "./pages/LogIn";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/payment" element={<BuyCredits />} />
         <Route path="/documentation" element={<ComingSoon />} />
+        <Route path="login" element={<LogIn />}/>
       </Routes>
       <Footer />
     </>

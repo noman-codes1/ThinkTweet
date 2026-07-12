@@ -10,7 +10,7 @@ const links =
 const Navbar = () => {
 
   //test variable
-  const isUserLoggedIn = true;
+  const isUserLoggedIn = false;
 
   return (
     <div className="flex items-center justify-around px-4 py-2 bg-white/70 sticky top-0 z-50 w-full backdrop-blur-xs border-b-brand-fourth max-lg:hidden">

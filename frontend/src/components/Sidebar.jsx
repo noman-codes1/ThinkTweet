@@ -11,7 +11,7 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false);
 
   //test variable
-  const isUserLoggedIn = true
+  const isUserLoggedIn = false
 
   return (
     <div className="lg:hidden p-4 flex items-center sticky top-0 bg-white/70 z-50 backdrop-blur-xs border-b-brand-fourth border-b">
