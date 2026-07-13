@@ -107,7 +107,7 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
       await sleep(5000);
 
       //mimicking the server state
-      if (true) {
+      if (false) {
           setUserVerifiedEmail(formData.email);
           setIsUserVerfied(true);
           setFormState("normal");
@@ -238,10 +238,10 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
               color="#ef4444"
             />
             <div>
-              <p className="font-semibold text-sm mb-2 text-[#b91c1c]">
+              <p className="font-semibold text-[0.93rem] mb-2 text-[#b91c1c]">
                 Error: Invalid email or password combination.
               </p>
-              <p className="text-xs text-[#e14444]">
+              <p className="text-sm text-[#e14444]">
                 Please check your credentials and try again. After 3 failed
                 attempts, your account will be temporarily locked.
               </p>

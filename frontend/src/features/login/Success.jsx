@@ -30,7 +30,7 @@ const Success = ({ useremail }) => {
   //navigating the user
   useEffect(() => {
     if (countDown <= 1) {
-    //   navigateNow("/dashboard", {replace: true})
+      navigateNow("/dashboard", {replace: true})
     }
   }, [countDown]);
 

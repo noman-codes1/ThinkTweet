@@ -3,6 +3,7 @@ import LogFrom from "../features/login/LogFrom";
 import Success from "../features/login/Success";
 import { useState } from "react";
 import { GoDotFill } from "react-icons/go";
+import MiniFooter from "../features/login/components/MiniFooter";
 
 //Note : In iPadPro it doesn't work well
 
@@ -25,27 +26,7 @@ const LogIn = () => {
           setUserVerifiedEmail={setRecievedEmail}
         />
       )}
-      <div className="flex items-center gap-1 mt-7 text-xs text-[#b2bccc] max-phone:flex-col">
-        <p>Secured by ThinkTweet's enterprise-grade infrastructure</p>
-        <GoDotFill className="max-phone:hidden" size={4} />
-        <div className="flex gap-1 items-center">
-          <a
-            className="hover:cursor-pointer hover:text-brand-secondary"
-            onClick={(e) => e.preventDefault()}
-            href="#"
-          >
-            Privacy
-          </a>
-          <GoDotFill size={4} />
-          <a
-            className="hover:cursor-pointer hover:text-brand-secondary"
-            onClick={(e) => e.preventDefault()}
-            href="#"
-          >
-            Terms
-          </a>
-        </div>
-      </div>
+      <MiniFooter />
     </div>
   );
 };

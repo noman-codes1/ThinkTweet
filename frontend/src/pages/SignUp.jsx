@@ -1,34 +1,25 @@
-import React from 'react'
-import Form from '../features/signup/Form'
+import React from "react";
+import SignUpForm from "../features/signup/SignUpForm";
+import Mail from "../features/signup/Mail";
+import { useState } from "react";
+import { FaFeather } from "react-icons/fa6";
+import MiniFooter from "../features/login/components/MiniFooter";
 
 const SignUp = () => {
-  // WE WILL COME BACK TO THIS BECAUSE, THERE ARE LOTS OF LOGICAL ISSUES
-
-  //handle form submit
-  const handleSubmit = async (name, email, passoword, confirmPass) => {
-    // USE ZOD TO VALIDATE ALSO
-    const response = await fetch("http://localhost:3000/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: name,
-        useremail: email,
-        userpass: passoword,
-        userconfirmpasss: confirmPass,
-      }),
-    });
-
-    const data = await response.json();
-    console.log(data);
-  };
+  const [hasSentMail, setHasSentMail] = useState(false);
 
   return (
-    <div className="bg-[#f8fafc] flex justify-center p-12">
-      <Form formSubmit={handleSubmit} />
+    <div className="bg-[#f8fafc] flex flex-col items-center py-25">
+      {hasSentMail && (
+        <div className="flex items-center gap-2 mb-8 text-brand-primary font-semibold">
+          <FaFeather className="p-2 rounded-md text-white bg-brand-tertionary" size={28}/>
+          ThinkTweet
+        </div>
+      )}
+      {hasSentMail ? <Mail /> : <SignUpForm setHasSentMailFunc={setHasSentMail} />}
+      <MiniFooter />
     </div>
   );
-}
+};
 
-export default SignUp
+export default SignUp;
