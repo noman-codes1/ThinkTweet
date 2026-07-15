@@ -1,26 +1,21 @@
+//function for writing the mailbody
 export function mailBody(links) {
-  return `<div style="height: 100%; background-color: #000000">
-      <p style="color: #ffffff">
-        Confirm it's You! Thank you for registering to the ThinkTweet. Please
-        confirm the click below button to confirm
+  return `<div>
+      <h2>Confirm it's You!</h2>
+      <p>
+        Thank you for registering with ThinkTweet. Please click the link below to confirm your account.
       </p>
 
       <br />
 
       <a
-        style="
-          text-decoration: none;
-          background-color: #808080;
-          padding: 5px 10px;
-          color: #ffffff;
-          border-radius: 8px;
-          margin-top: 5px;
-        "
         href="${links}"
         target="_blank"
         >Confirm Account</a
       >
+
       <br />
+
       <p>&copy; 2026 ThinkTweet Project</p>
     </div>`;
 }

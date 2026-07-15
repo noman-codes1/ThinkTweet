@@ -12,9 +12,11 @@ import cookieParser from "cookie-parser";
 import refreshRouter from "./src/jwt/jwt.refreshRoute.js";
 import paymentRouter from "./src/payments/payments.routes.js";
 import webhookRouter from "./src/webhook/webhook.route.js";
+import { logFlow } from "./src/debug/debug.logs.js";
 
 //return a js object {.....}
 const app = express();
+logFlow("Running index.js file")
 
 //allows frontend to show the data from sent from here
 app.use(
@@ -33,26 +35,22 @@ app.use("/webhook", webhookRouter);
 //use is the name of the function
 app.use(express.json({limit: "10kb"})); //limit it to 10kb to avoid large payload
 
-//getting the url of the file
-const __dirname = import.meta.dirname
-
 //blocking the code to run if not my origin
 // app.use(checkOrgin)
 
 //using cookie parser
 app.use(cookieParser())
 
-//to server static files
+//getting the url of the file
+const __dirname = import.meta.dirname
+
+//to serve static files
 app.use(express.static(path.join(__dirname, "src", "public")))
 
 //to check server is running or not
 app.get("/", (req, res) => {
   res.send("Hello from the server");
 });
-
-//test
-console.log("In a index.js files");
-//USE LOGS SERVICES TO LOG INFO...
 
 //sending to the dedicated router
 app.use("/tweet", analysisRouter);
@@ -68,7 +66,7 @@ app.use(globalError)
 const dbFunc = async () => {
   await connectDB();
   app.listen(env.localport, () => {
-    console.log(`Your server is running on http://localhost:3000`);
+    logFlow("Server is running...")
   });
 };
-await dbFunc();
+dbFunc();

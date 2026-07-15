@@ -1,11 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <p>You are verfied. You can log in.</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThinkTweet - Verified</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        background-color: #f8fafc;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      .heading {
+        color: #059669;
+        text-align: center;
+      }
+      .button {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        background-color: #4f46e5;
+        color: #ffffff;
+        transition-duration: 200ms;
+      }
+      .button:hover {
+        background-color: #4f46e5;
+        translate: 0 -0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="heading">You are successfully verfied.</h1>
+    <a class="button" href="http://localhost:5173/login">Login Now</a>
+  </body>
 </html>

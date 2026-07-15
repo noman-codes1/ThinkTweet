@@ -40,10 +40,7 @@ export const loginLimiter = rateLimit({
 export const verifyLimiter = rateLimit({
   windowMs: 1 * 60 * 60 * 1000,
   limit: 3, // 3 per hour
-  message: {
-    success: false,
-    message: "Too many request. Try later",
-  },
+  message: "Too many request. Try later",
   standardHeaders: true,
   legacyHeaders: false,
 });

@@ -15,7 +15,7 @@ const Mail = () => {
   //starting the timer when the component is mounting
   useEffect(() => {
 
-    //moving the scroll to the top.. so that user can see updated component
+    //moving the scroll to the top.. so that user can see different component when redered
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
     //starting the timer
@@ -35,6 +35,8 @@ const Mail = () => {
   
 
   return (
+
+    // static component
     <div className="border w-md py-11 px-12 rounded-lg border-brand-fourth bg-white shadow-xl max-phone:w-[92%] max-phone:px-4 max-phone:py-9">
       <FaCheck className="size-22 border-4 p-6 rounded-full flex justify-self-center mb-5 bg-[#dcfce7] border-[#bbf7d0] text-brand-primary" />
       <h2 className="text-2xl font-semibold text-center mb-5 text-brand-primary">

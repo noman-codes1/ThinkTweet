@@ -11,6 +11,8 @@ import {
 import { isEmail, isAlphanumeric } from "validator";
 import { twMerge } from "tailwind-merge";
 import { BarLoader, PuffLoader } from "react-spinners";
+import { sleep } from "../../utils/sleep";
+import { Link } from "react-router-dom";
 
 //static variable for the class css
 const label = "text-[0.9rem] text-[#475569] font-semi-bold";
@@ -22,7 +24,7 @@ const errBox = "text-sm flex items-center gap-1 pl-1 text-[#dc2626]";
 const buttonSubmit = "flex items-center gap-2 justify-center";
 
 const SignUpForm = ({ setHasSentMailFunc }) => {
-  //using the react variable
+  //react state
   const [openEye, setOpenEye] = useState(false);
   const [formObject, setFormObject] = useState({
     username: "",
@@ -37,36 +39,42 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
     errConfirmPass: "",
   });
   const [enableCheckbox, setEnableCheckbox] = useState(false);
+  const [serverErr, setServerErr] = useState("");
+
+  //#tip : normal means empty form, setting-up means talking to the server and failed means error occured
   const [formState, setIsFormState] = useState("normal");
 
   //#tip: Study about async issue which could cause while changing the state so fast
 
-  //function to validate the name
+  //function to take name input and validate it
   const validatingName = (event) => {
     const val = event.target.value;
 
-    //rejecting the input if the formState is failed
+    //rejecting the input if the formState is 'failed'
     if (formState === "failed") return;
 
-    //setting the state
+    //resetting the state to avoid errors when not needed
     setFormError({ ...formError, errName: "" });
 
     // #tip: lower the prefrence of this to avoid multiple async request
-    //checking the length of val
+    //checking the length of input to throw a error
     if (val.length < 3) {
       setFormError({
         ...formError,
         errName: "Too short. Must be at least 3 characters.",
       });
+    } else if (val.length > 12) {
+      setFormError({ ...formError, errName: "Too long. Keep it concise." });
+      return;
     }
 
-    //allowing user to remove the text properly
+    //fixing the issue of isAlphanumeric condition check, when removing the text
     if (val === "") {
       setFormObject({ ...formObject, username: val });
       return;
     }
 
-    //checking whether the val is alphanumeric or not
+    //checking whether the input is alphanumeric or not
     if (!isAlphanumeric(val)) {
       setFormError({
         ...formError,
@@ -75,18 +83,18 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
       return;
     }
 
-    //updating the state with the current val
+    //updating the state with the current input
     setFormObject({ ...formObject, username: val });
   };
 
-  //function to validate the email
+  //function to take email input and validate it
   const validatingEmail = (event) => {
     const val = event.target.value;
 
-    //rejecting the input if the formState is failed
+    //rejecting the input if the formState is 'failed'
     if (formState === "failed") return;
 
-    //setting the state
+    //resetting the state to avoid errors when not needed
     setFormError({ ...formError, errEmail: "" });
 
     //checking the whether email is valid or not
@@ -94,7 +102,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
       setFormError({ ...formError, errEmail: "Invalid email" });
     }
 
-    //checking whether the length is greater than 35
+    //rejecting the input if the email is so much longer
     if (val.length >= 35) {
       setFormError({
         ...formError,
@@ -103,8 +111,9 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
       return;
     }
 
+    //updating the state
     setFormObject({ ...formObject, email: val });
-  };;
+  };
 
   //function to validate the pass
   const validatingPassword = (event) => {
@@ -114,7 +123,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
     if (formObject.confirmPass) return;
     // #tip: solve the issue that user knows why we are not allowing them to enter values
 
-    //rejecting the input if the formState is failed
+    //rejecting the input if the formState is 'failed'
     if (formState === "failed") return;
 
     //resetting the state
@@ -136,13 +145,13 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
 
     //setting the state
     setFormObject({ ...formObject, password: val });
-  };;
+  };
 
   //function to validate the confirmed pass
   const validatingConfirmPass = (event) => {
     const val = event.target.value;
 
-    //rejecting the input if the formState is failed
+    //rejecting the input if the formState is 'failed'
     if (formState === "failed") return;
 
     //resetting the state
@@ -158,9 +167,9 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
 
     //setting the state
     setFormObject({ ...formObject, confirmPass: val });
-  };;
+  };
 
-  //checking whether to enable submit button or not
+  //checking whether to enable submit button or not (using derived state)
   let disableSubmitButton = true;
   if (
     !formError.errName &&
@@ -169,36 +178,62 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
     !formError.errConfirmPass &&
     formObject.username.length >= 3 &&
     formObject.email.length >= 5 &&
-    formObject.password.length > 14 &&
-    formObject.confirmPass.length > 14 &&
+    formObject.password.length >= 14 &&
+    formObject.confirmPass.length >= 14 &&
     enableCheckbox === true
   ) {
     disableSubmitButton = false;
   }
 
-  //helper function to pause the function
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
-  //submitting the form and talking to the server
+  //submitting the form and sending the request to the server
   const serverTalkSignup = async (event) => {
     //removing the browser default behaviour
     event.preventDefault();
 
+    //checking which form submit click what should do
     if (formState === "failed") {
+      //rolling everything back to normal
       setIsFormState("normal");
       setFormObject({ username: "", email: "", password: "", confirmPass: "" });
+      setServerErr("");
     } else {
-      //mimicking the server response
-      setIsFormState("setting-up");
-      await sleep(5000);
-      if (false) {
-        setHasSentMailFunc(true)
-        return
+      try {
+        setIsFormState("setting-up");
+
+        //talking begins with the server
+        const response = await fetch(
+          "https://unconstructed-marisha-nonantagonistic.ngrok-free.dev/signAuth/signup",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username: formObject.username,
+              useremail: formObject.email,
+              userpass: formObject.password,
+              userconpass: formObject.confirmPass,
+            }),
+          },
+        );
+
+        //converting the json into js object
+        const dataRecieved = await response.json();
+        await sleep(3000);
+
+        // moving the window to top to cue the user when error occurs
+        if (!dataRecieved.success) {
+          window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+          setIsFormState("failed");
+          setServerErr(dataRecieved.message);
+        } else {
+          setHasSentMailFunc(true);
+        }
+      } catch (error) {
+        setIsFormState("failed");
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+        setServerErr(error.message);
       }
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-      setIsFormState("failed");
     }
   };
 
@@ -210,11 +245,14 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
         formState === "failed" && "border-[#ef4444]",
       )}
     >
+      {/* a loader when the form is submitted */}
       {formState === "setting-up" && (
         <div className="absolute bg-[#f7f7fe]/60 z-10 inset-0 pointer-events-auto">
           <BarLoader color="#4f46e5" width={460} />
         </div>
       )}
+
+      {/* Form Begins */}
       <FaUserPlus
         className={twMerge(
           "flex justify-self-center p-3 mb-6 rounded-lg bg-[#eef2ff] text-brand-tertionary",
@@ -230,7 +268,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
         Join ThinkTweet to unlock deep tweet analysis.
       </p>
       <form onSubmit={(e) => serverTalkSignup(e)}>
-        {/* Name */}
+        {/* Enter your name */}
         <div className="mb-4">
           <label className={label}>Name</label>
           <div
@@ -257,7 +295,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
           )}
         </div>
 
-        {/* Email */}
+        {/* Enter you email */}
         <div className="mb-4">
           <label className={label}>Email Address</label>
           <div
@@ -317,7 +355,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
           )}
         </div>
 
-        {/* Re-enter pass */}
+        {/* Re-enter your pass */}
         <div className="mb-4">
           <label className={twMerge(label, "select-none")}>
             Confirm Password
@@ -376,7 +414,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
             />
             <div>
               <h5 className="font-semibold text-[0.93rem] mb-1 text-[#dc2626]">
-                Error: Account Already Exists
+                Error: {serverErr}
               </h5>
               <p className="text-sm text-[#ef4444]">
                 We couldn't create your account. Please review the error and try
@@ -396,6 +434,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
           )}
           type="submit"
         >
+          {/* Changing the button according the form state conditon */}
           {formState === "normal" && (
             <span className={buttonSubmit}>
               <FaRocket /> Create Account{" "}
@@ -419,13 +458,13 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
       {/* Guiding the user */}
       <p className="mt-4 text-center text-sm text-brand-secondary">
         Already have an account?{" "}
-        <a
-          onClick={(e) => e.preventDefault()}
+        <Link
+          to="/login"
           className="text-brand-tertionary hover:cursor-pointer hover:underline"
           href=""
         >
           Log In
-        </a>
+        </Link>
       </p>
     </div>
   );

@@ -3,17 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Error</title>
+    <title>ThinkTweet - Error</title>
   </head>
+  <style>
+    body {
+      background-color: #f8fafc;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+    .errorList {
+      align-self: flex-start;
+      margin-bottom: 2rem;
+      color: #ef4444;
+    }
+    .navigation {
+      color: #4f46e5;
+      text-decoration: none;
+    }
+    .navigation:hover {
+      text-decoration: underline;
+    }
+    .customColor{
+      color: #0f172a;
+    }
+  </style>
   <body>
-    <p>Some error occured. Try again...</p>
-    <ul>
-      <li>Might be link is expired.</li>
-      <li>Might be links is tampered.</li>
+    <div>
+      <h3 style="color: #dc2626;">An error occurred while verifying your account. Possible causes:</h3>
+      <ul class="errorList">
+        <li>Your account is already verified.</li>
+        <li>The link has expired.</li>
+        <li>The link has been altered or tampered with.</li>
+      </ul>
+    </div>
+    <h3 class="customColor">What's the solution?</h3>
+    <ol class="customColor">
+      <li>Close this tab.</li>
+      <li>Click the verification link in your email again.</li>
+      <li>You will be verified automatically.</li>
+    </ol>
+    <h4 class="customColor">Still having trouble?</h4>
+    <ul class="customColor">
+      <li>Try <a class="navigation" href="http://localhost:5173/login">logging in</a> to your account.</li>
+      <li><a class="navigation" href="http://localhost:5173/signup">Re-register</a> after 15 minutes if logging in fails.</li>
+      <li>Contact support at <span style="font-weight: bold;">hi@meetnoman.com</span> if the issue persists.</li>
     </ul>
-    <p>
-      Please register you account again with same credentials. For further
-      issues contact hi@meetnoman.com
-    </p>
   </body>
 </html>

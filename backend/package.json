@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "bdev": "nodemon index.js",
+    "dedev": "cross-env DEBUG=ThinkTweet:* nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -15,6 +16,8 @@
     "argon2": "^0.44.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
+    "cross-env": "^10.1.0",
+    "debug": "^4.4.3",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.5.2",
