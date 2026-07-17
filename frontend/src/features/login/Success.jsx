@@ -8,6 +8,8 @@ import { MdOutlineTimer } from "react-icons/md";
 import MiniHeader from "./components/MiniHeader";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { use } from "react";
+import { AuthContext } from "../../utils/AuthProvider";
 
 const Success = ({ useremail }) => {
   //using a state
@@ -33,6 +35,10 @@ const Success = ({ useremail }) => {
       navigateNow("/dashboard", {replace: true})
     }
   }, [countDown]);
+
+  //gettin the auth context value and updating the user to authenticated
+  const auth = use(AuthContext)
+  auth.setIsAuthenticated(true)
 
   return (
     <div className="border w-md px-11 py-10 rounded-lg bg-white shadow-xl border-brand-fourth max-phone:w-[92%] max-phone:px-6 max-phone:py-8">

@@ -5,13 +5,15 @@ import Links from "./Links";
 import { ImCross } from "react-icons/im";
 import { useState } from "react";
 import LogSignPersonal from "./LogSignPersonal";
+import { use } from "react";
+import { AuthContext } from "../utils/AuthProvider";
 
 const Sidebar = () => {
   //using state
   const [open, setOpen] = useState(false);
 
-  //test variable
-  const isUserLoggedIn = false
+  //getting the auth context value
+  const auth = use(AuthContext)
 
   return (
     <div className="lg:hidden p-4 flex items-center sticky top-0 bg-white/70 z-50 backdrop-blur-xs border-b-brand-fourth border-b">
@@ -35,8 +37,8 @@ const Sidebar = () => {
               className="mb-4 ml-auto mr-8"
               size={18}
             />
-            <Links isLoggedIn={isUserLoggedIn} />
-            <LogSignPersonal isLoggedIn={isUserLoggedIn} />
+            <Links isLoggedIn={auth.isAuthenticated} />
+            <LogSignPersonal isLoggedIn={auth.isAuthenticated} />
           </div>
         </div>
       )}

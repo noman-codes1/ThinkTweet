@@ -2,19 +2,23 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { env } from "../config/env.config.js";
 import argon2 from "argon2";
+import { logFlow,logError } from "../debug/debug.logs.js";
 
 export const accessToken = (id) => {
-  console.log("Inside accessToken() Func, creating a signed key");
+  logFlow("Running generateToken files...")
+  logFlow("Runing accessToken function...")
 
   //creating the signed cryptographic key for access token
+  logFlow("Creating a accessToken")
   return jwt.sign({ userId: id }, env.accesskey, { expiresIn: "10m" });
 };
 
 export const refreshToken = async (id, sId) => {
-  console.log("Inside refreshToken() Func");
+  logFlow("Running generateToken files...")
+  logFlow("Running refreshToken function...")
 
   //creating a refresh token cyptographically
-  console.log("Creating a refresht token...");
+  logFlow("Creating a refresh token")
   const refreshToken = jwt.sign(
     { userId: id, sessionId: sId },
     env.refreshkey,
@@ -22,12 +26,11 @@ export const refreshToken = async (id, sId) => {
       expiresIn: "7d",
     },
   );
-  console.log("Created.");
+  logFlow("Created")
 
   //hashing a token
-  console.log("Hashing the token to save in database...");
+  logFlow("Hashing the refToken")
   const hashedRefToken = await argon2.hash(refreshToken);
-  console.log("All work is done. Returning the func.");
 
   return {
     rToken: refreshToken,

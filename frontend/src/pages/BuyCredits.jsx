@@ -10,6 +10,9 @@ import { MdOutlineRefresh } from "react-icons/md";
 import { LuMail } from "react-icons/lu";
 import { GoDotFill } from "react-icons/go";
 import { twMerge } from "tailwind-merge";
+import CustomError from "../components/CustomError";
+import { use } from "react";
+import { AuthContext } from "../utils/AuthProvider";
 
 //static variable
 const retrySupportButton =
@@ -43,12 +46,15 @@ const BuyCredits = () => {
 
   //forcing the user to move above page so that they can see the error
   useEffect(() => {
-    if(err){
-      window.scrollTo({top:0, left:0, behavior: "instant"})
+    if (err) {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
-  }, [err])
+  }, [err]);
 
-  return (
+  //checking whehter the verified user is logged in or not
+  const auth = use(AuthContext);
+
+  return auth.isAuthenticated ? (
     <div className={twMerge("bg-[#f8fafc]", err && "pt-15")}>
       {/* <Warning /> */}
       {showLoader && (
@@ -122,6 +128,8 @@ const BuyCredits = () => {
       <Dialog />
       <Plan funcToTalkServer={talkServerForStripe} />
     </div>
+  ) : (
+    <CustomError content="401 Unauthorized" />
   );
 };
 

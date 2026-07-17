@@ -6,65 +6,61 @@ import { refreshToken } from "../jwt/jwt.generateTokens.js";
 import argon2 from "argon2";
 import { sessionReftokenVar } from "../jwt/jwt.sessionSchema.js";
 import crypto from "crypto"
+import { logFlow, logError, logDB } from "../debug/debug.logs.js";
 
 export const loginController = async (req, res, next) => {
-  console.log("Inside loginController() func");
-  console.log("The body contains: \n", req.body);
   try {
-    //validating the input and security check
-    const passedObject = await validationLogin(req.body);
-    console.log("The returned object by validation func is : \n", passedObject);
+    logFlow("Running loginController files")
+
+    //talking out the object from the body
+    const jsObject = req.body
 
     //fetching the info and verify the password
-    console.log("Fetching Data for the user...");
+    logDB("Searching the database.....")
     const userData = await registeredUserVar.findOne(
-      { user_email: passedObject.useremail },
+      { user_email: jsObject.useremail },
       { user_name: 1, user_pass: 1 },
     );
-    console.log("User profile data: \n", userData);
 
     //verifying the password
-    console.log("Verification for passwords begins...");
+    logFlow("Verifying the entered password by the user")
     const isPassMatched = await argon2.verify(
       userData.user_pass,
-      passedObject.userpass,
+      jsObject.userpass,
     );
 
     //checking the value of verification
     if (!isPassMatched) {
-      console.log("User is not verified.");
-      throw new UnauthorizedError("Password is incorrect");
+      logError("Mismatch in passowrd")
+      throw new UnauthorizedError("Password is incorrect.");
     }
-    console.log("User is verified.");
+    logFlow("User is verified")
 
     //generating a session id
-    console.log("Generating the ssesion id");
+    logFlow("Generating a session id")
     const sessId = crypto.randomBytes(8).toString("hex");
-    console.log(`Session Id: ${sessId}`)
 
     //creating a signed jwt key
-    console.log("Generating the access and refresh token token");
+    logFlow("Generating the accesstoken and refresh token using jwt")
     const accToken = await accessToken(userData._id);
-    console.log(`AccessToken is ${accToken}`);
     const refTokenData = await refreshToken(userData._id, sessId);
-    console.log("Refresh Token Data is: \n", refTokenData);
 
     //saving a refreshtoken database
-    console.log("Creating the database...");
+    logDB("Creating the database for this session....")
     await sessionReftokenVar.create({
       session_id: sessId,
       user_id: userData.id,
       refresh_token: refTokenData.rHashedToken,
     });
-    console.log("Database created.");
-    console.log("Setting up the cookie");
+    logDB("Database is created.")
 
     //setting up the access cookie
+    logFlow("Setting up the cookie in user browser")
     res.cookie("access_token", accToken, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      // maxAge: 10 * 60 * 1000,
+      maxAge: 10 * 60 * 1000,
       path: "/",
     });
 

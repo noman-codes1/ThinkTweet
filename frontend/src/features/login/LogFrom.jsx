@@ -9,8 +9,10 @@ import { HashLoader, BarLoader } from "react-spinners";
 import { FaArrowRight } from "react-icons/fa6";
 import { IoIosCloseCircle } from "react-icons/io";
 import MiniHeader from "./components/MiniHeader";
+import { Link } from "react-router-dom";
+import { sleep } from "../../utils/sleep";
 
-//static variable
+//static variable for css #tip: this all is just a string
 const label = "text-[0.9rem] text-[#475569]";
 const inpuBoxDiv =
   "mt-1.5 flex items-center gap-4 border p-3 rounded-lg mb-1 border-brand-fourth bg-[#f8fafc] hover:shadow-xs focus-within:outline-1 focus-within:outline-brand-tertionary focus-within:bg-white";
@@ -23,6 +25,7 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
   const [fromErr, setFormErr] = useState({ emailErr: "", passErr: "" });
   const [hidePass, setHidePass] = useState(true);
   const [formState, setFormState] = useState("normal");
+  const [serverErr, setServerErr] = useState("")
 
   //function for validating email
   const validateUserEmail = (event) => {
@@ -86,33 +89,54 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
     isReady = true;
   }
 
-  //helper function to make a promise
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
-
   //submitting the form
   const talkServerLogin = async (event) => {
-    console.log("I am okay");
 
     event.preventDefault();
 
     //working according to the condition
     if (formState === "failed") {
       setFormState("normal");
+      setServerErr("")
       setFormData({ email: "", pass: "" });
     } else {
-      console.log("I am here");
-      setFormState("authenticating");
-      await sleep(5000);
+      try {
+        console.log("I am here");
+        setFormState("authenticating");
 
-      //mimicking the server state
-      if (false) {
+        //talking to the server
+        const response = await fetch(
+          "https://unconstructed-marisha-nonantagonistic.ngrok-free.dev/logAuth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userEmail: formData.email,
+              userPass: formData.pass,
+            }),
+          },
+        );
+
+        //getting the response
+        const dataFromServer = await response.json()
+
+        //making a fake feel of processing when already the server is so fast
+        await sleep(3000);
+
+        //checking the response of the server
+        if (dataFromServer.success) {
           setUserVerifiedEmail(formData.email);
           setIsUserVerfied(true);
           setFormState("normal");
-      } else {
-        setFormState("failed");
+        } else {
+          setFormState("failed");
+          setServerErr(dataFromServer.message)
+        }
+      } catch (error) {
+        setFormState("failed")
+        setServerErr(error.message)
       }
     }
   };
@@ -124,12 +148,16 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
         formState === "failed" && "border-[#e83a3a]",
       )}
     >
+      {/* Displaying the loader during form submission */}
       {formState === "authenticating" && (
         <div className="absolute inset-0 rounded-lg bg-[#f9fafd]/60 pointer-events-auto z-10 overflow-clip">
           <BarLoader color="#4f46e5" width={450} />
         </div>
       )}
+
+      {/* Injecting mini component */}
       <MiniHeader />
+
       <h2
         className={twMerge(
           "text-3xl font-semibold mb-1.5 text-brand-primary",
@@ -141,6 +169,8 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
       <p className="border-b border-b-brand-fourth pb-7 mb-7 text-brand-secondary">
         Log in to access your dashboard and run analyses.
       </p>
+
+      {/* Form to take the user submission */}
       <form onSubmit={(e) => talkServerLogin(e)}>
         {/* For entering the email */}
         <label className={label} htmlFor="">
@@ -234,16 +264,17 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
         {formState === "failed" && (
           <div className="flex gap-3 border p-3 rounded-lg mb-5 border-l-3 bg-[#fef2f2] border-[#fee2e2] border-l-[#eb3e3e]">
             <IoIosCloseCircle
-              className="border h-max p-1.5 rounded-full mt-1 size-12 bg-[#fce0e0]"
+              className="border h-max p-1.5 animate-bounce rounded-full mt-1 size-12 bg-[#fce0e0]"
               color="#ef4444"
             />
             <div>
               <p className="font-semibold text-[0.93rem] mb-2 text-[#b91c1c]">
-                Error: Invalid email or password combination.
+                Error: {serverErr}
               </p>
               <p className="text-sm text-[#e14444]">
-                Please check your credentials and try again. After 3 failed
-                attempts, your account will be temporarily locked.
+                Authentication failed. Please verify your credentials, ensure
+                you have an active internet connection, confirm your account is
+                registered, and try again.
               </p>
             </div>
           </div>
@@ -274,11 +305,16 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
           )}
         </button>
       </form>
+
+      {/* Helping the user if they wanna sign in */}
       <p className="text-center border-t border-t-brand-fourth text-brand-secondary pt-9 text-sm">
         Don't have an account?{" "}
-        <button className="text-brand-tertionary hover:cursor-pointer hover:text-brand-tertionary-hover hover:underline">
+        <Link
+          to="/signup"
+          className="text-brand-tertionary hover:cursor-pointer hover:text-brand-tertionary-hover hover:underline"
+        >
           Sign Up
-        </button>
+        </Link>
       </p>
     </div>
   );
