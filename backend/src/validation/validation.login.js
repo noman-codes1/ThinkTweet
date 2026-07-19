@@ -2,7 +2,7 @@ import { BadRequestError } from "../errors/errors.custom.js";
 import validator from "validator"; //returns a js object
 import { registeredUserVar } from "../signup/signup.schemaModel.js";
 import { ValidationError } from "../errors/errors.custom.js";
-import { logFlow, logError } from "../debug/debug.logs.js";
+import { logFlow, logError, logValid } from "../debug/debug.logs.js";
 
 export const validationLogin = async (req, res, next) => {
   try {
@@ -16,7 +16,7 @@ export const validationLogin = async (req, res, next) => {
       logError("Unexpected object recievced")
       throw new BadRequestError("Unexpected length of keys in the object.");
     }
-    logFlow("1st validation passed")
+    logValid("1st validation passed")
 
     //rejecting the request if it's not expected keys
     if (
@@ -28,7 +28,7 @@ export const validationLogin = async (req, res, next) => {
       logError("Mismatch datatype of values in the object recieved")
       throw new BadRequestError("Object keys are modified.");
     }
-    logFlow("2nd validation passed")
+    logValid("2nd validation passed")
 
     //validating the url
     const email = objectRecieved.userEmail.trim();
@@ -36,7 +36,7 @@ export const validationLogin = async (req, res, next) => {
       logError("Invalida email recieved")
       throw new BadRequestError("Not a valid email.");
     }
-    logFlow("3rd validation passed")
+    logValid("3rd validation passed")
 
     //validating the password
     const pass = objectRecieved.userPass;
@@ -44,20 +44,21 @@ export const validationLogin = async (req, res, next) => {
       logError("Unexpected length of pass recieved")
       throw new ValidationError("Invalid password.");
     }
-    logFlow("4th validation passed")
+    logValid("4th validation passed")
 
     //checking whether user exist or not in the database
     if (!(await registeredUserVar.findOne({ user_email: email }))) {
       logError("User not registered")
       throw new ValidationError("Please sign up for an account first.");
     }
-    logFlow("5th validation passed")
+    logValid("5th validation passed")
 
     //upating the value of req.body
     req.body = {
       userEmail : email,
       userPass : pass
     }
+    logFlow("Updated the req.body. Sending to the next middleware")
 
     //sending the express to the next middleware
     next()

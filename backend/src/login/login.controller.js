@@ -18,7 +18,7 @@ export const loginController = async (req, res, next) => {
     //fetching the info and verify the password
     logDB("Searching the database.....")
     const userData = await registeredUserVar.findOne(
-      { user_email: jsObject.useremail },
+      { user_email: jsObject.userEmail },
       { user_name: 1, user_pass: 1 },
     );
 
@@ -26,7 +26,7 @@ export const loginController = async (req, res, next) => {
     logFlow("Verifying the entered password by the user")
     const isPassMatched = await argon2.verify(
       userData.user_pass,
-      jsObject.userpass,
+      jsObject.userPass,
     );
 
     //checking the value of verification

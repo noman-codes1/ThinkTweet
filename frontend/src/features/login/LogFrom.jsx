@@ -19,7 +19,7 @@ const inpuBoxDiv =
 const inputBox =
   "w-full text-sm focus:outline-none font-mono text-brand-primary";
 
-const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
+const LogFrom = ({ setIsUserVerfied, setUserVerifiedName }) => {
   //using state
   const [formData, setFormData] = useState({ email: "", pass: "" });
   const [fromErr, setFormErr] = useState({ emailErr: "", passErr: "" });
@@ -106,12 +106,13 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
 
         //talking to the server
         const response = await fetch(
-          "https://unconstructed-marisha-nonantagonistic.ngrok-free.dev/logAuth/login",
+          "http://localhost:3000/logAuth/login",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
+            credentials: "include", 
             body: JSON.stringify({
               userEmail: formData.email,
               userPass: formData.pass,
@@ -127,7 +128,7 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedEmail }) => {
 
         //checking the response of the server
         if (dataFromServer.success) {
-          setUserVerifiedEmail(formData.email);
+          setUserVerifiedName(dataFromServer.message.name);
           setIsUserVerfied(true);
           setFormState("normal");
         } else {

@@ -48,7 +48,7 @@ const App = () => {
           <Footer />
         </div>
       ) : (
-        <div className="text-4xl p-2">404 Not Found</div>
+        <div className="text-4xl p-2">404 Page Not Found</div>
       )}
     </>
   );

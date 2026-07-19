@@ -19,8 +19,8 @@ const mySchema = new Schema({
   created_at: {
     type: Date,
     required: true,
-    default: Date.now(),
-    exprires: "7d",
+    default: Date.now,
+    expires: "7d",
   },
 });
 

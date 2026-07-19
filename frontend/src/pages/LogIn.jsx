@@ -13,7 +13,7 @@ import CustomError from "../components/CustomError";
 const LogIn = () => {
   //using state to render component according to the condtion
   const [isVerified, setIsVerified] = useState(false);
-  const [recievedEmail, setRecievedEmail] = useState("");
+  const [recievedName, setRecievedName] = useState("");
 
   //getting the context to know the current data
   const auth = use(AuthContext);
@@ -27,11 +27,11 @@ const LogIn = () => {
         Research & Analysis Platform
       </p>
       {isVerified ? (
-        <Success useremail={recievedEmail} />
+        <Success username={recievedName} />
       ) : (
         <LogFrom
           setIsUserVerfied={setIsVerified}
-          setUserVerifiedEmail={setRecievedEmail}
+          setUserVerifiedName={setRecievedName}
         />
       )}
       <MiniFooter />

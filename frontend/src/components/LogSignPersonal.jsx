@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, NavLink } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
-const LogSignPersonal = ({ isLoggedIn }) => {
+const LogSignPersonal = ({ isLoggedIn, name }) => {
   //finding the current desination
   const desination = useLocation();
   return (
@@ -33,11 +33,11 @@ const LogSignPersonal = ({ isLoggedIn }) => {
       {isLoggedIn && (
         <div className="flex gap-2 items-center max-lg:justify-center max-lg:mt-10">
           <span className="rounded-full h-8 w-8 text-xs flex items-center justify-center bg-brand-tertionary text-white max-lg:size-12 max-lg:text-base">
-            AJ
+            TT
           </span>
           <div>
             <p className="text-[0.9rem] text-brand-primary max-lg:text-lg">
-              Alex Johnson
+              {name}
             </p>
             <button className="text-xs text-[#ef4444] hover:text-[#dc2626] hover:cursor-pointer hover:underline max-lg:text-sm">
               Logout

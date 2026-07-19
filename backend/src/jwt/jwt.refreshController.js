@@ -5,72 +5,77 @@ import { sessionReftokenVar } from "./jwt.sessionSchema.js";
 import { env } from "../config/env.config.js";
 import { accessToken } from "./jwt.generateTokens.js";
 import { refreshToken } from "./jwt.generateTokens.js";
+import { logFlow, logDB, logValid, logError } from "../debug/debug.logs.js";
 
 export const jwtRefreshController = async (req, res, next) => {
-  console.log("Inside jwtRefreshController() func");
   try {
+    logFlow("Running jwtRefreshController files...")
+
     //getting the refresh token
-    console.log("Getting the refresh token");
+    logFlow("Extracting the refresh token from the cookies")
     const refToken = req.cookies.refresh_token;
 
     //checking whether the token is present or not
     if (!refToken) {
+      logError("No token is present")
       throw new UnauthorizedError("Refresh Token is missing");
     }
-    console.log("Token available");
+    logValid("Token is available")
 
     //verifying the token and getting the payload
-    console.log("Verifying the token...");
+    logFlow("Verifying the token...")
     let data;
     jwt.verify(refToken, env.refreshkey, (err, payload) => {
       if (err) {
+        logError("Token not verified")
         throw new UnauthorizedError(err.message);
       }
       data = payload;
     });
-    console.log("The data decode from jwt is: \n", data);
+    logValid("Token verified")
 
     //checking the existence of data
-    console.log("Searching database for existence... ")
+    logFlow("Further security check")
+    logDB("Searching the session id from the database..")
     const exists = await sessionReftokenVar.exists({ session_id: data.sessionId });
 
     //working on according to conditions
     if (exists) {
+      logValid("Session available in the database")
+      
       //getting the detailed data of that user
-      console.log("User found in database... Getting the data");
+      logDB("Getting the data from the database...")
       const sessionUserData = await sessionReftokenVar.findOne(
         { session_id: data.sessionId },
         {session_id: 1, refresh_token: 1 },
       );
-      console.log("Session Data: \n", sessionUserData)
 
       //verfiying whether the refresh token is matched with user or not
-      console.log("Verifying the token with database...");
+      logFlow("Verifying the correct refresh token...")
       const doesMatch = await argon2.verify(
         sessionUserData.refresh_token,
         refToken,
       );
-      console.log("Matched? : ", doesMatch);
 
       //checking the condition
       if (doesMatch) {
-        //creating the new access and refresh token
-        console.log("Getting new access token and refresh token");
+        logFlow("Correct refresh token found")
+
+        //generating the new accessToken and fresh token
+        logFlow("Generating the tokens...")
         const accToken = await accessToken(data.userId);
         const refreshTokenData = await refreshToken(data.userId, sessionUserData.session_id);
-        console.log("Access Token: \n", accToken);
-        console.log("Refresh Token Data: \n", refreshTokenData);
 
         //updating the database with new refreshed token
-        console.log("Updating the database...");
+        logDB("Updating the database with correct hashed refresh token...")
         await sessionReftokenVar.updateOne(
           { session_id: data.sessionId },
           { $set: { refresh_token: refreshTokenData.rHashedToken } },
         );
-        console.log("Database updated");
-        console.log("Setting the cookie");
+        logDB("Database updated")
 
         //setting the cookie for access token
+        logFlow("Updating the accessToken in cookie")
         res.cookie("access_token", accToken, {
           httpOnly: true,
           secure: true,
@@ -80,6 +85,7 @@ export const jwtRefreshController = async (req, res, next) => {
         });
 
         //setting the cookie for refresh token
+        logFlow("Updating the refreshToken")
         res.cookie("refresh_token", refreshTokenData.rToken, {
           httpOnly: true,
           secure: true,
@@ -89,45 +95,49 @@ export const jwtRefreshController = async (req, res, next) => {
         });
 
         //replying the server
+        logFlow("Closing the connection")
         res.status(200).json({
           success: true,
           message: "Now, continue your work...",
         });
       } else {
         //user is compromised
-        console.log("User is compromised...")
+        logError("User is compromised....")
+        logFlow("Cleaning up the process")
 
         //cleaning up the access token
+        logFlow("Deleting the accessToken")
         res.clearCookie("access_token", {
           httpOnly: true,
           secure: true,
           sameSite: "none",
           path: "/",
         });
-        console.log("Cleaned access token in the cookie")
 
         //cleaning up the refresh token
+        logFlow("Deleting the refreshToken")
         res.clearCookie("refresh_token", {
           httpOnly: true,
           secure: true,
           sameSite: "none",
           path: "/refresh",
         });
-        console.log("Cleaned refresh token in the cookie")
 
         //cleaning up the database
+        logDB("Cleaning up the database..")
         await sessionReftokenVar.deleteOne({session_id : data.sessionId})
-        console.log("Cleaned the database")
+        logDB("Session Id is deleted")
 
-        //send a mail to the user
-  
+        //sending a mail to the user
+        // WILL APPLY IN PHASE II
 
         //replying back
         throw new UnauthorizedError("User is compromised...")
       }
     } else {
       //throw a error
-      throw new UnauthorizedError("User not logged in. Please log in.");
+      logError("Session not avaliable. Please log in again.")
+      throw new UnauthorizedError("Session not avaliable. Please log in...");
     }
   } catch (error) {
     next(error);

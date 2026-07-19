@@ -1,3 +1,5 @@
+//#tip: Build the understanding of class and constructor again
+
 export class AppError extends Error {
     constructor(message, statusCode) {
         super(message)
@@ -52,5 +54,11 @@ export class AIServiceError extends AppError {
 export class InteralServerError extends AppError {
     constructor(message) {
         super(message, 500)
+    }
+}
+
+export class TokenExpiredError extends AppError {
+    constructor(message) {
+        super(message, 5252)
     }
 }
