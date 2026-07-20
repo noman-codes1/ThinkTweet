@@ -106,13 +106,13 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedName }) => {
 
         //talking to the server
         const response = await fetch(
-          "http://localhost:3000/logAuth/login",
+          "https://thinktweetserver.meetnoman.com/logAuth/login",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: "include", 
+            credentials: "include",
             body: JSON.stringify({
               userEmail: formData.email,
               userPass: formData.pass,

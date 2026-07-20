@@ -22,7 +22,7 @@ logFlow("Running index.js file");
 //allows frontend to show the data from sent from here
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: env.frontendurl,
     credentials: true,
   }),
 );
@@ -38,7 +38,7 @@ app.use("/webhook", webhookRouter);
 app.use(express.json({ limit: "10kb" })); //limit it to 10kb to avoid large payload
 
 //blocking the code to run if not my origin
-// app.use(checkOrgin)
+app.use(checkOrgin);
 
 //using cookie parser
 app.use(cookieParser());
@@ -68,7 +68,7 @@ app.use(globalError);
 //connecting to the database
 const dbFunc = async () => {
   await connectDB();
-  app.listen(env.localport, () => {
+  app.listen(process.env.PORT || env.localport, () => {
     logFlow("Server is running...");
   });
 };

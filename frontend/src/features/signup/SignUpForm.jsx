@@ -202,7 +202,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
 
         //talking begins with the server
         const response = await fetch(
-          "https://unconstructed-marisha-nonantagonistic.ngrok-free.dev/signAuth/signup",
+          "https://thinktweetserver.meetnoman.com/signAuth/signup",
           {
             method: "POST",
             headers: {
