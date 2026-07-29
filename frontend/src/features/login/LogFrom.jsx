@@ -11,6 +11,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import MiniHeader from "./components/MiniHeader";
 import { Link } from "react-router-dom";
 import { sleep } from "../../utils/sleep";
+import { customFetch } from "../../utils/customFetch";
 
 //static variable for css #tip: this all is just a string
 const label = "text-[0.9rem] text-[#475569]";
@@ -25,7 +26,7 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedName }) => {
   const [fromErr, setFormErr] = useState({ emailErr: "", passErr: "" });
   const [hidePass, setHidePass] = useState(true);
   const [formState, setFormState] = useState("normal");
-  const [serverErr, setServerErr] = useState("")
+  const [serverErr, setServerErr] = useState("");
 
   //function for validating email
   const validateUserEmail = (event) => {
@@ -91,53 +92,38 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedName }) => {
 
   //submitting the form
   const talkServerLogin = async (event) => {
-
     event.preventDefault();
 
     //working according to the condition
     if (formState === "failed") {
       setFormState("normal");
-      setServerErr("")
+      setServerErr("");
       setFormData({ email: "", pass: "" });
     } else {
-      try {
-        console.log("I am here");
-        setFormState("authenticating");
+      console.log("I am here");
+      setFormState("authenticating");
 
-        //talking to the server
-        const response = await fetch(
-          "https://thinktweetserver.meetnoman.com/logAuth/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({
-              userEmail: formData.email,
-              userPass: formData.pass,
-            }),
-          },
-        );
+      //defining a body object to send over the server
+      const body = {
+        userEmail: formData.email,
+        userPass: formData.pass,
+      };
 
-        //getting the response
-        const dataFromServer = await response.json()
+      //talking to the server
+      const serverObject = await customFetch("logAuth/login", body);
+      console.log(serverObject)
 
-        //making a fake feel of processing when already the server is so fast
-        await sleep(3000);
+      //making a fake feel of processing when already the server is so fast
+      await sleep(3000);
 
-        //checking the response of the server
-        if (dataFromServer.success) {
-          setUserVerifiedName(dataFromServer.message.name);
-          setIsUserVerfied(true);
-          setFormState("normal");
-        } else {
-          setFormState("failed");
-          setServerErr(dataFromServer.message)
-        }
-      } catch (error) {
-        setFormState("failed")
-        setServerErr(error.message)
+      //checking the response of the server
+      if (serverObject.success) {
+        setUserVerifiedName(serverObject.message.name);
+        setIsUserVerfied(true);
+        setFormState("normal");
+      } else {
+        setFormState("failed");
+        setServerErr(serverObject.message);
       }
     }
   };

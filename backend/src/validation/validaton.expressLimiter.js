@@ -47,7 +47,7 @@ export const verifyLimiter = rateLimit({
 
 export const refreshLimiter = rateLimit({
   windowMs: 10 * 60 * 1000,
-  limit: 2, //2 per 10 minute
+  limit: 5, //5 per 10 minute
   message: {
     success: false,
     message : "Too many request. We cannot process."
@@ -69,7 +69,7 @@ export const paymentLimiter = rateLimit({
 
 export const authneticatedLimiter = rateLimit({
   windowMs: 10 * 60 * 1000,
-  limit: 5,
+  limit: 100,
   message: "Too many request. Try later.",
   standardHeaders: true,
   legacyHeaders: false

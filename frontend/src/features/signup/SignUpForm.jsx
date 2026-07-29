@@ -13,6 +13,7 @@ import { twMerge } from "tailwind-merge";
 import { BarLoader, PuffLoader } from "react-spinners";
 import { sleep } from "../../utils/sleep";
 import { Link } from "react-router-dom";
+import { customFetch } from "../../utils/customFetch";
 
 //static variable for the class css
 const label = "text-[0.9rem] text-[#475569] font-semi-bold";
@@ -197,42 +198,31 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
       setFormObject({ username: "", email: "", password: "", confirmPass: "" });
       setServerErr("");
     } else {
-      try {
-        setIsFormState("setting-up");
+      //setting the state
+      setIsFormState("setting-up");
 
-        //talking begins with the server
-        const response = await fetch(
-          "https://thinktweetserver.meetnoman.com/signAuth/signup",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username: formObject.username,
-              useremail: formObject.email,
-              userpass: formObject.password,
-              userconpass: formObject.confirmPass,
-            }),
-          },
-        );
+      //configuring the body to send over the server
+      const body = {
+        username: formObject.username,
+        useremail: formObject.email,
+        userpass: formObject.password,
+        userconpass: formObject.confirmPass,
+      };
 
-        //converting the json into js object
-        const dataRecieved = await response.json();
-        await sleep(3000);
+      //talking to the server
+      const serverObject = await customFetch("signAuth/signup", body)
+      console.log(serverObject)
 
-        // moving the window to top to cue the user when error occurs
-        if (!dataRecieved.success) {
-          window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-          setIsFormState("failed");
-          setServerErr(dataRecieved.message);
-        } else {
-          setHasSentMailFunc(true);
-        }
-      } catch (error) {
-        setIsFormState("failed");
+      //showing the loader for few seconds more
+      await sleep(3000);
+
+      // moving the window to top to cue the user when error occurs
+      if (!serverObject.success) {
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-        setServerErr(error.message);
+        setIsFormState("failed");
+        setServerErr(serverObject.message);
+      } else {
+        setHasSentMailFunc(true);
       }
     }
   };

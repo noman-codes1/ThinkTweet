@@ -4,8 +4,19 @@ import { GiAcid } from "react-icons/gi";
 import { FaInfoCircle } from "react-icons/fa";
 import { FaArrowDownLong } from "react-icons/fa6";
 import YoutubeVid from "./components/YoutubeVid";
+import Placeholder from "./components/Placeholder";
+import { useRef } from "react";
 
 const Hero = () => {
+
+  //getting the ref value
+  const targetContainer = useRef()
+
+  //function to trigger scroll
+  const triggerScroll = (event) =>{
+    event.preventDefault()
+    targetContainer.current?.scrollIntoView({behavior : 'smooth' })
+  }
   return (
     <div className="w-full py-25 max-phone:py-15 flex flex-col items-center bg-linear-135 from-[#eef0fb] via-[#f4f5fb] to-white">
       {/* Wrting the banner for marketinig */}
@@ -38,17 +49,18 @@ const Hero = () => {
       <div className="flex gap-4 items-center mb-12 max-phone:flex-col">
         <GettingStartedBtn />
         <a
-          className="font-medium flex items-center gap-1 text-brand-primary hover:text-brand-tertionary"
-          href=""
-          onClick={(e) => e.preventDefault()}
+          className="font-medium flex items-center gap-1 text-brand-primary hover:text-brand-tertionary hover:cursor-pointer"
+          onClick={(e) => triggerScroll(e)}
         >
           See how it works
           <FaArrowDownLong className="" size={12} />
         </a>
       </div>
 
-      {/* Youtube video to be shown */}
-      <YoutubeVid id="eFDZOoVB2Ek" />
+      {/* Coming soon or Youtube video to be shown */}
+      <div ref={targetContainer}>
+        {true ? <Placeholder /> : <YoutubeVid id="eFDZOoVB2Ek" />}
+      </div>
     </div>
   );
 };

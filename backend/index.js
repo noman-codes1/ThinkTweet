@@ -68,7 +68,7 @@ app.use(globalError);
 //connecting to the database
 const dbFunc = async () => {
   await connectDB();
-  app.listen(process.env.PORT || env.localport, () => {
+  app.listen(process.env.PORT || 3000, () => {
     logFlow("Server is running...");
   });
 };

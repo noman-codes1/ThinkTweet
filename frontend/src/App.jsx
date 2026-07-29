@@ -11,6 +11,9 @@ import ComingSoon from "./pages/ComingSoon";
 import LogIn from "./pages/LogIn";
 import ScrollToTop from "./utils/ScrollToTop";
 import { useLocation } from "react-router-dom";
+import About from "./pages/About";
+import Privacy from "./pages/Privacy";
+import Disclaimer from "./pages/Disclaimer";
 
 const App = () => {
   //getting the route name
@@ -44,6 +47,9 @@ const App = () => {
             <Route path="/payment" element={<BuyCredits />} />
             <Route path="/documentation" element={<ComingSoon />} />
             <Route path="login" element={<LogIn />} />
+            <Route path="disclaimer" element={<Disclaimer />} />
+            <Route path="privacy" element={<Privacy />} />
+            <Route path="about" element={<About />} />
           </Routes>
           <Footer />
         </div>
