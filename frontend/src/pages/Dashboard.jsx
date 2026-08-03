@@ -6,22 +6,23 @@ import History from "../features/dashboard/History";
 import { use } from "react";
 import { AuthContext } from "../utils/AuthProvider";
 import CustomError from "../components/CustomError";
+import { DashboardProvider } from "../utils/DashboardProvider";
 
 const Dashboard = () => {
   //getting the AuthContext data
   const auth = use(AuthContext);
 
   return auth.isAuthenticated ? (
-    <div className="p-8 bg-[#f8fafc] max-lg:px-5 max-phone:px-3">
-
-      {/* WORKING HERE... TRYING TO FIGURE OUT HOW TO USE CONTEXT HERE */}
-      <Analytics />
-      <div className="grid grid-cols-3 grid-rows-[auto_2fr] mt-8 gap-5 max-lg:grid-cols-1">
-        <AnalyzeTweet />
-        <Guide />
-        <History />
+    <DashboardProvider>
+      <div className="p-8 bg-[#f8fafc] max-lg:px-5 max-phone:px-3">
+        <Analytics />
+        <div className="grid grid-cols-3 grid-rows-[auto_2fr] mt-8 gap-5 max-lg:grid-cols-1">
+          <AnalyzeTweet />
+          <Guide />
+          <History />
+        </div>
       </div>
-    </div>
+    </DashboardProvider>
   ) : (
     // #tip: Use better structure and user experience
     <CustomError content="401 Unauthorized" />

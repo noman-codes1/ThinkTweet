@@ -4,14 +4,14 @@ import { VscGraphLine } from "react-icons/vsc";
 
 const TotalAnalysisCard = ({ anal, newUsr }) => {
   return (
-    <div className="border border-[#e2e8f0] p-4 rounded-lg bg-white shadow-md hover:shadow-xl">
+    <div className="border border-brand-fourth p-4 rounded-lg bg-white shadow-md hover:shadow-xl">
       <div>
         <div className="flex mb-4">
           <VscGraphLine
             className="rounded-lg p-2 bg-[#f1f5f9] text-brand-secondary"
             size={30}
           />
-          <p className="self-center ml-auto text-xs border px-3 p-0.5 rounded-xl bg-[#f1f5f9] border-[#e2e8f0] text-brand-secondary">
+          <p className="self-center ml-auto text-xs border px-3 p-0.5 rounded-xl bg-[#f1f5f9] border-brand-fourth text-brand-secondary">
             All time
           </p>
         </div>
@@ -20,10 +20,10 @@ const TotalAnalysisCard = ({ anal, newUsr }) => {
           Total Analyses Run
         </p>
       </div>
-      <div className="border-t border-[#e2e8f0] pt-4 text-xs">
+      <div className="border-t border-brand-fourth pt-4 text-xs">
         <p className="flex items-center gap-1 text-brand-secondary">
           <FaArrowUp color="#10b981" size={11} />
-          {!newUsr ? (
+          {anal !== 0 ? (
             <span>Trending up. Do your next analysis</span>
           ) : (
             <span>Start your first analysis below</span>

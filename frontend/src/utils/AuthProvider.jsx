@@ -22,7 +22,14 @@ export const AuthProvider = ({ children }) => {
         const refreshSeverObject = await customFetch("refresh")
 
         if (refreshSeverObject.success){
-          setIsAuthenticated(true)
+
+          //talking back to the server for getting name
+          const talkToServerToGetName = await customFetch("authenticated")
+
+          if (talkToServerToGetName.success) {
+            setUserName(talkToServerToGetName.message.name)
+            setIsAuthenticated(true)
+          }
         }
       } else if (serverObject.success) {
         setIsAuthenticated(true)

@@ -21,6 +21,11 @@ const mySchema = new Schema({
     required: true,
     unique: true,
   },
+  totalAnalysis : {
+    type: Number,
+    required: true,
+    default: 0
+  },
   credits: {
     type: Number,
     required: true,
@@ -31,6 +36,11 @@ const mySchema = new Schema({
     unique: true,
     default: null
   },
+  // lastPurchaseHistory : {
+  //   type: Object,
+  //   required: true,
+  //   default: undefined
+  // },
   created_at: {
     type: Date,
     required: true,

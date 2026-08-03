@@ -2,13 +2,13 @@ import React from "react";
 import { FaCoins } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
-
+import {NavLink} from "react-router-dom"
 
 const TotalCreditsCard = ({cred}) => {
   return (
     <div
       className={twMerge(
-        "border border-[#e2e8f0] p-4 rounded-lg bg-white shadow-md hover:shadow-xl",
+        "border border-brand-fourth p-4 rounded-lg bg-white shadow-md hover:shadow-xl",
         cred < 18 && "border-[#fda4af]",
       )}
     >
@@ -44,17 +44,17 @@ const TotalCreditsCard = ({cred}) => {
           </p>
         </div>
       </div>
-      <div className="border-t border-[#e2e8f0] pt-4">
-        <a
+      <div className="border-t border-brand-fourth pt-4">
+        <NavLink
           className={twMerge(
             "flex bg-transparent text-brand-tertionary items-center gap-2 text-xs border py-1.5 px-3 w-max rounded-lg hover:bg-[#eef2ff]",
             cred < 18 && "text-white bg-[#be123c] hover:bg-[#de1446]",
           )}
-          href=""
+          to="/payment"
         >
           <FaPlus />
           {cred < 18 ? "Buy More Credits" : "Buy Credits"}
-        </a>
+        </NavLink>
       </div>
     </div>
   );

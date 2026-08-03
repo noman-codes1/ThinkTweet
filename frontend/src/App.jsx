@@ -46,10 +46,10 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/payment" element={<BuyCredits />} />
             <Route path="/documentation" element={<ComingSoon />} />
-            <Route path="login" element={<LogIn />} />
-            <Route path="disclaimer" element={<Disclaimer />} />
-            <Route path="privacy" element={<Privacy />} />
-            <Route path="about" element={<About />} />
+            <Route path="/login" element={<LogIn />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/about" element={<About />} />
           </Routes>
           <Footer />
         </div>

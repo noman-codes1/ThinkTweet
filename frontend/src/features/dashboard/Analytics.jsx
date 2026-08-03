@@ -5,18 +5,29 @@ import TotalCreditsCard from "./components/TotalCreditsCard";
 import BillingCard from "./components/BillingCard";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
+import { use } from "react";
+import { DashboardContext } from "../../utils/DashboardProvider";
+import { useState } from "react";
 
 const Analytics = () => {
-  //test variable
-  const newUser = true;
-  const username = "Rohani";
-  const credits = 44;
-  const totalAnal = 24;
-  const purchaseData = {
-    date: "June 15, 2026",
-    credits: "200",
-    amount: "$299"
-  }
+  //defining the state
+  // const [newUser, setNewUser] = useState(false);
+
+  //getting the value from the context
+  const dashboardValues = use(DashboardContext);
+
+  // //checking whether the user is 'new' or not
+  // if (dashboardValues.totalAnalysis === 0) {
+  //   setNewUser(true);
+  // } else {
+  //   setNewUser(false);
+  // }
+
+  const username = dashboardValues.name;
+  const credits = dashboardValues.credits;
+  const totalAnal = dashboardValues.totalAnalysis;
+  const purchaseData = dashboardValues.lastPurchaseHistory;
+  const newUser = credits === 95 ? true : false
 
   return (
     <div className="w-full">

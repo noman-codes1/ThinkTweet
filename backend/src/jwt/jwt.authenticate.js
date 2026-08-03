@@ -22,10 +22,6 @@ export const authenticate = (req, res, next) => {
     logFlow("Verifying the token....")
     jwt.verify(accessToken, env.accesskey, (err, payload) => {
       if (err) {
-        // if (err.name === "TokenExpiredError") {
-        //   logError("Token is expired")
-        //   throw new ValidationError(err.message);
-        // }
         logError("Unable to verify the token")
         throw new UnauthorizedError(err.message);
       }
