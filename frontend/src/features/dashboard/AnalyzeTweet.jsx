@@ -61,6 +61,8 @@ const AnalyzeTweet = () => {
 
   //talking to the server
   const talkServer = async () => {
+
+    // NOW NEED TO WORK ON THIS FILES
     //mocking the server reply
     if (serverState === "success" || serverState === "error") {
       setServerState("idle");
@@ -71,7 +73,7 @@ const AnalyzeTweet = () => {
       //In a real world application, this part will be decided by server
       setShowLoader(true);
       await sleep(10000);
-      setServerState("error");
+      setServerState("success");
       setShowLoader(false);
     }
   };

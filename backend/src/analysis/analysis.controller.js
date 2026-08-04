@@ -1,66 +1,84 @@
 import { anaylsisServices } from "./analysis.services.js";
 import { extractionOfTweetData } from "../extraction/extraction.tweet.js";
-import { validationForAnalysis } from "../validation/validation.analysis.js";
 import { analyzedTweetVar } from "./analysis.schemaModel.js";
+import { logFlow, logError, logValid, logDB } from "../debug/debug.logs.js";
+import { tweetExtractionAndRealtedWork } from "./analysis.tweetExtraction.js";
+import { registeredUserVar } from "../signup/signup.schemaModel.js";
 
-export async function analysisControllerLogic(req, res) {
-  console.log("Inside analysis controllerLogic() func");
-  console.log("Body : ", req.body);
-
+export async function analysisControllerLogic(req, res, next) {
   try {
+    logFlow("Running controller files in analysis router...");
 
-    //WORK LEFT IN THIS PART
-    // 1. Connect the catch block with global error
-    // 2. Improve the security
-    // 3. Protect this sensitive route
-    // 4. Check all the validation to find any lapse
-    // 5. Make the parameter more readable in the func
+    //extracting the tweet id from the request object
+    logFlow("Extracting a tweet id");
+    const tweetId = req.body.tweetId;
 
-    
-    //performing all the validation logic
-    console.log(`Extracted url from the Body: ${req.body.url}`);
-    const jsObject = await validationForAnalysis(req.body);
-    console.log("Returned value from validationServicesFunc is \n", jsObject);
-
-    console.log("Validation, quering database, fetch x api (if any) completed");
+    //extracting the tweet data
+    logFlow("Extracting a tweet data via database/twitter api");
+    const jsObject = await tweetExtractionAndRealtedWork(tweetId);
+    logFlow("Extracted the data... moving further");
 
     //rejecting the request if the tweet age is less than 7 day
     //logic here
 
-    //quering the database to check whether data exists or not
-    console.log("Looking in the database for the analyzedData..");
+    //quering the database to check whether analysed data exists or not
+    logDB("Searching database whether analyzed data exists or not");
     const doesExists = await analyzedTweetVar.exists({
       tweetId: jsObject.textId,
     });
-    console.log(`Does database contains analyzedData? ${!!doesExists}`);
 
+    //checking whether it exist or not
     let data;
     if (doesExists) {
-      console.log("Inside If Block");
+      logDB("Data exists");
+
+      //attaching the object to send it to frontend
       data = await analyzedTweetVar.findOne({ tweetId: jsObject.textId });
     } else {
-      console.log("Inside Else Block");
-      console.log("LLM will run now");
+      logDB("Data not found");
+
       // analysing the models by using multiple models
+      logFlow("Running LLM to generate a response...");
       data = await anaylsisServices(jsObject.textClaim, jsObject.textId);
     }
 
-    console.log("The data to be sent:\n", data);
-    console.log("Sent the final output to the frontend");
+    //extracting a user id from
+    logFlow("Extracting the user id from the response object")
+    const userId = req.user.userId
+
+    //fetching the user data from databse
+    logDB("Pulling out data from database...")
+    const userData = await registeredUserVar.findOne(
+      { _id: userId },
+      { _id: 0, credits: 1, totalAnalysis: 1 },
+    );
+    logDB("Data pulled")
+
+    //deducting the credits and related work
+    logFlow("Deducting the credits and calcualting the number of analysis")
+    const credAfterDeduction = userData.credits - 18;
+    const numOfTotalAnalysis = userData.totalAnalysis + 1;
+
+    //updating the database
+    logDB("Updating the database...")
+    await registeredUserVar.updateOne(
+      { _id: userId },
+      {
+        $set: {
+          credits: credAfterDeduction,
+          totalAnalysis: numOfTotalAnalysis,
+        },
+      },
+    );
+    logDB("Database updated")
+
     //returning the value to the frontend
+    logFlow("Work completed. Closing the connection.");
     res.status(200).json({
       success: true,
-      statusCode: 200,
       message: data,
     });
   } catch (error) {
-    console.log("Program is terminated. Some error occured");
-    console.log(error.message);
-    console.log(error.statusCode|| "");
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      errCode: error.statusCode,
-    });
+    next(error);
   }
 }

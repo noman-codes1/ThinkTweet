@@ -3,17 +3,19 @@ import { env } from "../config/env.config.js";
 import mySchema from "./llm.schema.js";
 import rulesForAi from "../guidelines/guidelines.systemRules.js";
 import { papersCitation } from "../guidelines/guidelines.citation.js";
+import { logFlow, logError } from "../debug/debug.logs.js";
 
 //creating a instance from the Groq class
 const groqAi = new Groq({ apiKey: env.groq });
 
 //function to get response from OpenAI model
-//params : piece of text to analyze
-export async function llamaApiCall(params) {
-
-  console.log("Inside Llama API call")
+//claims : piece of text to analyze
+export async function llamaApiCall(claims) {
   try {
-    console.log("Inside try block")
+    logFlow("Running llama files..")
+
+    //contacting the groq server
+    logFlow("Establishing a connection to llm server")
     const response = await groqAi.chat.completions.create({
       model: "meta-llama/llama-4-scout-17b-16e-instruct",
       messages: [
@@ -23,7 +25,7 @@ export async function llamaApiCall(params) {
         },
         {
           role: "user",
-          content: `Paper Citations : ${papersCitation}. Claim to analyze : ${params}`,
+          content: `Paper Citations : ${papersCitation}. Claim to analyze : ${claims}`,
         },
       ],
       response_format: {
@@ -34,14 +36,13 @@ export async function llamaApiCall(params) {
         },
       },
     });
+    logFlow("Response recieved. Extracting the data...")
 
-    console.log("LLM responded...")
-    console.log("Returning the value")
-
+    //returning the function wtih extracting the data
     return JSON.parse(response.choices[0]?.message?.content);
   } catch (error) {
-    console.log("In catch block, caught some error")
-    console.log(error);
+    logError("Some error occured: ", error)
+
     //returning empty error so that other model takes it place without obstructing the entire flow
     return "";
   }

@@ -1,14 +1,17 @@
 import { Groq } from "groq-sdk/client.js";
 import { env } from "../config/env.config.js";
+import { logFlow, logDB, logError } from "../debug/debug.logs.js";
 
 //creating instance from the class
 const domainCheckAi = new Groq({ apiKey: env.groq });
 
 //function to generate results from Groq Compound Model
-export async function checkDomainOfTweet(params) {
-  console.log("Inside checkDomainOfTweet() func");
+export async function checkDomainOfTweet(tweetClaim) {
   try {
-    console.log("Inside try block");
+    logFlow("Running domainChecker files...")
+
+    //establishing a connection with a groq
+    logFlow("Talking to the groq server...")
     const response = await domainCheckAi.chat.completions.create({
       model: "openai/gpt-oss-20b",
       messages: [
@@ -18,7 +21,7 @@ export async function checkDomainOfTweet(params) {
         },
         {
           role: "user",
-          content: params,
+          content: tweetClaim,
         },
       ],
 
@@ -41,16 +44,14 @@ export async function checkDomainOfTweet(params) {
       },
     });
 
-    console.log("LLM replied...");
     //checking what is being returned
+    logFlow("Recieved a response from the server...")
     const jsObject = JSON.parse(response.choices[0]?.message?.content);
-    console.log("LLM reply is ",jsObject);
 
+    //returing the object
     return jsObject.isFeminism;
   } catch (error) {
-    console.log("Inside catch block")
-    console.log("Some error is caught.....");
-    console.log(error);
+    logError("Some error occured: ", error)
     return "unknown";
   }
 }

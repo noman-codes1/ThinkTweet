@@ -3,6 +3,7 @@ import { env } from "../config/env.config.js";
 import mySchema from "./llm.schema.js";
 import rulesForAi from "../guidelines/guidelines.systemRules.js";
 import { papersCitation } from "../guidelines/guidelines.citation.js";
+import { logFlow, logError } from "../debug/debug.logs.js";
 
 //creating a instance (a class method) from the class
 const geminiAi = new GoogleGenAI({ apiKey: env.gemini });
@@ -19,9 +20,11 @@ modifiedSchema = JSON.parse(modifiedSchema); //converting back to js object to p
 //function to get reponse from GemeniAI
 //params : piece of text to analyze
 export async function geminiApiCall(params) {
-  console.log("Inside Gemini API Call")
   try {
-    console.log("Inside try block")
+    logFlow("Running geminiApi files...")
+
+    //establishing a connection with a server
+    logFlow("Talking to the google server...")
     const response = await geminiAi.models.generateContent({
       model: "gemini-3.5-flash",
       contents: `Paper Citations : ${papersCitation}. Claim to analyze : ${params}`,
@@ -31,16 +34,13 @@ export async function geminiApiCall(params) {
         responseSchema: modifiedSchema,
       },
     });
+    logFlow("Google server responded. Extracting the response...")
 
-    console.log("LLM responded...")
-    console.log("Returning the value")
-
+    //returing the function with proper response
     return JSON.parse(response.text);
   } catch (error) {
-
-    console.log("Seems some error occured in gemini call...")
-    console.log(error);
-    console.log(error.message);
+    logError("Some error occured: ", error)
+    
     //returning empty error so that other model takes it place without obstructing the entire flow
     return "";
   }

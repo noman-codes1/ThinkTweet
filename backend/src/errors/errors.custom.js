@@ -56,9 +56,3 @@ export class InteralServerError extends AppError {
         super(message, 500)
     }
 }
-
-export class TokenExpiredError extends AppError {
-    constructor(message) {
-        super(message, 5252)
-    }
-}

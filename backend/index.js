@@ -56,7 +56,7 @@ app.get("/", (req, res) => {
 });
 
 //sending to the dedicated router
-app.use("/tweet", analysisRouter);
+app.use("/analyze", analysisRouter);
 app.use("/signAuth", signupRouter);
 app.use("/logAuth", loginRouter);
 app.use("/refresh", refreshRouter);

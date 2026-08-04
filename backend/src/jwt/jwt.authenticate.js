@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.config.js";
-import { UnauthorizedError, TokenExpiredError, ValidationError } from "../errors/errors.custom.js";
+import { UnauthorizedError, ValidationError } from "../errors/errors.custom.js";
 import { logFlow, logError, logDB, logValid } from "../debug/debug.logs.js";
 
 export const authenticate = (req, res, next) => {
