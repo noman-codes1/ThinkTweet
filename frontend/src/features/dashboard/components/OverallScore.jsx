@@ -10,7 +10,11 @@ const overallParamContainer =
   "text-sm border w-auto flex items-center gap-2 justify-center py-1.5 px-2 text-center rounded-lg border-brand-fourth bg-[#f8fafc] text-brand-secondary max-phone:w-max max-phone:px-4";
 const overallParamScoreSpan = "text-brand-primary font-semibold";
 
-const OverallScore = () => {
+const OverallScore = ({ overallScoreVal, claimParameter }) => {
+
+  //calculating the progress bar of the circle
+  const progressVisiblePart = overallScoreVal/100 * 251.2
+  const hideTheRestPart = 251.2 - progressVisiblePart
   return (
     <div className="border border-brand-fourth bg-white rounded-lg p-4 flex gap-10 max-md:flex-col max-md:p-6">
       <div className="self-center">
@@ -32,14 +36,14 @@ const OverallScore = () => {
               stroke="#4f46e5"
               strokeWidth={10}
               fill="transparent"
-              strokeDasharray={251.2}
-              strokeDashoffset={55.3}
-              strokeLinecap="round"
+              strokeDasharray={251.2} //sets the total length of the circle's outline
+              strokeDashoffset={hideTheRestPart} //sets how much to show based on data
+              strokeLinecap="round" //it turns the progress bar endpoint into 'round'
             />
           </svg>
           <p className="">
             <span className="text-brand-primary block text-center -mb-2 text-xl self-center">
-              78
+              {Math.ceil(overallScoreVal)}
             </span>
             <span className="text-brand-secondary text-sm">/100</span>
           </p>
@@ -50,7 +54,7 @@ const OverallScore = () => {
       </div>
       <div>
         <div className="flex gap-2 mb-4">
-          <p className="text-4xl self-center text-brand-primary">78</p>
+          <p className="text-4xl self-center text-brand-primary">{Math.ceil(overallScoreVal)}</p>
           <div>
             <p className="text-sm text-brand-tertionary">
               Overall Quality Score
@@ -63,28 +67,38 @@ const OverallScore = () => {
         <div className="grid grid-cols-2 gap-3 max-phone:grid-cols-1">
           <p className={overallParamContainer}>
             <FaShieldAlt className="text-[#10b981]" /> Evidence Strength:{" "}
-            <span className={overallParamScoreSpan}>91</span>
+            <span className={overallParamScoreSpan}>
+              {claimParameter.evidenceStrength}
+            </span>
           </p>
           <p className={overallParamContainer}>
             <GiBrainLeak className="text-[#3b82f6]" /> Logical Consistency:{" "}
-            <span className={overallParamScoreSpan}>84</span>
+            <span className={overallParamScoreSpan}>
+              {claimParameter.logicalConsistency}
+            </span>
           </p>
           <p className={overallParamContainer}>
             <BiSolidError className="text-[#fb923c]" /> Generalization Risk:{" "}
-            <span className={overallParamScoreSpan}>62</span>
+            <span className={overallParamScoreSpan}>
+              {claimParameter.generalizationRisk}
+            </span>
           </p>
           <p className={overallParamContainer}>
             <PiAlienFill className="text-[#f43f5e]" /> Confirmation Bias:{" "}
-            <span className={overallParamScoreSpan}>71</span>
+            <span className={overallParamScoreSpan}>
+              {claimParameter.confirmationBias}
+            </span>
           </p>
           <p className={overallParamContainer}>
             <RiStackFill className="text-[#a855f7]" /> Nuance & Context:{" "}
-            <span className={overallParamScoreSpan}>68</span>
+            <span className={overallParamScoreSpan}>
+              {claimParameter.nuanceAndContext}
+            </span>
           </p>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default OverallScore

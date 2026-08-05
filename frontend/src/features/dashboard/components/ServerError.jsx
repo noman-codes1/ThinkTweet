@@ -2,7 +2,7 @@ import React from "react";
 import { MdError } from "react-icons/md";
 import { FaDotCircle } from "react-icons/fa";
 
-const ServerError = () => {
+const ServerError = ({errorMessage}) => {
   return (
     <div>
       <div className="flex border p-4 gap-4 items-center mt-4 rounded-lg border-[#fda4af] bg-[#fff1f2] max-md:flex-col max-md:items-start">
@@ -16,8 +16,8 @@ const ServerError = () => {
             error below.
           </h5>
           <p className="text-sm text-[#e11d48] max-md:mt-4">
-            <span className="text-[#be123c] font-semibold">Error: </span>URL is
-            tampered
+            <span className="text-[#be123c] font-semibold">Error: </span>
+            {errorMessage}
           </p>
         </div>
       </div>

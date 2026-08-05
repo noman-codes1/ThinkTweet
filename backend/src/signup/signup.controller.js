@@ -3,9 +3,14 @@ import argon2 from "argon2";
 import crypto from "crypto";
 import { sendVerificationLink } from "./signup.sendMail.js";
 import { logDB, logFlow } from "../debug/debug.logs.js";
+import { env } from "../config/env.config.js";
 
 export async function signupController(req, res, next) {
   try {
+
+    // WORK TO DO
+    // 1. Correct the url here
+
     logFlow("Running signupController files");
     const signupData = req.body;
 
@@ -38,7 +43,7 @@ export async function signupController(req, res, next) {
 
     //sending a verificationlink to verify user
     logFlow("Creating a url for verification");
-    const url = `https://unconstructed-marisha-nonantagonistic.ngrok-free.dev/signAuth/verify?pubToken=${rawToken}&pubId=${publicId}`;
+    const url = `https://thinktweetserver.meetnoman.com/signAuth/verify?pubToken=${rawToken}&pubId=${publicId}`;
 
     //function for sending the mail
     await sendVerificationLink(url, signupData.useremail);

@@ -15,7 +15,49 @@ const strWeaNauHeader =
   "text-brand-primary flex items-center gap-2 mb-4 text-base";
 const strWeakNauIcon = "p-1.5 rounded-lg";
 
-const AnalyzedData = () => {
+const AnalyzedData = ({ data }) => {
+  //extracting the claim summary
+  const userClaim = data?.finalClaims || data?.claims;
+
+  //calculating the overall score
+  const overallScoreData =
+    ((data?.finalScores?.confirmationBias || data?.scores?.confirmation_bias) +
+      (data?.finalScores?.evidenceStrength || data?.scores?.evidence_strength) +
+      (data?.finalScores?.generalizationRisk ||
+        data?.scores?.generalization_risk) +
+      (data?.finalScores?.logicalConsistency ||
+        data?.scores?.logical_consistency) +
+      (data?.finalScores?.nuanceAndContext ||
+        data?.scores?.nuance_and_context)) /
+    5;
+
+  //extracting the all the parameter score
+  const paramterScore = {
+    confirmationBias:
+      data?.finalScores?.confirmationBias || data?.scores?.confirmation_bias,
+    evidenceStrength:
+      data?.finalScores?.evidenceStrength || data?.scores?.evidence_strength,
+    generalizationRisk:
+      data?.finalScores?.generalizationRisk ||
+      data?.scores?.generalization_risk,
+    logicalConsistency:
+      data?.finalScores?.logicalConsistency ||
+      data?.scores?.logical_consistency,
+    nuanceAndContext:
+      data?.finalScores?.nuanceAndContext || data?.scores?.nuance_and_context,
+  };
+
+  //extracting the strength of the claim
+  const strengthArray = data?.finalStrength || data?.strength;
+
+  //extracting the weakness of the claim
+  const weaknessArray = data?.finalWeakness || data?.weakness;
+
+  //extracting the naunces of the claim
+  const nuancesArray = data?.finalNuances || data?.nuances;
+
+  //extracting the summary claim
+  const claimSummary = data?.finalSummary || data?.summary;
   return (
     <div className="mt-6">
       {/* Claim Summary */}
@@ -28,17 +70,16 @@ const AnalyzedData = () => {
           />{" "}
           Claim Analyzed
         </h3>
-        <p className="italic font-base text-white">
-          "AI systems operating under regulated frameworks achieve significantly
-          higher accuracy in diagnostic tasks — and peer-reviewed Stanford
-          research across 12 independent studies conclusively supports this."
-        </p>
+        <p className="italic font-base text-white">"{userClaim}"</p>
       </div>
 
       {/* Over all score */}
-      <OverallScore />
+      <OverallScore
+        overallScoreVal={overallScoreData}
+        claimParameter={paramterScore}
+      />
 
-      {/* Explaining plus, minus and point to consider */}
+      {/* Explaining positive, negative and nuances to consider */}
       <div className="grid grid-cols-3 gap-4 mt-8 max-md:grid-cols-1">
         {/* Strength */}
         <div
@@ -54,8 +95,15 @@ const AnalyzedData = () => {
             />{" "}
             Strengths
           </h4>
-          <Pointers sIcon={true} />
-          <Pointers sIcon={true} />
+          {strengthArray.map((elem) => {
+            return (
+              <Pointers
+                key={strengthArray.indexOf(elem)}
+                sIcon={true}
+                dataOfPointers={elem}
+              />
+            );
+          })}
         </div>
 
         {/* Weakness */}
@@ -72,8 +120,15 @@ const AnalyzedData = () => {
             />
             Weakness
           </h4>
-          <Pointers wIcon={true} />
-          <Pointers wIcon={true} />
+          {weaknessArray.map((elem) => {
+            return (
+              <Pointers
+                key={weaknessArray.indexOf(elem)}
+                wIcon={true}
+                dataOfPointers={elem}
+              />
+            );
+          })}
         </div>
 
         {/* Nuance */}
@@ -90,14 +145,20 @@ const AnalyzedData = () => {
             />{" "}
             Naunces
           </h4>
-          <Pointers nIcon={true} />
-          <Pointers nIcon={true} />
-          <Pointers nIcon={true} />
+          {nuancesArray.map((elem) => {
+            return (
+              <Pointers
+                key={nuancesArray.indexOf(elem)}
+                nIcon={true}
+                dataOfPointers={elem}
+              />
+            );
+          })}
         </div>
       </div>
 
       {/* Summary of the claim */}
-      <SummaryClaim />
+      <SummaryClaim summary={claimSummary} />
     </div>
   );
 };

@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
   //writing the function to talk to the server and get the authentication
   const getAuthenticationCheck = async () => {
       const serverObject = await customFetch("authenticated");
-      console.log(serverObject)
 
       if (serverObject.statusCode === 401) {
         const refreshSeverObject = await customFetch("refresh")

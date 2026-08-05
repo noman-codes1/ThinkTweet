@@ -18,7 +18,6 @@ import Disclaimer from "./pages/Disclaimer";
 const App = () => {
   //getting the route name
   const routeName = useLocation();
-  console.log(routeName);
 
   //expected route
   const expectedRoute = [

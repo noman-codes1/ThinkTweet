@@ -3,7 +3,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IoCloseCircle } from "react-icons/io5";
 import { FaFeather } from "react-icons/fa";
 
-const Pointers = ({sIcon, wIcon, nIcon}) => {
+const Pointers = ({sIcon, wIcon, nIcon, dataOfPointers}) => {
   return (
     <div className="flex gap-2 mb-4">
       <div className="mt-1.5">
@@ -12,9 +12,7 @@ const Pointers = ({sIcon, wIcon, nIcon}) => {
         {nIcon && <FaFeather className="text-[#a855f7]" size={18}/>}
       </div>
       <p className="text-sm text-brand-secondary">
-        The claim grounds itself in 12 independent, peer-reviewed studies — a
-        statistically robust and hard-to-dismiss evidentiary base that elevates
-        its credibility significantly.
+        {dataOfPointers}
       </p>
     </div>
   );

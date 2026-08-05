@@ -9,6 +9,10 @@ import { MdOutlineRefresh } from "react-icons/md";
 import Loader from "./components/Loader";
 import ServerError from "./components/ServerError";
 import { IoCloseCircle } from "react-icons/io5";
+import { customFetch } from "../../utils/customFetch";
+import { sleep } from "../../utils/sleep";
+import { use } from "react";
+import { DashboardContext } from "../../utils/DashboardProvider";
 
 //static variable
 const infoBox =
@@ -24,6 +28,7 @@ const AnalyzeTweet = () => {
   const [inlineErr, setInlineErr] = useState("");
   const [serverState, setServerState] = useState("idle");
   const [showLoader, setShowLoader] = useState(false);
+  const [serverReply, setServerReply] = useState();
 
   //handling user inputted url
   const userInputUrlBox = (event) => {
@@ -51,38 +56,95 @@ const AnalyzeTweet = () => {
     setUserUrl(val);
   };
 
-  //helper function for set timeout since settimeout will return the
-  //id instantly and then it will be passed normally...
-  const sleep = (ms) => {
-    return new Promise((resolveNow) => {
-      setTimeout(resolveNow, ms); //resolveNow is just the parameter name... you can write anything
-    });
-  };
+  //getting the data from the context
+  const dashboardContextValue = use(DashboardContext);
 
   //talking to the server
   const talkServer = async () => {
-
-    // NOW NEED TO WORK ON THIS FILES
-    //mocking the server reply
+    //changing the state
     if (serverState === "success" || serverState === "error") {
       setServerState("idle");
       setIsReadyToSend(false);
       setUserUrl("");
+      setServerReply()
       return;
     } else {
-      //In a real world application, this part will be decided by server
+      //showing the loader
       setShowLoader(true);
-      await sleep(10000);
-      setServerState("success");
-      setShowLoader(false);
+
+      //defininig the body object to send to the server
+      const bodyObject = {
+        url: userUrl,
+      };
+
+      //contacting the server
+      const serverObject = await customFetch("analyze", bodyObject);
+
+      //pausing the code execution to make the loader feel real
+      await sleep(4000);
+
+      // #tip: Improve the code execution flow, and update the code
+      // with better structure and minimal repeatation
+
+      //checking the condition to work accordingly
+      if (serverObject.statusCode === 401) {
+        //contacting the server to get the refresh token
+        const refreshObject = await customFetch("refresh");
+
+        //checking the server response to work accordingly
+        if (refreshObject.success) {
+          //contacting the server again with fresh token
+          const analyzeObject = await customFetch("analyze", bodyObject);
+
+          //checking the server response again...
+          if (analyzeObject.success) {
+            //showing the result...
+            setServerState("success");
+            setServerReply(analyzeObject.message);
+
+            //updating the analytics tab
+            dashboardContextValue.setTotalAnalysis(
+              dashboardContextValue.totalAnalysis + 1,
+            );
+            dashboardContextValue.setCredits(
+              dashboardContextValue.credits - 18,
+            );
+          } else {
+            //showing the error state
+            setServerState("error");
+            setServerReply(analyzeObject.message);
+          }
+        } else {
+          //shwoing the error state
+          setServerState("error");
+          setServerReply(refreshObject.message);
+        }
+      } else if (serverObject.success) {
+        //showing the data which recieved from the server
+        setServerState("success");
+        setServerReply(serverObject.message);
+
+        //updating the analytics tab
+        dashboardContextValue.setTotalAnalysis(
+          dashboardContextValue.totalAnalysis + 1,
+        );
+        dashboardContextValue.setCredits(dashboardContextValue.credits - 18);
+      } else {
+        // showing the error
+        setServerState("error");
+        setServerReply(serverObject.message);
+      }
     }
+
+    //disabling the loader
+    setShowLoader(false);
   };
 
   return (
     <div className="w-auto col-span-2 max-lg:col-span-1">
       {/* Tweet Analysis Box */}
       <div className="border border-brand-fourth bg-white p-4 rounded-lg">
-        <div className="flex max-md:grid">
+        <div className="flex gap-2 max-md:grid">
           <div>
             <h2 className="text-brand-primary font-semibold text-lg mb-1">
               Analyze a Tweet
@@ -96,7 +158,7 @@ const AnalyzeTweet = () => {
           {serverState === "success" && (
             <p className={twMerge(infoBox, "bg-[#ecfdf5] text-[#047857]")}>
               <FaCheckCircle />
-              Analysis Complete
+              Analysis Done
             </p>
           )}
           {serverState === "error" && (
@@ -151,7 +213,7 @@ const AnalyzeTweet = () => {
           </button>
           {/* Inline Error */}
           {inlineErr && (
-            <p className="-mt-1.5 text-sm text-[#e11d48] max-md:row-start-2 max-md:mb-2">
+            <p className="-mt-1.5 w-2xl text-sm text-[#e11d48] max-md:row-start-2 max-md:mb-2">
               {inlineErr}
             </p>
           )}
@@ -162,10 +224,10 @@ const AnalyzeTweet = () => {
       {showLoader && <Loader />}
 
       {/* Showing error if any error occured in the server */}
-      {serverState === "error" && <ServerError />}
+      {serverState === "error" && <ServerError errorMessage={serverReply} />}
 
       {/* Show updated data */}
-      {serverState === "success" && <AnalyzedData />}
+      {serverState === "success" && <AnalyzedData data={serverReply} />}
     </div>
   );
 };
