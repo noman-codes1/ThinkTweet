@@ -9,7 +9,8 @@ import { twMerge } from "tailwind-merge";
 const media =
   "text-brand-secondary border p-2 bg-white rounded-lg border-brand-fourth hover:bg-[#eef2ff] hover:text-brand-tertionary hover:border-brand-tertionary";
 const catHeader = "uppercase text-brand-primary text-sm font-semibold mb-5";
-const links = "text-sm mb-3 text-brand-secondary hover:text-brand-tertionary hover:cursor-pointer";
+const links =
+  "text-sm mb-3 text-brand-secondary hover:text-brand-tertionary hover:cursor-pointer";
 
 const Footer = () => {
   return (
@@ -30,10 +31,13 @@ const Footer = () => {
             operating exclusively within the Gender Domain.
           </p>
           <div className="flex my-7 gap-3">
-            <a href="" target={"_blank"}>
+            <a
+              href="https://github.com/noman-codes1/ThinkTweet"
+              target={"_blank"}
+            >
               <FaGithub className={media} size={34} />
             </a>
-            <a href="" target={"_blank"}>
+            <a href="https://www.linkedin.com/" target={"_blank"}>
               <FaLinkedinIn className={media} size={34} />
             </a>
           </div>
@@ -52,7 +56,11 @@ const Footer = () => {
             <li className={links}>Privacy Policy</li>
             <li className={links}>Disclaimer</li>
             <li className="flex gap-2">
-              <a className={twMerge(links, "flex items-center gap-1 ")} href="">
+              <a
+                className={twMerge(links, "flex items-center gap-1 ")}
+                onClick={(e) => e.preventDefault()}
+                href=""
+              >
                 <MdMailOutline />
                 hi@meetnoman.com
               </a>

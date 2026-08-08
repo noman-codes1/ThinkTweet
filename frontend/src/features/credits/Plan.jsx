@@ -24,7 +24,7 @@ const Plan = ({ funcToTalkServer }) => {
     },
     {
       id: "6g564d8qs",
-      credits: 900,
+      credits: 630,
       isPremium: true,
     },
   ];

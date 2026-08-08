@@ -13,6 +13,9 @@ const packName = "flex items-center tracking-wide gap-2 text-xs uppercase mb-2";
 const creditsCSS = "text-5xl text-brand-primary";
 
 const PlanCard = ({id ,numOfCredits, isPrem, funcToTalkServer }) => {
+
+  // #tip: Change the rendering decision from 'credits' to 'plan' since
+  // credits can keep on changing
   return (
     <div
       className={twMerge(
@@ -38,7 +41,7 @@ const PlanCard = ({id ,numOfCredits, isPrem, funcToTalkServer }) => {
           Value Pack
         </p>
       )}
-      {numOfCredits === 900 && (
+      {numOfCredits === 630 && (
         <p className={twMerge(packName, "text-brand-secondary")}>
           <BsLightningChargeFill color="#f59e0b" />
           Power Pack
@@ -63,7 +66,7 @@ const PlanCard = ({id ,numOfCredits, isPrem, funcToTalkServer }) => {
           {numOfCredits === 90 ? (
             "90"
           ) : (
-            <span>{numOfCredits === 360 ? "360" : "900"}</span>
+            <span>{numOfCredits === 360 ? "360" : "630"}</span>
           )}
         </span>{" "}
         credits
@@ -71,9 +74,9 @@ const PlanCard = ({id ,numOfCredits, isPrem, funcToTalkServer }) => {
       <p className="text-base font-semibold text-[#94a3b8] mb-3">
         <span className="text-3xl text-brand-primary">
           {numOfCredits === 90 ? (
-            "$5"
+            "$100"
           ) : (
-            <span>{numOfCredits === 360 ? "$15" : "$35"}</span>
+            <span>{numOfCredits === 360 ? "$200" : "$300"}</span>
           )}
         </span>{" "}
         one-time
@@ -94,20 +97,15 @@ const PlanCard = ({id ,numOfCredits, isPrem, funcToTalkServer }) => {
           <IoMdCheckmark size={17} color="#10b981" />
           Instant delivery
         </li>
-        {isPrem && (
-          <li className={pointers}>
-            <IoMdCheckmark size={17} color="#10b981" />
-            Priority support
-          </li>
-        )}
-        {!isPrem && (
-          <li className={pointers}>
-            <IoMdCheckmark size={17} color="#10b981" />
-            Only mail support
-          </li>
-        )}
+        <li className={pointers}>
+          <IoMdCheckmark size={17} color="#10b981" />
+          {isPrem? "Priority Support" : "Only mail support"}
+        </li>
       </ul>
-      <button onClick={() => funcToTalkServer(id)} className="mt-8 flex items-center gap-2 w-full py-3 rounded-lg justify-center text-white duration-200 bg-brand-tertionary hover:cursor-pointer hover:bg-brand-tertionary hover:-translate-y-1">
+      <button
+        onClick={() => funcToTalkServer(id)}
+        className="mt-8 flex items-center gap-2 w-full py-3 rounded-lg justify-center text-white duration-200 bg-brand-tertionary hover:cursor-pointer hover:bg-brand-tertionary hover:-translate-y-1"
+      >
         <SiStripe />
         Pay via Stripe
       </button>

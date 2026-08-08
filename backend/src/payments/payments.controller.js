@@ -59,7 +59,7 @@ export const paymentController = async (req, res, next) => {
     //replying back to frontend
     logFlow("Closing the connection")
     res.status(200).json({
-      sucess: "true",
+      success: "true",
       message: {
         sessionUrl : url
       },

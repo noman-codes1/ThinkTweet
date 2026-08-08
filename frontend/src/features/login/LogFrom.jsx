@@ -86,7 +86,6 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedName }) => {
     formData.email.length > 5 &&
     formData.pass.length > 14
   ) {
-    console.log("hey i am inside if");
     isReady = true;
   }
 
@@ -100,7 +99,6 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedName }) => {
       setServerErr("");
       setFormData({ email: "", pass: "" });
     } else {
-      console.log("I am here");
       setFormState("authenticating");
 
       //defining a body object to send over the server
@@ -111,7 +109,6 @@ const LogFrom = ({ setIsUserVerfied, setUserVerifiedName }) => {
 
       //talking to the server
       const serverObject = await customFetch("logAuth/login", body);
-      console.log(serverObject)
 
       //making a fake feel of processing when already the server is so fast
       await sleep(3000);

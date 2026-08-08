@@ -42,7 +42,6 @@ export const webhookController = async (req, res, next) => {
       //storing the data in a variable
       logFlow("Extracting the useful data")
       const returnedData = event.data.object;
-      console.log(returnedData)
 
       //checking whether the data payment was recorded or not
       logFlow("Ideompotency check begins...")

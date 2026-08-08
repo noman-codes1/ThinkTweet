@@ -29,7 +29,7 @@ const History = () => {
           />
 
           {/* Dialog */}
-          <h4 className="text-base font-semibold mb-2">No analyses yet</h4>
+          <h4 className="text-base text-center font-semibold mb-4">No analyses yet <span className="block font-mono font-light text-sm uppercase text-brand-secondary">(Feature coming soon)</span></h4>
           <p className="text-[0.9rem] mx-30 text-center mb-6 max-lg:mx-45 max-sm:mx-20 max-phone:mx-3">
             Your recent analyses will appear here. Paste a link above to get
             started!

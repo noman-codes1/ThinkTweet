@@ -23,7 +23,6 @@ export const validationPayment = (req, res, next) => {
     }
     logValid("1st validation passed")
 
-
     //checking the type
     if (!(typeof bodyObject.plan === "string")) {
       logError("Data type of values of the object is manipulated.")

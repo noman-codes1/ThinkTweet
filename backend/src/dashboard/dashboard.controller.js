@@ -22,7 +22,8 @@ export const dashboardController = async (req, res, next) => {
       logFlow("Payment log exists which is not updated.")
       logDB("Pulling the records in array format from databse...")
       const paymentData = await paymentRecordsVar.find({
-        user_id: userId,
+        user_id: userId, 
+        has_updated: false
       });
 
       //calculating the number of credits bought (if confused, re-read about reduce func)
