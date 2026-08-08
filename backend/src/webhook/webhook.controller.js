@@ -4,61 +4,65 @@ import { NotFoundError } from "../errors/errors.custom.js";
 import { paymentRecordsVar } from "./webhook.schemaModel.js";
 import { calculateCredits } from "./webhook.calcCredits.js";
 import { UnauthorizedError } from "../errors/errors.custom.js";
+import { logFlow, logError, logDB } from "../debug/debug.logs.js"
 
+//creating a stripe object from the factory function
 const stripe = new Stripe(env.stripe);
 
 export const webhookController = async (req, res, next) => {
-  console.log("Inside webhookController() func")
   try {
+    logFlow("Running webhookController files....")
 
     //extracting the signature
-    console.log("Extracting the signature")
+    logFlow("Extracting the signature from the req.headers")
     const signature = req.headers["stripe-signature"];
 
     //checking whether the signature is present or not
-    console.log("Checking whehter the signature is present or not...")
+    logFlow("Does signature exists?")
     if (!signature){
+      logError("No, not")
       throw new UnauthorizedError("No signature found")
     }
+    logFlow("Yes, it does")
 
-    //matching the signature cryptorgraphically
-    console.log("Matching.....")
+    //matching the signature cryptorgraphically and getting the data
+    logFlow("Matching the signatue and getting the data from stripe server..")
     const event = stripe.webhooks.constructEvent(
       req.body,
       signature,
       env.webhook,
     );
-    console.log("Singature Matched")
+    logFlow("Done")
 
     //extracting the data based on conditons
-    console.log("Checking the condtions...")
+    logFlow("Checking whether selected event type is presnt or not and working accordingly..")
     if (event.type === "checkout.session.completed") {
-      console.log("Inside if block")
+      logFlow("Yes, present")
 
       //storing the data in a variable
-      console.log("Extracting a data...")
+      logFlow("Extracting the useful data")
       const returnedData = event.data.object;
       console.log(returnedData)
 
       //checking whether the data payment was recorded or not
-      console.log("Checking the database to avoid ideompotency.")
+      logFlow("Ideompotency check begins...")
       if(await paymentRecordsVar.exists({sess_id: returnedData.id})){
-        console.log("Payment records already exists")
+        logFlow("Payment already recorded ThinkTweet server")
 
         //replying back to the server
-        console.log("Connection closed...")
+        logFlow("Closing the connection")
         return res.status(200).json({
             recieved: true
         })
       }
-      console.log("Payment records not found.")
+      logFlow("Ideompotency not recorded")
 
       //calculating the credits
-      console.log("Calc the credits...")
+      logFlow("Calculating the credits...")
       const credits = calculateCredits(returnedData.metadata.plan);
 
       //saving the records in the database
-      console.log("Saving the records in a database...")
+      logFlow("Creating a payment record in the database")
       await paymentRecordsVar.create({
         user_id: returnedData.metadata.userId,
         sess_id: returnedData.id,
@@ -67,14 +71,14 @@ export const webhookController = async (req, res, next) => {
         payment_amount: returnedData.amount_total,
         plan_bought: returnedData.metadata.plan
       });
-      console.log("Database Saved")
+      logFlow("Database created")
     } else {
-      console.log("Needful event not found. Throwing a error to record...")
+      logFlow("Selected event not found")
       throw new NotFoundError("Selected event type not present");
     }
 
     //sending a acknowledgement to the server
-    console.log("Closing the connection.")
+    logFlow("Closing the connnection")
     res.status(200).json({
       recieved: true,
     });

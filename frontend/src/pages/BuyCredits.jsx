@@ -13,6 +13,7 @@ import { twMerge } from "tailwind-merge";
 import CustomError from "../components/CustomError";
 import { use } from "react";
 import { AuthContext } from "../utils/AuthProvider";
+import { sleep } from "../utils/sleep"
 
 //static variable
 const retrySupportButton =
@@ -22,13 +23,6 @@ const BuyCredits = () => {
   //using state to show the loader
   const [showLoader, setShowLoader] = useState(false);
   const [err, setErr] = useState("");
-
-  //helper function to show the loader for few seconds
-  const sleep = (ms) => {
-    return new Promise((resolve) => {
-      setTimeout(resolve, ms);
-    });
-  };
 
   //function to talk to the server
   const talkServerForStripe = async (planId) => {

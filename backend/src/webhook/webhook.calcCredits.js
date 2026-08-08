@@ -1,7 +1,10 @@
+import { logFlow } from "../debug/debug.logs.js"
+
 export const calculateCredits = (plan) =>{
-    console.log("Inside calculateCredits() func")
+    logFlow("Running calculateCredits files..")
 
     //calculating the credits
+    logFlow("Calculation begins..")
     let credits
     if (plan === "premium"){
         credits = 100
@@ -12,8 +15,9 @@ export const calculateCredits = (plan) =>{
     else if(plan === "pro-max"){
         credits = 400
     }
+    logFlow("Caculation done")
     
     //returing the function
-    console.log(`Credits: ${credits}`)
+    logFlow("Returning the func.")
     return credits
 }

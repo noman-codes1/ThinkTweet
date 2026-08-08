@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { env } from "./env.config.js";
-import { logDB } from "../debug/debug.logs.js";
+import { logDB, logError } from "../debug/debug.logs.js";
 
 export const connectDB = async () =>{
     try {
@@ -13,7 +13,7 @@ export const connectDB = async () =>{
     } catch (error) {
 
         //logging the error and closing the application
-        logDB(`Error Occured : ${error}`)
+        logError(`Error Occured : ${error}`)
         process.exit(1)
     }
 }
