@@ -14,6 +14,9 @@ import { useLocation } from "react-router-dom";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Disclaimer from "./pages/Disclaimer";
+import Logout from "./features/logout/Logout";
+import { use } from "react";
+import { AuthContext } from "./utils/AuthProvider";
 
 const App = () => {
   //getting the route name
@@ -31,6 +34,10 @@ const App = () => {
     "/signup",
     "/login",
   ];
+
+  //get the value from the auth context
+  const auth = use(AuthContext);
+
   return (
     <>
       {/* #tip: Use better structure to scale it well */}
@@ -51,6 +58,7 @@ const App = () => {
             <Route path="/about" element={<About />} />
           </Routes>
           <Footer />
+          {auth.showLogoutPopup && <Logout />}
         </div>
       ) : (
         <div className="text-4xl p-2">404 Page Not Found</div>

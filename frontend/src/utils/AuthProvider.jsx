@@ -11,30 +11,30 @@ export const AuthContext = createContext(false);
 export const AuthProvider = ({ children }) => {
   //setting the state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userName, setUserName] = useState("")
+  const [userName, setUserName] = useState("");
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
   //writing the function to talk to the server and get the authentication
   const getAuthenticationCheck = async () => {
-      const serverObject = await customFetch("authenticated");
+    const serverObject = await customFetch("authenticated");
 
-      if (serverObject.statusCode === 401) {
-        const refreshSeverObject = await customFetch("refresh")
+    if (serverObject.statusCode === 401) {
+      const refreshSeverObject = await customFetch("refresh");
 
-        if (refreshSeverObject.success){
+      if (refreshSeverObject.success) {
+        //talking back to the server for getting name
+        const talkToServerToGetName = await customFetch("authenticated");
 
-          //talking back to the server for getting name
-          const talkToServerToGetName = await customFetch("authenticated")
-
-          if (talkToServerToGetName.success) {
-            setUserName(talkToServerToGetName.message.name)
-            setIsAuthenticated(true)
-          }
+        if (talkToServerToGetName.success) {
+          setUserName(talkToServerToGetName.message.name);
+          setIsAuthenticated(true);
         }
-      } else if (serverObject.success) {
-        setIsAuthenticated(true)
-        setUserName(serverObject.message.name)
       }
-  }
+    } else if (serverObject.success) {
+      setIsAuthenticated(true);
+      setUserName(serverObject.message.name);
+    }
+  };
 
   //talking to the server
   useEffect(() => {
@@ -43,7 +43,16 @@ export const AuthProvider = ({ children }) => {
 
   return (
     //returning the context
-    <AuthContext value={{ isAuthenticated, setIsAuthenticated, userName, setUserName }}>
+    <AuthContext
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        userName,
+        setUserName,
+        showLogoutPopup,
+        setShowLogoutPopup,
+      }}
+    >
       {children}
     </AuthContext>
   );

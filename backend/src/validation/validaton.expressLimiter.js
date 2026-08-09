@@ -74,3 +74,11 @@ export const authneticatedLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false
 })
+
+export const logoutLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  limit: 5,
+  message: "Too many request. Try later.",
+  standardHeaders: true,
+  legacyHeaders: false
+})

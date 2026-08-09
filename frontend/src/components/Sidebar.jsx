@@ -38,7 +38,11 @@ const Sidebar = () => {
               size={18}
             />
             <Links isLoggedIn={auth.isAuthenticated} />
-            <LogSignPersonal isLoggedIn={auth.isAuthenticated} name={auth.userName}/>
+            <LogSignPersonal
+              isLoggedIn={auth.isAuthenticated}
+              name={auth.userName}
+              setLogout={auth.setShowLogoutPopup}
+            />
           </div>
         </div>
       )}

@@ -15,6 +15,7 @@ import webhookRouter from "./src/webhook/webhook.route.js";
 import { logFlow } from "./src/debug/debug.logs.js";
 import authneticatedRouter from "./src/authenticated/authenticated.route.js";
 import dashboardRouter from "./src/dashboard/dashboard.router.js";
+import logoutRouter from "./src/logout/logout.route.js";
 
 //return a js object {.....}
 const app = express();
@@ -63,6 +64,7 @@ app.use("/refresh", refreshRouter);
 app.use("/payment", paymentRouter);
 app.use("/authenticated", authneticatedRouter);
 app.use("/dashboard", dashboardRouter)
+app.use("/logout", logoutRouter)
 
 //all global errors will come back to here
 app.use(globalError);
