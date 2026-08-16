@@ -12,7 +12,7 @@ const Links = ({ isLoggedIn }) => {
     { id: 1, path: "/", pageName: "Home" },
     { id: 2, path: "/dashboard", pageName: "Dashboard" },
     { id: 3, path: "/payment", pageName: "Top-Up" },
-    { id: 4, path: "/documentation", pageName: "Documentation" },
+    { id: 4, path: "/pipeline", pageName: "Pipeline" },
     { id: 5, path: "/disclaimer", pageName: "Disclaimer" },
     { id: 6, path: "/privacy", pageName: "Privacy" },
     { id: 7, path: "/about", pageName: "About" },

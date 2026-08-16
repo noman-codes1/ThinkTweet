@@ -5,7 +5,7 @@ const Card = ({ index, iconBox, titleColor, title, descr }) => {
   return (
     <div
       className={twMerge(
-        "border-2 w-auto rounded-xl bg-white border-[#e2e8f0] p-6 hover:-translate-y-1.5 duration-500 hover:cursor-pointer hover:border-brand-tertionary max-md:col-span-1", index === 5 && "col-span-2" 
+        "border-2 w-auto rounded-xl bg-white border-brand-fourth p-6 hover:-translate-y-1.5 duration-500 hover:cursor-pointer hover:border-brand-tertionary max-md:col-span-1", index === 5 && "col-span-2" 
       )}
     >
       <div className="flex gap-x-4">

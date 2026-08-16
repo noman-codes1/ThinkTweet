@@ -27,7 +27,7 @@ const App = () => {
     "/",
     "/dashboard",
     "/payment",
-    "/documentation",
+    "/pipeline",
     "/disclaimer",
     "/privacy",
     "/about",
@@ -51,7 +51,7 @@ const App = () => {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/payment" element={<BuyCredits />} />
-            <Route path="/documentation" element={<ComingSoon />} />
+            <Route path="/pipeline" element={<ComingSoon />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/privacy" element={<Privacy />} />

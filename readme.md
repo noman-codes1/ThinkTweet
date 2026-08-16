@@ -8,7 +8,7 @@ The goal is to encourage better discussion by identifying weak reasoning, pseudo
 
 > **Currently, this project is limited to feminism-related topics. Period.**
 
-<a href="https://thinktweet.meetnoman.com/" target="_blank">Visit ThinkTweet Website</a>
+<a href="https://thinktweet.meetnoman.com/" target="_blank">Visit Live ThinkTweet Website</a>
 
 <br>
 
@@ -62,7 +62,20 @@ ThinkTweet/
 
 # Screenshots
 
-<!-- Upload screenshots here later -->
+<table>
+  <tr>
+    <td><img src="./docs/images/home-page.png" width="400" height="auto"></td>
+    <td><img src="./docs/images/dashboard-page.png" width="400"></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/images/login-page.png" width="400"></td>
+    <td><img src="./docs/images/top-up-page.png" width="400"></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/images/analyzed-section.png" width="400"></td>
+    <td><img src="./docs/images/strength-weakness-nuance-section.png" width="400"></td>
+  </tr>
+</table>
 
 <br>
 
@@ -424,3 +437,106 @@ So, for now, the payment system is mainly there to demonstrate and test the comp
 * Incoming requests are thoroughly validated and authenticated before further processing.
 * Prices and credits are calculated on the server rather than trusted from the client.
 * Checkout sessions are used instead of a simple payment page because they provide better tracking of the payment flow and help prevent issues when allocating credits.
+
+
+<br>
+
+# Tech Stack
+
+### Frontend
+
+* React.js
+* JavaScript
+* HTML
+* Tailwind CSS
+* CSS
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB
+* MongoDB Atlas
+
+### Authentication, Verification & Security
+
+* JWT
+* Argon2
+* Have I Been Pwned (HIBP) API
+* Crypto
+* Resend
+
+### Payment Partner
+
+* Stripe
+
+### External APIs & AI
+
+* X API
+* Gemini API
+* Opena AI API
+* Qwen API
+
+### Development & Deployment
+
+* Git
+* GitHub
+* VS Code
+* Vercel
+* Railway
+
+
+<br>
+
+# Limitations / Known Issues
+
+ThinkTweet is still an early version of the project, so there are several limitations that I am aware of.
+
+1. The system currently does not use RAG-based analysis to provide a more evidence-based perspective.
+
+2. The caching layer does not use a dedicated caching technology such as Redis. Instead, the system currently relies on MongoDB.
+
+3. If a user forgets their password, there is currently no password reset feature.
+
+4. The system does not use an active method to immediately flag a session if a refresh token is stolen. Instead, it relies on the passive architecture described in the authentication section to detect a compromised session.
+
+5. Users currently cannot view their analysis history or detailed information about previous analyses.
+
+6. Detailed documentation of the project is still missing.
+
+7. Some React components do not yet follow a fully modular structure.
+
+8. Two-factor authentication is not currently implemented.
+
+9. Users cannot select which LLM model they want to use for analyzing their claim.
+
+10. The codebase is currently written in JavaScript instead of a stricter language such as TypeScript.
+
+<br>
+
+> These limitations are part of the next phase of the project. The first phase of ThinkTweet finishes here.
+
+<br>
+
+# Upcoming Phase
+
+In the next phase, I plan to work on several of the limitations mentioned above.
+
+The plan is to gradually move the codebase from JavaScript to TypeScript, migrate React.js to Next.js, and move from MongoDB to PostgreSQL.
+
+I also plan to introduce a dedicated caching layer using Redis and work on the other missing features and improvements mentioned above.
+
+I don't want to rush all of these changes into the first version. Since this is a personal project, I prefer to improve the system gradually and understand the problems before adding another layer of complexity.
+
+<br>
+
+# How to Contact Me?
+
+For any questions, queries, or hiring opportunities, you can contact me at:
+
+**[noman.work@proton.me](mailto:noman.work@proton.me)**
+
+> **Thanks for reaching this far.**

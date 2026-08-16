@@ -62,7 +62,7 @@ const Footer = () => {
                 href=""
               >
                 <MdMailOutline />
-                hi@meetnoman.com
+                noman.work@proton.me
               </a>
               {/* We will do this functionality later. It's not that hard but I am running out of time rn. */}
               {/* <FaCopy  className="text-sm text-brand-secondary mt-0.5 hover:text-brand-tertionary hover:cursor-pointer" /> */}
