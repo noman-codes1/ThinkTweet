@@ -3,6 +3,10 @@ import Timeline from '../features/soon/Timeline'
 import WhatsPlanned from '../features/soon/WhatsPlanned';
 
 const ComingSoon = () => {
+
+  //giving the title of the page
+  document.title = "Coming Soon - ThinkTweet"
+  
   return (
     <div className="bg-[#f4f7fe]">
       <Timeline />

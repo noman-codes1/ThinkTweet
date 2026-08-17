@@ -43,7 +43,7 @@ export async function signupController(req, res, next) {
 
     //sending a verificationlink to verify user
     logFlow("Creating a url for verification");
-    const url = `https://thinktweetserver.meetnoman.com/signAuth/verify?pubToken=${rawToken}&pubId=${publicId}`;
+    const url = `${env.backendurl}/signAuth/verify?pubToken=${rawToken}&pubId=${publicId}`;
 
     //function for sending the mail
     await sendVerificationLink(url, signupData.useremail);

@@ -9,6 +9,10 @@ import CustomError from "../components/CustomError";
 import { DashboardProvider } from "../utils/DashboardProvider";
 
 const Dashboard = () => {
+
+  //giving the title of the page
+  document.title = "Dashboard - ThinkTweet"
+  
   //getting the AuthContext data
   const auth = use(AuthContext);
 

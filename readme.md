@@ -1,12 +1,14 @@
 <!-- # ThinkTweet - An AI Argumentator/Analyzer -->
 
+Last updated on 17/08/26
+
 # What is ThinkTweet?
 
 ThinkTweet is a project designed to analyze claims made on X and estimate how reliable those claims are.
 
 The goal is to encourage better discussion by identifying weak reasoning, pseudoscience, misogyny, hatred toward minority groups, and unsupported claims, while also encouraging people to question authority and examine the evidence behind an argument.
 
-> **Currently, this project is limited to feminism-related topics. Period.**
+> **Currently, this project is limited to <i>feminism-related</i> topics. Period.**
 
 <a href="https://thinktweet.meetnoman.com/" target="_blank">Visit Live ThinkTweet Website</a>
 
@@ -64,16 +66,16 @@ ThinkTweet/
 
 <table>
   <tr>
-    <td><img src="./docs/images/home-page.png" width="400" height="auto"></td>
-    <td><img src="./docs/images/dashboard-page.png" width="400"></td>
+    <td><img src="./docs/images/home-page.png" alt="home-page" width="400" height="auto"></td>
+    <td><img src="./docs/images/dashboard-page.png" alt="dashboard-page" width="400"></td>
   </tr>
   <tr>
-    <td><img src="./docs/images/login-page.png" width="400"></td>
-    <td><img src="./docs/images/top-up-page.png" width="400"></td>
+    <td><img src="./docs/images/login-page.png" alt="login-page" width="400"></td>
+    <td><img src="./docs/images/top-up-page.png" alt="top-up-page" width="400"></td>
   </tr>
   <tr>
-    <td><img src="./docs/images/analyzed-section.png" width="400"></td>
-    <td><img src="./docs/images/strength-weakness-nuance-section.png" width="400"></td>
+    <td><img src="./docs/images/analyzed-section.png" alt="analyzed-image" width="400"></td>
+    <td><img src="./docs/images/strength-weakness-nuance-section.png" alt="detail-of-analysis-img" width="400"></td>
   </tr>
 </table>
 
@@ -91,7 +93,7 @@ This section goes deeper into how the analysis feature was built, the thinking b
 
 ### <u>Architectural / System-flow Diagram</u>
 
-![Analysis\_Archi](./docs/diagrams/analysis-architecture.png)
+![Analysis_Archi](./docs/diagrams/analysis-architecture.png)
 
 <br>
 <br>
@@ -171,9 +173,9 @@ The plan is to slowly expand into other topics. Since this is a personal project
 
 ### <u>Security Measures & Other Practices</u>
 
-* Requests are limited to 5 per 15 minutes to reduce spam and unnecessary server usage.
-* The request goes through 5 dedicated validation layers to reject unexpected requests and reduce the risk of malicious input.
-* An authentication layer protects sensitive routes from unauthenticated requests.
+- Requests are limited to 5 per 15 minutes to reduce spam and unnecessary server usage.
+- The request goes through 5 dedicated validation layers to reject unexpected requests and reduce the risk of malicious input.
+- An authentication layer protects sensitive routes from unauthenticated requests.
 
 <br>
 
@@ -183,7 +185,7 @@ This section explains how the login pipeline is built, how it is secured, and th
 
 ### <u>Architectural / System-flow Diagram</u>
 
-![Login\_Archi](./docs/diagrams/login-architecture.png)
+![Login_Archi](./docs/diagrams/login-architecture.png)
 
 <br>
 <br>
@@ -249,10 +251,10 @@ This means the original refresh token is not stored directly in the database. Ev
 
 ### <u>Security Measures & Other Practices</u>
 
-* Refresh tokens are hashed using Argon2 before being stored.
-* Sessions are automatically removed after the 7-day refresh-token lifetime.
-* Tokens are stored in HTTP-only cookies to reduce the risk of client-side JavaScript accessing them.
-* Multiple validation checks are performed before sensitive operations are processed.
+- Refresh tokens are hashed using Argon2 before being stored.
+- Sessions are automatically removed after the 7-day refresh-token lifetime.
+- Tokens are stored in HTTP-only cookies to reduce the risk of client-side JavaScript accessing them.
+- Multiple validation checks are performed before sensitive operations are processed.
 
 <br>
 
@@ -262,7 +264,7 @@ This section explains how the signup, verification, and account creation pipelin
 
 ### <u>Architectural / System-flow Diagram</u>
 
-![Signup\_Archi](./docs/diagrams/signup-architecture.png)
+![Signup_Archi](./docs/diagrams/signup-architecture.png)
 
 <br>
 <br>
@@ -309,11 +311,11 @@ In addition, ThinkTweet requires a minimum password length of 14 characters, whi
 
 ### <u>Security Measures & Other Practices</u>
 
-* Multiple accounts cannot be created using the same email address.
-* A minimum password length of 14 characters is required.
-* Passwords are checked against known breaches.
-* Email verification is required before registering the account.
-* Passwords are hashed using Argon2.
+- Multiple accounts cannot be created using the same email address.
+- A minimum password length of 14 characters is required.
+- Passwords are checked against known breaches.
+- Email verification is required before registering the account.
+- Passwords are hashed using Argon2.
 
 <br>
 
@@ -321,7 +323,7 @@ In addition, ThinkTweet requires a minimum password length of 14 characters, whi
 
 ### <u>Architectural / System-flow Diagram</u>
 
-![Authentication\_Archi](./docs/diagrams/authentication-architecture.png)
+![Authentication_Archi](./docs/diagrams/authentication-architecture.png)
 
 <br>
 <br>
@@ -343,9 +345,9 @@ If you have another question about the authentication system, you can contact me
 
 ### <u>Security Measures & Other Practices</u>
 
-* Tokens are cross-checked with the database to help detect compromised sessions.
-* Refresh tokens are hashed before being stored in the database.
-* Multiple checks are performed throughout the authentication flow, and requests can be rejected if they do not match the expected standards.
+- Tokens are cross-checked with the database to help detect compromised sessions.
+- Refresh tokens are hashed before being stored in the database.
+- Multiple checks are performed throughout the authentication flow, and requests can be rejected if they do not match the expected standards.
 
 <br>
 
@@ -353,7 +355,7 @@ If you have another question about the authentication system, you can contact me
 
 ### <u>Architectural / System-flow Diagram</u>
 
-![Payment\_Archi](./docs/diagrams/payment-architecture.png)
+![Payment_Archi](./docs/diagrams/payment-architecture.png)
 
 <br>
 <br>
@@ -434,10 +436,9 @@ So, for now, the payment system is mainly there to demonstrate and test the comp
 
 ### <u>Security Measures & Other Practices</u>
 
-* Incoming requests are thoroughly validated and authenticated before further processing.
-* Prices and credits are calculated on the server rather than trusted from the client.
-* Checkout sessions are used instead of a simple payment page because they provide better tracking of the payment flow and help prevent issues when allocating credits.
-
+- Incoming requests are thoroughly validated and authenticated before further processing.
+- Prices and credits are calculated on the server rather than trusted from the client.
+- Checkout sessions are used instead of a simple payment page because they provide better tracking of the payment flow and help prevent issues when allocating credits.
 
 <br>
 
@@ -445,49 +446,49 @@ So, for now, the payment system is mainly there to demonstrate and test the comp
 
 ### Frontend
 
-* React.js
-* JavaScript
-* HTML
-* Tailwind CSS
-* CSS
+- React.js
+- JavaScript
+- HTML
+- Tailwind CSS
+- CSS
 
 ### Backend
 
-* Node.js
-* Express.js
+- Node.js
+- Express.js
 
 ### Database
 
-* MongoDB
-* MongoDB Atlas
+- MongoDB
+- Mongoose
+- MongoDB Atlas
 
 ### Authentication, Verification & Security
 
-* JWT
-* Argon2
-* Have I Been Pwned (HIBP) API
-* Crypto
-* Resend
+- JWT
+- Argon2
+- Have I Been Pwned (HIBP) API
+- Crypto
+- Resend
 
 ### Payment Partner
 
-* Stripe
+- Stripe
 
 ### External APIs & AI
 
-* X API
-* Gemini API
-* Opena AI API
-* Qwen API
+- X API
+- Gemini API
+- Opena AI API
+- Qwen API
 
 ### Development & Deployment
 
-* Git
-* GitHub
-* VS Code
-* Vercel
-* Railway
-
+- Git
+- GitHub
+- VS Code
+- Vercel
+- Railway
 
 <br>
 

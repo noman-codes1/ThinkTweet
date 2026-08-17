@@ -10,7 +10,7 @@ export const signupSchema = z.object({
     .refine((val) => {
       if (val === "") return true
       return isAlphanumeric(val)
-      console.log(!!isAlphanumeric(val))
+      // console.log(!!isAlphanumeric(val))
     }, {message: "Special Characters not allowed"})
     .min(3, {message: "Must be greater than 3 character"})
     .max(15, {message: "Must be less than 15 character"})

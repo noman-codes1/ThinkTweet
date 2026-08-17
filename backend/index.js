@@ -39,7 +39,7 @@ app.use("/webhook", webhookRouter);
 //use is the name of the function
 app.use(express.json({ limit: "10kb" })); //limit it to 10kb to avoid large payload
 
-//blocking the code to run if not my origin
+//blocking the "code to run" if not my origin
 app.use(checkOrgin);
 
 //using cookie parser

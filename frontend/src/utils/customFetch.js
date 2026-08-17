@@ -2,7 +2,7 @@ export const customFetch = async (routeName, bodyObject) =>{
     try {
       //talking to the server
       const response = await fetch(
-        `http://localhost:3000/${routeName}`,
+        `https://thinktweetserver.meetnoman.com/${routeName}`,
         {
           method: "POST",
           headers: {

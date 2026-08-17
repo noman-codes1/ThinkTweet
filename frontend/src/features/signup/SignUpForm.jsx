@@ -211,7 +211,7 @@ const SignUpForm = ({ setHasSentMailFunc }) => {
 
       //talking to the server
       const serverObject = await customFetch("signAuth/signup", body)
-      console.log(serverObject)
+      // console.log(serverObject)
 
       //showing the loader for few seconds more
       await sleep(3000);

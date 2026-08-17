@@ -14,6 +14,9 @@ const SignUp = () => {
   // 1. Write the error state in a non-technical way
   // 2. Improve the ux of 'try again' button
 
+  //giving the title of the page
+  document.title = "Sign Up - ThinkTweet"
+
   //state to render the component dynamically
   const [hasSentMail, setHasSentMail] = useState(false);
 

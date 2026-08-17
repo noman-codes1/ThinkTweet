@@ -11,6 +11,10 @@ import CustomError from "../components/CustomError";
 //Note : In iPadPro it doesn't work well
 
 const LogIn = () => {
+
+  //giving the title of the page
+  document.title = "Log In - ThinkTweet"
+  
   //using state to render component according to the condtion
   const [isVerified, setIsVerified] = useState(false);
   const [recievedName, setRecievedName] = useState("");
