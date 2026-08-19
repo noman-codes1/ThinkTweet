@@ -7,7 +7,7 @@ export const checkOrgin = (req, res, next) => {
     logFlow(`Url in .env is: ${env.frontendurl}`);
     logFlow(`Request coming from ${req.headers.origin}`);
 
-    if (!(req.headers.origin === env.frontendurl)) {
+    if (!(req.headers.origin === env.frontendurl || req.headers.origin === env.backendurl)) {
       throw new ForbiddenError("Request recieved from invalid url");
     }
 
