@@ -10,7 +10,7 @@ export const checkOrgin = (req, res, next) => {
     //finding whether it's a direct server visit or not
     // #tip: learn more about this combination
     const isDirectServerVisit =
-      req.headers["sec-fetch-site"] === "none" &&
+      req.headers["sec-fetch-dest"] === "document" &&
       req.headers["sec-fetch-mode"] === "navigate" &&
       req.headers.origin === undefined;
 
