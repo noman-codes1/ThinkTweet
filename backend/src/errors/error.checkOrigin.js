@@ -7,7 +7,15 @@ export const checkOrgin = (req, res, next) => {
     logFlow(`Url in .env is: ${env.frontendurl}`);
     logFlow(`Request coming from ${req.headers.origin}`);
 
-    if (!(req.headers.origin === env.frontendurl || req.headers.origin === env.backendurl)) {
+    //finding whether it's a direct server visit or not
+    // #tip: learn more about this combination
+    const isDirectServerVisit =
+      req.headers["sec-fetch-site"] === "none" &&
+      req.headers["sec-fetch-mode"] === "navigate" &&
+      req.headers.origin === undefined;
+
+    //checking whether request is arising from the expected situation
+    if (!(req.headers.origin === env.frontendurl || isDirectServerVisit)) {
       throw new ForbiddenError("Request recieved from invalid url");
     }
 
