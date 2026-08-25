@@ -3,7 +3,7 @@ import GettingStartedBtn from "./components/GettingStartedBtn";
 import { GiAcid } from "react-icons/gi";
 import { FaInfoCircle } from "react-icons/fa";
 import { FaArrowDownLong } from "react-icons/fa6";
-import YoutubeVid from "./components/YoutubeVid";
+import VideoHowItWorks from "./components/VideoHowItWorks";
 import Placeholder from "./components/Placeholder";
 import { useRef } from "react";
 
@@ -59,7 +59,7 @@ const Hero = () => {
 
       {/* Coming soon or Youtube video to be shown */}
       <div ref={targetContainer}>
-        {true ? <Placeholder /> : <YoutubeVid id="eFDZOoVB2Ek" />}
+        {false ? <Placeholder /> : <VideoHowItWorks />}
       </div>
     </div>
   );
