@@ -30,7 +30,7 @@ const App = () => {
     "/pipeline",
     "/disclaimer",
     "/privacy",
-    "/about",
+    // "/about",
     "/signup",
     "/login",
   ];
@@ -55,7 +55,7 @@ const App = () => {
             <Route path="/login" element={<LogIn />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/privacy" element={<Privacy />} />
-            <Route path="/about" element={<About />} />
+            {/* <Route path="/about" element={<About />} /> */}
           </Routes>
           <Footer />
           {auth.showLogoutPopup && <Logout />}

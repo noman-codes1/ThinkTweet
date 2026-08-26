@@ -37,7 +37,7 @@ const Methodology = () => {
           );
         })}
       </div>
-      <p className="mt-10 text-center text-[0.95rem] mb-4 text-brand-secondary max-phone:mx-5">
+      <p className="mt-10 text-center text-lg mb-4 text-brand-secondary max-phone:mx-5">
         Ready to see all five parameters applied to real tweets?
       </p>
 

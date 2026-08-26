@@ -15,7 +15,7 @@ const Links = ({ isLoggedIn }) => {
     { id: 4, path: "/pipeline", pageName: "Pipeline" },
     { id: 5, path: "/disclaimer", pageName: "Disclaimer" },
     { id: 6, path: "/privacy", pageName: "Privacy" },
-    { id: 7, path: "/about", pageName: "About" },
+    // { id: 7, path: "/about", pageName: "About" },
   ];
 
   //finding the current route of the rendered element
