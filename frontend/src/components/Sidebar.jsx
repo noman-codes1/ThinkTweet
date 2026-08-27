@@ -39,7 +39,7 @@ const Sidebar = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="h-max bg-white py-10 w-80 ml-auto rounded-bl-4xl border border-brand-fourth shadow-2xl max-phone:w-full max-phone:rounded-br-4xl"
+            className="h-max animate-slideIn bg-white py-10 w-80 ml-auto rounded-bl-4xl border border-brand-fourth shadow-2xl max-phone:w-full max-phone:rounded-br-4xl"
           >
             <ImCross
               onClick={() => setOpen(false)}

@@ -18,3 +18,20 @@
 
 /* Defining custom breakpoint */
 @custom-variant max-phone (@media (width <= 468px));
+
+/* Defining custom animation */
+@theme {
+  --animate-slideIn: slideIn 0.3s ease-in;
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(-100%)
+    }
+    /* 50% {
+      transform: translateY(-50%)
+    } */
+    100% {
+      transform: translateY(0)
+    }
+  }
+}
