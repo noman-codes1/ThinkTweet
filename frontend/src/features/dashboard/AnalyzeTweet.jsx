@@ -226,7 +226,7 @@ const AnalyzeTweet = () => {
       {/* Showing error if any error occured in the server */}
       {serverState === "error" && <ServerError errorMessage={serverReply} />}
 
-      {/* Show updated data */}
+      {/* Show analysis data */}
       {serverState === "success" && <AnalyzedData data={serverReply} />}
     </div>
   );

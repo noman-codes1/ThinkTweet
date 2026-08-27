@@ -3,10 +3,11 @@ import CompanyLogoName from "./CompanyLogoName";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Links from "./Links";
 import { ImCross } from "react-icons/im";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LogSignPersonal from "./LogSignPersonal";
 import { use } from "react";
 import { AuthContext } from "../utils/AuthProvider";
+import { useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   //using state
@@ -14,6 +15,14 @@ const Sidebar = () => {
 
   //getting the auth context value
   const auth = use(AuthContext)
+
+  //getting the current location
+  const currentLocation = useLocation()
+
+  //detecting whether the location changed or not & closing the sidebar
+  useEffect(() => {
+    setOpen(false)
+  }, [currentLocation])  
 
   return (
     <div className="lg:hidden p-4 flex items-center sticky top-0 bg-white/70 z-50 backdrop-blur-xs border-b-brand-fourth border-b">

@@ -20,11 +20,14 @@ const AnalyzedData = ({ data }) => {
   const userClaim = data?.finalClaims || data?.claims;
 
   //calculating the overall score
+  // #tip: use "??" for better way because 0 is a falsy value and then bug will appear
+  // although appearance 0 is here quite impossible.
   const overallScoreData =
-    ((data?.finalScores?.confirmationBias || data?.scores?.confirmation_bias) +
+    ((100 - data?.finalScores?.confirmationBias ||
+      100 - data?.scores?.confirmation_bias) +
       (data?.finalScores?.evidenceStrength || data?.scores?.evidence_strength) +
-      (data?.finalScores?.generalizationRisk ||
-        data?.scores?.generalization_risk) +
+      (100 - data?.finalScores?.generalizationRisk ||
+      100 - data?.scores?.generalization_risk) +
       (data?.finalScores?.logicalConsistency ||
         data?.scores?.logical_consistency) +
       (data?.finalScores?.nuanceAndContext ||
