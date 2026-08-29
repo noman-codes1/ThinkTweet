@@ -13,7 +13,7 @@ import { AuthContext } from "../../utils/AuthProvider";
 
 const Success = ({ username }) => {
   //using a state
-  const [countDown, setCountDown] = useState(10);
+  const [countDown, setCountDown] = useState(3);
 
   //taking the value from navigation
   const navigateNow = useNavigate();
