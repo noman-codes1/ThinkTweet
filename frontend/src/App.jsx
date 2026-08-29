@@ -15,8 +15,9 @@ import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Disclaimer from "./pages/Disclaimer";
 import Logout from "./features/logout/Logout";
-import { use } from "react";
+import { use, useState } from "react";
 import { AuthContext } from "./utils/AuthProvider";
+import DisclaimerPopup from "./features/popup/DisclaimerPopup";
 
 const App = () => {
   //getting the route name
@@ -38,11 +39,15 @@ const App = () => {
   //get the value from the auth context
   const auth = use(AuthContext);
 
+  //showing disclaimer popup-up
+  const [showDisclaimerPopup, setShowDisclaimerPopup] = useState(true)
+
   return (
     <>
       {/* #tip: Use better structure to scale it well */}
       {expectedRoute.find((elem) => elem === routeName.pathname) ? (
         <div>
+          {showDisclaimerPopup && <DisclaimerPopup functionToCloseDisclaimer={setShowDisclaimerPopup}/>}
           <Navbar />
           <Sidebar />
           <ScrollToTop />
