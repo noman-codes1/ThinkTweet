@@ -15,7 +15,7 @@ import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Disclaimer from "./pages/Disclaimer";
 import Logout from "./features/logout/Logout";
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 import { AuthContext } from "./utils/AuthProvider";
 import DisclaimerPopup from "./features/popup/DisclaimerPopup";
 
@@ -40,14 +40,25 @@ const App = () => {
   const auth = use(AuthContext);
 
   //showing disclaimer popup-up
-  const [showDisclaimerPopup, setShowDisclaimerPopup] = useState(true)
+  const [showDisclaimerPopup, setShowDisclaimerPopup] = useState(false);
+
+  //using effect to check whether the disclaimer was previously shown or not
+  useEffect(() => {
+    if (localStorage.getItem("isClickedDisclaimerBefore") !== "true") {
+      setShowDisclaimerPopup(true);
+    }
+  }, []);
 
   return (
     <>
       {/* #tip: Use better structure to scale it well */}
       {expectedRoute.find((elem) => elem === routeName.pathname) ? (
         <div>
-          {showDisclaimerPopup && <DisclaimerPopup functionToCloseDisclaimer={setShowDisclaimerPopup}/>}
+          {showDisclaimerPopup && (
+            <DisclaimerPopup
+              functionToCloseDisclaimer={setShowDisclaimerPopup}
+            />
+          )}
           <Navbar />
           <Sidebar />
           <ScrollToTop />

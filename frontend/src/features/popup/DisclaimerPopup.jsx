@@ -14,6 +14,13 @@ const innerContainer = "border p-2 rounded-lg";
 const highlightInPara = "font-semibold";
 
 const DisclaimerPopup = ({ functionToCloseDisclaimer }) => {
+
+  //saving the response of "I understand" to stop making it annoying
+  const saveInLocalStorage = () =>{
+    functionToCloseDisclaimer(false)
+    localStorage.setItem("isClickedDisclaimerBefore", "true");
+  }
+
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-xs z-500 flex justify-center items-center">
 
@@ -57,7 +64,7 @@ const DisclaimerPopup = ({ functionToCloseDisclaimer }) => {
         {/* Buttons to take action */}
         <div className="border-t border-t-brand-fourth bg-[#fbfcfd] px-5 py-6 grid grid-cols-2 gap-4 rounded-b-lg max-phone:grid-cols-1 max-phone:p-3 max-phone:gap-2">
           <button
-            onClick={() => functionToCloseDisclaimer(false)}
+            onClick={() => saveInLocalStorage()}
             className="py-2.5 rounded-lg text-white bg-brand-tertionary hover:bg-brand-tertionary-hover hover:cursor-pointer"
           >
             I understand & accept
