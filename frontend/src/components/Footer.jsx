@@ -4,13 +4,14 @@ import { GoHeartFill } from "react-icons/go";
 import { MdMailOutline } from "react-icons/md";
 import { FaCopy } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
+import { NavLink } from "react-router-dom";
 
 //static variable
 const media =
   "text-brand-secondary border p-2 bg-white rounded-lg border-brand-fourth hover:bg-[#eef2ff] hover:text-brand-tertionary hover:border-brand-tertionary";
 const catHeader = "uppercase text-brand-primary text-sm font-semibold mb-5";
 const links =
-  "text-sm mb-3 text-brand-secondary hover:text-brand-tertionary hover:cursor-pointer";
+  "text-sm block mb-3 text-brand-secondary hover:text-brand-tertionary hover:cursor-pointer";
 
 const Footer = () => {
   return (
@@ -44,30 +45,34 @@ const Footer = () => {
         </div>
         <div className="max-sm:mb-5">
           <h4 className={catHeader}>Product</h4>
-          <ul>
-            <li className={links}>Home</li>
-            <li className={links}>Documentation</li>
-            <li className={links}>About</li>
-          </ul>
+          <NavLink to="/" className={links}>
+            Home
+          </NavLink>
+          <NavLink to="/documentation" className={links}>
+            Documentation
+          </NavLink>
+          <NavLink to="/about" className={links}>
+            About
+          </NavLink>
         </div>
         <div className="max-lg:mb-8">
           <h4 className={catHeader}>Legal & Contact</h4>
-          <ul>
-            <li className={links}>Privacy Policy</li>
-            <li className={links}>Disclaimer</li>
-            <li className="flex gap-2">
-              <a
-                className={twMerge(links, "flex items-center gap-1 ")}
-                onClick={(e) => e.preventDefault()}
-                href=""
-              >
-                <MdMailOutline />
-                noman.work@proton.me
-              </a>
-              {/* We will do this functionality later. It's not that hard but I am running out of time rn. */}
-              {/* <FaCopy  className="text-sm text-brand-secondary mt-0.5 hover:text-brand-tertionary hover:cursor-pointer" /> */}
-            </li>
-          </ul>
+          <NavLink to="/privacy" className={links}>
+            Privacy Policy
+          </NavLink>
+          <NavLink to="/disclaimer" className={links}>
+            Disclaimer
+          </NavLink>
+          <a
+            className={twMerge(links, "flex items-center gap-1 ")}
+            href="mailto:noman.work@proton.me?subject=Request%20for%20Information&body=Hi%20Noman,%0A%0A"
+            target="blank"
+          >
+            <MdMailOutline />
+            noman.work@proton.me
+          </a>
+          {/* We will do this functionality later. It's not that hard but I am running out of time rn. */}
+          {/* <FaCopy  className="text-sm text-brand-secondary mt-0.5 hover:text-brand-tertionary hover:cursor-pointer" /> */}
         </div>
       </div>
       <div className="mt-6 flex max-sm:flex-col max-sm:gap-4">
