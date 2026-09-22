@@ -11,10 +11,10 @@ const VideoHowItWorks = () => {
 
   //public url where video is hosted
   const url =
-    "https://guhp7smx8g33rcvs.public.blob.vercel-storage.com/ThinkTweetVideo%20-%20Final-mDi6n6jUbTSjqcvQl6uXKvjXSOicFB.mp4";
+    "https://guhp7smx8g33rcvs.public.blob.vercel-storage.com/ThinkTweet-update-video-DZ56ANyjF1kAxLZTUMX2NX8YUQ6pWu.mp4";
 
   return (
-    <div className="w-[90%] max-w-3xl aspect-video mx-auto rounded-lg pointer-events-none">
+    <div className="w-[90%] max-w-3xl aspect-video mx-auto rounded-lg pointer-events-none lg:border-b">
       <video
         className="rounded-lg shadow-xl"
         autoPlay
