@@ -5,6 +5,7 @@ import { MdMailOutline } from "react-icons/md";
 import { FaCopy } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 import { NavLink } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 
 //static variable
 const media =
@@ -14,6 +15,42 @@ const links =
   "text-sm block mb-3 text-brand-secondary hover:text-brand-tertionary hover:cursor-pointer";
 
 const Footer = () => {
+  //defining the state
+  const [isCopied, setIsCopied] = useState(false);
+
+  //defining the company email
+  const companyEmail = "hi@meetnoman.com";
+
+  //fucntion to copy the text in clipboard
+  const copyText = async (event) => {
+    try {
+      event.preventDefault();
+
+      // adding a guardrails to avoid firing multiple timer
+      if (isCopied) return;
+
+      //copying the text and setting the state
+      await navigator.clipboard.writeText(companyEmail); //it's returns a promise
+      setIsCopied(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  //defining the useRef
+  const timerId = useRef(null); //using the starting value as null
+
+  //using the effect to control the timer
+  useEffect(() => {
+    if (!isCopied) return; // don't run timer
+
+    // timer to run now
+    timerId.current = setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+    return () => clearTimeout(timerId.current);
+  }, [isCopied]);
+
   return (
     <div className="border bg-[#f8fafc] border-brand-fourth px-8 pt-12 pb-7">
       <div className="grid grid-cols-4 gap-5 border-b border-b-brand-fourth max-lg:grid-cols-3 max-sm:grid-cols-1">
@@ -60,19 +97,26 @@ const Footer = () => {
           <NavLink to="/privacy" className={links}>
             Privacy Policy
           </NavLink>
-          <NavLink to="/disclaimer" className={links}>
-            Disclaimer
-          </NavLink>
+          <div className="relative">
+            <NavLink to="/disclaimer" className={links}>
+              Disclaimer
+            </NavLink>
+            {isCopied && (
+              <p className="absolute top-1 bg-brand-primary text-brand-fourth w-max text-xs py-1 px-2 rounded-md">
+                Copied!
+              </p>
+            )}
+          </div>
           <a
-            className={twMerge(links, "flex items-center gap-1 ")}
-            href="mailto:noman.work@proton.me?subject=Request%20for%20Information&body=Hi%20Noman,%0A%0A"
+            className={twMerge(links, "flex items-center gap-1 select-none")}
+            // href="mailto:noman.work@proton.me?subject=Request%20for%20Information&body=Hi%20Noman,%0A%0A"
             target="blank"
+            onClick={(e) => copyText(e)}
           >
             <MdMailOutline />
-            noman.work@proton.me
+            {companyEmail}
+            <FaCopy />
           </a>
-          {/* We will do this functionality later. It's not that hard but I am running out of time rn. */}
-          {/* <FaCopy  className="text-sm text-brand-secondary mt-0.5 hover:text-brand-tertionary hover:cursor-pointer" /> */}
         </div>
       </div>
       <div className="mt-6 flex max-sm:flex-col max-sm:gap-4">
