@@ -18,6 +18,7 @@ import Logout from "./features/logout/Logout";
 import { use, useState, useEffect } from "react";
 import { AuthContext } from "./utils/AuthProvider";
 import DisclaimerPopup from "./features/popup/DisclaimerPopup";
+import End from "./pages/End";
 
 const App = () => {
   //getting the route name
@@ -34,6 +35,7 @@ const App = () => {
     // "/about",
     "/signup",
     "/login",
+    "/end"
   ];
 
   //get the value from the auth context
@@ -72,6 +74,7 @@ const App = () => {
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/privacy" element={<Privacy />} />
             {/* <Route path="/about" element={<About />} /> */}
+            <Route path="/end" element={<End />} />
           </Routes>
           <Footer />
           {auth.showLogoutPopup && <Logout />}
