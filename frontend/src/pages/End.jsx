@@ -7,9 +7,9 @@ const End = () => {
   //title of the document
   document.title = "You have reached death"
   return (
-    <div className="py-15 px-10 bg-[#f8fafc] max-md:px-8 max-phone:px-4">
+    <div className="py-15 px-10 bg-[#f8fafc] max-lg:py-40 max-md:py-15 max-md:px-8 max-phone:px-4">
       <YouHaveReachedEnd />
-      {/* <WhatsComing /> */}
+      <WhatsComing />
     </div>
   );
 }

@@ -6,24 +6,24 @@ const WhatsComing = () => {
   const cardData = [
     {
       id: 0,
-      heading: "Phase 2: AI Enhancements",
-      para: "Advanced tweet generation and emotional intelligence analysis.",
+      heading: "Phase II (a): AI Enhancements",
+      para: "RAG analysis with model selection optimized for deep reasoning.",
     },
     {
       id: 1,
-      heading: "Phase 3: Analytics Hub",
-      para: "Real-time performance tracking and audience growth insights.",
+      heading: "Phase II (b): Documentation",
+      para: "Read our detailed infrastructure build and security protocols.",
     },
     {
       id: 2,
-      heading: "Phase 4: Collaboration",
-      para: "Team workspaces and shared content calendars.",
+      heading: "Phase II (c): Subscription",
+      para: "Subscription-based option for users preferring recurring billing.",
     },
   ];
 
   return (
     // Section for rendering all the card with above data present
-    <div>
+    <div className="mt-20 grid grid-cols-3 gap-6 justify-self-center w-[90%] max-lg:w-full max-lg:gap-4 max-md:grid-cols-2 max-md:gap-6 max-phone:grid-cols-1 max-phone:w-[95%]">
       {cardData.map((elem) => {
         return (
           <ComingCard
