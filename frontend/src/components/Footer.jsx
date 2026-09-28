@@ -1,6 +1,6 @@
 import React from "react";
 import { FaBrain, FaGithub, FaLinkedinIn } from "react-icons/fa";
-import { GoHeartFill } from "react-icons/go";
+import { GoHeartFill, GoDotFill } from "react-icons/go";
 import { MdMailOutline } from "react-icons/md";
 import { FaCopy } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
@@ -119,13 +119,17 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <div className="mt-6 flex max-sm:flex-col max-sm:gap-4">
-        <p className="text-xs tracking-wide text-brand-secondary max-sm:text-center">
-          &copy; 2026 ThinkTweet. All rights reserved.
+      <div className="mt-6 grid grid-cols-3 max-md:grid-cols-4 max-md:gap-4 max-phone:grid-cols-1 max-phone:gap-2.5">
+        <p className="text-xs w-max tracking-wide text-brand-secondary max-md:col-span-2 max-phone:col-auto max-phone:justify-self-end">
+          &copy; {new Date().getFullYear()} ThinkTweet. All rights reserved.
         </p>
-        <p className="ml-auto flex items-center gap-1 text-xs tracking-wide text-brand-secondary max-sm:ml-0 max-sm:justify-center">
+        <p className="text-xs justify-self-center w-max text-brand-secondary flex items-center gap-0.5 max-md:col-span-2 max-md:justify-self-end max-phone:col-auto">
+          <GoDotFill className="animate-pulse text-[#34d399]" />
+          Phase I Live — Phase II In Planning<span className="sm:hidden">.</span>
+        </p>
+        <p className="justify-self-end w-max flex items-center gap-1 text-xs tracking-wide text-brand-secondary max-md:col-start-2 max-md:col-end-4 max-md:justify-self-center max-phone:col-auto max-phone:justify-self-end">
           Built with <GoHeartFill className="text-[#fa7184]" /> for better
-          feminist discourse.
+          feminist talk.
         </p>
       </div>
     </div>
