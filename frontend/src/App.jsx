@@ -19,6 +19,7 @@ import { use, useState, useEffect } from "react";
 import { AuthContext } from "./utils/AuthProvider";
 import DisclaimerPopup from "./features/popup/DisclaimerPopup";
 import End from "./pages/End";
+import PageNotFound404 from "./components/PageNotFound404";
 
 const App = () => {
   //getting the route name
@@ -80,7 +81,8 @@ const App = () => {
           {auth.showLogoutPopup && <Logout />}
         </div>
       ) : (
-        <div className="text-4xl p-2">404 Page Not Found</div>
+        // <div className="text-4xl p-2">404 Page Not Found</div>
+        <PageNotFound404 />
       )}
     </>
   );

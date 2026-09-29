@@ -34,4 +34,24 @@
       transform: translateY(0)
     }
   }
+
+  --animate-slowBounce: slowBounce 3s linear infinite;
+
+  @keyframes slowBounce {
+    0%{
+      transform: translateY(0rem);
+    }
+    25%{
+      transform: translateY(-0.3rem);
+    }
+    75%{
+      transform: translateY(0.3rem);
+    }
+    100% {
+      transform: translateY(0rem);
+    }
+    /* 100% {
+      transform: translateY(0rem);
+    } */
+  }
 }
