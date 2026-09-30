@@ -34,7 +34,7 @@ const AIDisclaimer = ({
             encounter an inappropriate or misogynistic reply, please take a
             screenshot and email us at{" "}
             <span className={twMerge(highlightParaAI, "text-brand-tertionary font-sans hover:underline hover:cursor-pointer")}>
-              noman.work@proton.me
+              hi@meetnoman.com
             </span>
             . {/* This is the ending dot of the paragraph */}
           </p>

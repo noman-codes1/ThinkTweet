@@ -58,6 +58,16 @@ const ContentContainerOfDisclaimer = () => {
     },
     {
       id: 7,
+      heading: "Payment and Credit Purchases",
+      para1:
+        "Our credit purchasing functionality utilizes a sandbox checkout session and payment gateway provided by Stripe strictly for demonstration purposes.",
+      para2:
+        "Users must not enter real credit card or banking information, as actual transactions will not be processed and real card details will be systematically rejected by the gateway.",
+      para3:
+        "To simulate a transaction, users are required to use the designated test card credentials, which are publicly available on Stripe's official documentation.",
+    },
+    {
+      id: 8,
       heading: "Third-Party Content & External Links",
       para1:
         "ThinkTweet relies on external APIs and third-party systems. We are not responsible for the accuracy, availability, or uptime of these third-party integrations.",
@@ -66,7 +76,7 @@ const ContentContainerOfDisclaimer = () => {
       para3: undefined,
     },
     {
-      id: 8,
+      id: 9,
       heading: "Privacy & Data Security",
       para1:
         "We utilize industry-standard security measures to protect your data. However, as with any digital platform, no system is 100% bulletproof. Because this is fundamentally an educational project, your peace of mind is our priority.",
@@ -75,7 +85,7 @@ const ContentContainerOfDisclaimer = () => {
       para3: undefined,
     },
     {
-      id: 9,
+      id: 10,
       heading: "Open Source & Community Driven",
       para1:
         "ThinkTweet believes in structural transparency. Our source code is publicly available on GitHub. You are welcome to visit the repository to inspect the mechanics of the platform, and community contributions are highly encouraged.",
@@ -83,7 +93,7 @@ const ContentContainerOfDisclaimer = () => {
       para3: undefined,
     },
     {
-      id: 10,
+      id: 11,
       heading: "Availability & Technical Issues",
       para1:
         "Our service is provided on an 'as-is' and 'as-available' basis. The platform may occasionally be unavailable, interrupted, or experience technical errors without prior notice.",
@@ -91,7 +101,7 @@ const ContentContainerOfDisclaimer = () => {
       para3: undefined,
     },
     {
-      id: 11,
+      id: 12,
       heading: "Limitation of Liability",
       para1:
         "To the fullest extent permitted by applicable law, ThinkTweet, its developers, and affiliates shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your access to, reliance on, or use of the website and its AI-generated outputs.",
@@ -99,7 +109,7 @@ const ContentContainerOfDisclaimer = () => {
       para3: undefined,
     },
     {
-      id: 12,
+      id: 13,
       heading: "Changes to this Disclaimer",
       para1:
         "We reserve the right to update or modify this disclaimer at any time as the platform, its underlying LLMs, or its services evolve.",
@@ -107,7 +117,7 @@ const ContentContainerOfDisclaimer = () => {
       para3: undefined,
     },
     {
-      id: 13,
+      id: 14,
       heading: "Contact Information",
       para1:
         "If you have any further questions or wish to report anomalous AI behavior, please contact us at:",
@@ -116,7 +126,7 @@ const ContentContainerOfDisclaimer = () => {
     },
   ];
   return (
-    <div>
+    <div className="border border-brand-fourth bg-white shadow-xl p-12 rounded-4xl mx-20 max-lg:mx-12 max-md:mx-5 max-phone:mx-0 max-phone:p-8">
       {contentData.map((elem) => {
         return (
           <Content

@@ -21,7 +21,7 @@
 
 /* Defining custom animation */
 @theme {
-  --animate-slideIn: slideIn 0.3s ease-in;
+  --animate-slideIn: slideIn 0.2s linear;
 
   @keyframes slideIn {
     0% {

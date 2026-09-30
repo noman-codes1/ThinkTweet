@@ -1,6 +1,7 @@
 import React from 'react'
 import Headline from '../features/disclaimer-page/Headline';
 import ContentContainerOfDisclaimer from '../features/disclaimer-page/ContentContainerOfDisclaimer';
+import { FaArrowUp } from "react-icons/fa6";
 
 const Disclaimer = () => {
 
@@ -13,10 +14,15 @@ const Disclaimer = () => {
   }
   
   return (
-    <div>
+    <div className="py-15 px-10 max-md:px-5 bg-[#f8fafc]">
       <Headline />
       <ContentContainerOfDisclaimer />
-      <button onClick={() => scrollToTop()}>Back to Top</button>
+      <button
+        className="flex gap-1 items-center mt-10 justify-self-center text-brand-secondary hover:text-brand-tertionary-hover hover:cursor-pointer"
+        onClick={() => scrollToTop()}
+      >
+        <FaArrowUp size={13}/> Back to Top
+      </button>
     </div>
   );
 }
