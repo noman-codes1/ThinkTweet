@@ -1,17 +1,22 @@
 import React from 'react'
+import Headline from '../features/disclaimer-page/Headline';
+import ContentContainerOfDisclaimer from '../features/disclaimer-page/ContentContainerOfDisclaimer';
 
 const Disclaimer = () => {
 
   //giving the title of page
   document.title = "Disclaimer - ThinkTweet"
+
+  //function to scroll to the top
+  const scrollToTop = () =>{
+    window.scrollTo({top:0, left:0, behavior: 'smooth'})
+  }
   
   return (
-    <div className="h-screen bg-[#f1f3fb]">
-      <h1 className="text-6xl mb-5">Disclaimer</h1>
-      <p>
-        Note: This page is{" "}
-        <span className="underline font-bold">under development</span>. Check back later
-      </p>
+    <div>
+      <Headline />
+      <ContentContainerOfDisclaimer />
+      <button onClick={() => scrollToTop()}>Back to Top</button>
     </div>
   );
 }
