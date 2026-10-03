@@ -7,7 +7,7 @@ const Privacy = () => {
   document.title = "Privacy - ThinkTweet";
 
   return (
-    <div>
+    <div className="py-15 px-15 bg-[#f8fafc] xl:px-20 max-md:px-10 max-phone:px-5">
       <HeadlineOfPage />
       <ContainerOfContentOfPrivacy />
     </div>

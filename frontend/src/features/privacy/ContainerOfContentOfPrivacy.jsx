@@ -79,7 +79,7 @@ const ContainerOfContentOfPrivacy = () => {
         {
           head: "Service Delivery:",
           content:
-            "You are purchasing credits to utilize our AI analysis tools. If the service fails to deliver an analysis after credits have been deducted, our team will use your secure purchase history to verify the error and manually restore your credits or resolve the dispute.",
+            "You are purchasing credits to utilize our AI analysis tools. If the service fails to deliver a credits after purchase, our team will use your purchase history to verify the error and manually restore your credits or resolve the dispute.",
         },
         {
           head: "Acceptable Use:",
@@ -90,7 +90,7 @@ const ContainerOfContentOfPrivacy = () => {
     },
   ];
   return (
-    <div>
+    <div className="border border-brand-fourth bg-white shadow-2xl p-12 rounded-3xl mx-10 xl:w-5xl xl:mx-0 xl:flex xl:flex-col xl:justify-self-center max-lg:mx-0 max-phone:p-8">
       {/* Content */}
       {dataOfContent.map((elem) => {
         return (
@@ -105,12 +105,16 @@ const ContainerOfContentOfPrivacy = () => {
       })}
 
       {/* Contact Details */}
-      <div>
-        <h2>Contact Us</h2>
-        <p>
+      <div className="border border-brand-fourth bg-[#f8fafc] mt-10 p-6 rounded-2xl max-phone:p-5">
+        <h2 className="font-bold text-xl mb-5 text-brand-primary">Contact Us</h2>
+        <p className="text-brand-secondary">
           If you have any questions regarding your encrypted data, payment
           history, or how our open-source architecture protects you, please
-          reach out to us at <span>hi@meetnoman.com</span>.
+          reach out to us at{" "}
+          <span className="text-brand-tertionary hover:text-brand-tertionary-hover hover:underline hover:cursor-pointer">
+            hi@meetnoman.com
+          </span>
+          .
         </p>
       </div>
     </div>
