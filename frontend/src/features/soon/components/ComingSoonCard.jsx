@@ -2,6 +2,7 @@ import React from "react";
 import { FaHistory, FaLightbulb } from "react-icons/fa";
 import { FaRegHourglassHalf, FaMicrochip, FaBookOpen } from "react-icons/fa6";
 import { RiStackFill } from "react-icons/ri";
+import { IoFingerPrintSharp } from "react-icons/io5";
 
 //static variable
 const keywordsOfUpdate =
@@ -13,8 +14,8 @@ const ComingSoonCard = ({id, name, detail, keyword }) => {
       <div className="flex mb-6 items-center">
         <span className="bg-[#f1f5f9] text-brand-tertionary p-2.5 rounded-lg">
           {id === 1 && <FaHistory className="" size={19} />}
-          {id === 2 && <FaBookOpen className="" size={19} />}
-          {id === 3 && <FaLightbulb className="" size={19} />}
+          {id === 2 && <IoFingerPrintSharp className="" size={19} />}
+          {id === 3 && <FaBookOpen className="" size={19} />}
           {id === 4 && <RiStackFill className="" size={19} />}
           {id === 5 && <FaMicrochip className="" size={19} />}
         </span>

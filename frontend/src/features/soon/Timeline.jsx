@@ -24,7 +24,7 @@ const Timeline = () => {
       </p>
       <div className="flex gap-10 items-center border-t border-t-brand-fourth pt-5 w-full justify-center max-phone:gap-7">
         <div>
-          <span className={timelinePlanned}>4</span>
+          <span className={timelinePlanned}>5</span>
           <p className={timelinePlannedHeadline}>Features Planned</p>
         </div>
         <div className={verticalLines}></div>

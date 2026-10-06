@@ -7,24 +7,24 @@ const WhatsPlanned = () => {
   const arrayCard = [
     {
       key: 1,
-      featureName: "Advanced Analysis History",
+      featureName: "Persistent Analysis History",
       featureDetail:
-        "A comprehensive repository to store, search, and revisit every single deep-dive AI response you generate. Full-text search and timeline filtering included.",
-      featureKeyword: ["storage", "search"],
+        "A comprehensive history of tweet analysis to see what was searched, how it scored, where it lacked and to revisit every single deep-dive AI response generated. Sorting and searching are also included.",
+      featureKeyword: ["storage", "revisit"],
     },
     {
       key: 2,
-      featureName: "Project Documentation & API Reference",
+      featureName: "Encrypted Account Data",
       featureDetail:
-        "A complete, interactive documentation hub detailing our underlying analytical frameworks and API guides for developers and advanced users.",
-      featureKeyword: ["api", "docs"],
+        "E2E privacy for analyzed tweets. Data in the generalized tab has zero connection to user's search. Neither developer, server, nor anyone but user knows which tweet was analyzed.",
+      featureKeyword: ["privacy", "encryption"],
     },
     {
       key: 3,
-      featureName: "The About Workspace",
+      featureName: "RAG Based Analysis",
       featureDetail:
-        "An institutional breakdown of the philosophy behind ThinkTweet and gender-domain evaluation methodology, transparently presented for researchers and users alike.",
-      featureKeyword: ["philosophy", "research"],
+        "Implementation of Retrieval-Augmented Generation for every tweet to ensure higher analysis accuracy, fewer mistakes, and reputed sources for overall better arguments.",
+      featureKeyword: ["precision", "source-based"],
     },
     {
       key: 4,
