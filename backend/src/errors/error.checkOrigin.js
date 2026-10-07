@@ -1,6 +1,6 @@
 import { env } from "../config/env.config.js";
 import { ForbiddenError } from "./errors.custom.js";
-import { logFlow } from "../debug/debug.logs.js";
+import { logFlow, logValid } from "../debug/debug.logs.js";
 
 export const checkOrgin = (req, res, next) => {
   try {
@@ -18,6 +18,7 @@ export const checkOrgin = (req, res, next) => {
     if (!(req.headers.origin === env.frontendurl || isDirectServerVisit)) {
       throw new ForbiddenError("Request recieved from invalid url");
     }
+    logValid("Request are accepted, processing  further request...")
 
     next();
     //when using without next()

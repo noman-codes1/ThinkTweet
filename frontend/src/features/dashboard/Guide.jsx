@@ -12,8 +12,8 @@ import ProTip from "./ProTip";
 const container =
   "flex gap-3 mb-4 hover:cursor-default p-2 rounded-lg hover:bg-[#eef2ff]";
 const icon = "p-1.5 rounded-lg h-max mt-1";
-const heading = "text-sm text-brand-primary";
-const text = "text-xs tracking-wide text-brand-secondary";
+const heading = "text-[0.95rem] text-brand-primary";
+const text = "text-sm tracking-wide text-brand-secondary";
 
 const Guide = () => {
   return (
@@ -25,7 +25,7 @@ const Guide = () => {
             size={30}
           />
           <div>
-            <h3 className="text-[0.9rem] text-brand-primary font-semibold">
+            <h3 className="text-base text-brand-primary font-semibold">
               Analysis Guide
             </h3>
             <p className="text-sm text-brand-secondary">5 scoring parameters</p>

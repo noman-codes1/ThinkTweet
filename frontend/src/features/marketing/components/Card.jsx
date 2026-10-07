@@ -20,7 +20,7 @@ const Card = ({ index, iconBox, titleColor, title, descr }) => {
           <p className="mt-1 font-bold text-base text-brand-primary">{title}</p>
         </div>
       </div>
-      <p className="text-brand-secondary text-[0.9rem] tracking-wide">
+      <p className="text-brand-secondary text-[0.95rem] tracking-wide">
         {descr}
       </p>
     </div>
