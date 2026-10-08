@@ -16,24 +16,9 @@ const Dashboard = () => {
   //getting the AuthContext data
   const auth = use(AuthContext);
 
-  //showing the loader when needed
-  const [loader, setLoader] = useState(true);
-
-  // Hanlding the condition to demount the loader component
-  // #tip: this is not the right way to deal with this. Improve it!!
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoader(false);
-    }, 5000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
   return auth.isAuthenticated ? (
     <DashboardProvider>
-      {loader && <DashboardLoader functionToSetLoader={setLoader} />}
+      <DashboardLoader />
       <div className="p-8 bg-[#f8fafc] max-lg:px-5 max-phone:px-3">
         <Analytics />
         <div className="grid grid-cols-3 grid-rows-[auto_2fr] mt-8 gap-5 max-lg:grid-cols-1">

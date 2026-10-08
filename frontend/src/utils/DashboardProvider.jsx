@@ -12,6 +12,7 @@ export const DashboardProvider = ({ children }) => {
   const [credits, setCredits] = useState(0);
   const [lastPurchaseHistory, setLastPurchaseHistory] = useState();
   const [name, setName] = useState()
+  const [dataSuccess, setDataSuccess] = useState(false)
 
   //function to talk to the server
   const talkToServer = async () => {
@@ -33,6 +34,7 @@ export const DashboardProvider = ({ children }) => {
           setCredits(talkingBackToServer.data.credits);
           setTotalAnalysis(talkingBackToServer.data.numOfAnalysis);
           setLastPurchaseHistory(talkingBackToServer.data.lastPurHistory);
+          setDataSuccess(true)
         }
       }
     } else if (serverObject.success) {
@@ -40,6 +42,7 @@ export const DashboardProvider = ({ children }) => {
       setCredits(serverObject.data.credits);
       setTotalAnalysis(serverObject.data.numOfAnalysis);
       setLastPurchaseHistory(serverObject.data.lastPurHistory);
+      setDataSuccess(true)
     }
   };
 
@@ -56,6 +59,7 @@ export const DashboardProvider = ({ children }) => {
         setCredits,
         lastPurchaseHistory,
         name,
+        dataSuccess
       }}
     >
       {children}

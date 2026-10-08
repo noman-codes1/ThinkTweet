@@ -19,9 +19,6 @@ const infoBox =
   "text-xs ml-auto border h-max py-1 px-3 rounded-xl flex items-center gap-1 max-md:mb-4 max-md:w-max max-md:row-start-1 max-md:ml-0";
 
 const AnalyzeTweet = () => {
-  //test data
-  const isTweetAnalyzed = false;
-
   //defining the state
   const [userUrl, setUserUrl] = useState("");
   const [isReadyToSend, setIsReadyToSend] = useState(false);
@@ -149,7 +146,7 @@ const AnalyzeTweet = () => {
             <h2 className="text-brand-primary font-semibold text-lg mb-1">
               Analyze a Tweet
             </h2>
-            <p className="text-brand-secondary text-[0.95rem] mb-4 max-md:mb-6">
+            <p className="text-brand-secondary text-[0.9rem] mb-4 max-md:mb-6">
               Paste any public Twitter/X link and get an instant logical quality
               breakdown
             </p>

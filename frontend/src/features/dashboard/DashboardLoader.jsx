@@ -1,16 +1,38 @@
 import React from "react";
 import { FaBrain } from "react-icons/fa";
 import { BarLoader } from "react-spinners";
-import { use } from "react";
+import { use, useState } from "react";
 import { DashboardContext } from "../../utils/DashboardProvider";
+import { sleep } from "../../utils/sleep";
 
-const DashboardLoader = ({ functionToSetLoader }) => {
+const DashboardLoader =  ({ functionToSetLoader }) => {
+  //using state
+  const [isDataServedByServer, setIsDataServedByServer] = useState(false)
+
+  //defensive coding - context is broadcasting data multiple time, 
+  //we don't wanna waste re-running the script when not needed
+  if (isDataServedByServer) {
+    console.log("Program is terminated here...")
+    return
+  }
+
   //getting the value of the context
   const dashboardValues = use(DashboardContext);
 
-  // THIS WORK IS UN-FINISHED. USE SERVER DATA TO DETERMINE WHEN TO TURN OFF
-  // THE LOADER
-  return (
+  // making sure the code sleeps if the value is true to avoid quick vanishing
+  const testFunc = async () => {
+    console.log("Inside function")
+    if (dashboardValues.dataSuccess) {
+      console.log("Inside if block")
+      console.log("About to sleep")
+      await sleep(1000)
+      setIsDataServedByServer(dashboardValues.dataSuccess) //will not cause infinite render, because we are controlling the rate of react HMR or whatever the name is 
+      console.log("Value is updated to true")
+    }
+  }
+  testFunc() //running the function to work
+
+  return !isDataServedByServer ? (
     <div className="fixed inset-0 z-200 bg-[#f7f9fc] flex items-center justify-center">
       <div>
         <FaBrain
@@ -26,7 +48,10 @@ const DashboardLoader = ({ functionToSetLoader }) => {
         <BarLoader width={180} height={2} color="#4f46e5" />
       </div>
     </div>
-  );
+  ) : (
+    // Returning null because we don't need this component and we cannot demount by itself
+    null
+  )
 };
 
 export default DashboardLoader;
