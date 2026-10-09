@@ -8,6 +8,7 @@ import { AuthContext } from "../utils/AuthProvider";
 import CustomError from "../components/CustomError";
 import { DashboardProvider } from "../utils/DashboardProvider";
 import DashboardLoader from "../features/dashboard/DashboardLoader";
+import Unauthorized401 from "../components/Unauthorized401";
 
 const Dashboard = () => {
   //giving the title of the page
@@ -29,8 +30,7 @@ const Dashboard = () => {
       </div>
     </DashboardProvider>
   ) : (
-    // #tip: Use better structure and user experience
-    <CustomError content="401 Unauthorized" />
+    <Unauthorized401 />
   );
 };
 

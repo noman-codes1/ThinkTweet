@@ -15,6 +15,7 @@ import { use } from "react";
 import { AuthContext } from "../utils/AuthProvider";
 import { sleep } from "../utils/sleep"
 import { customFetch } from "../utils/customFetch";
+import Unauthorized401 from "../components/Unauthorized401";
 
 //static variable
 const retrySupportButton =
@@ -197,7 +198,8 @@ const BuyCredits = () => {
       <Plan funcToTalkServer={talkServerForStripe} />
     </div>
   ) : (
-    <CustomError content="401 Unauthorized" />
+    // Throwing unauthorized request
+    <Unauthorized401 />
   );
 };
 
