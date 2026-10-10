@@ -25,7 +25,7 @@ const SignUp = () => {
 
   //returning the function 
   return auth.isAuthenticated ? (
-    <CustomError content="403 Forbidden" />
+    <CustomError statusCode="403" errorName="Forbidden" />
   ) : (
     // overall component container
     <div className="bg-[#f8fafc] flex flex-col items-center py-25">

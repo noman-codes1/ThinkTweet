@@ -17,13 +17,13 @@ const LogIn = () => {
   
   //using state to render component according to the condtion
   const [isVerified, setIsVerified] = useState(false);
-  const [recievedName, setRecievedName] = useState("");
+  const [recievedName, setRecievedName] = useState(""); //it's an empty string
 
   //getting the context to know the current data
   const auth = use(AuthContext);
 
   return auth.isAuthenticated ? (
-    <CustomError content="403 Forbidden" />
+    <CustomError statusCode="403" errorName="Forbidden" />
   ) : (
     <div className="flex flex-col items-center py-20 bg-[#f8fafc]">
       <p className="border flex items-center gap-2 mb-5 text-xs rounded-sm py-2 px-3 bg-[#eeeffa] border-[#d8d8f7] text-brand-tertionary">

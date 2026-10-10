@@ -5,10 +5,9 @@ import Guide from "../features/dashboard/Guide";
 import History from "../features/dashboard/History";
 import { use, useState, useEffect } from "react";
 import { AuthContext } from "../utils/AuthProvider";
-import CustomError from "../components/CustomError";
 import { DashboardProvider } from "../utils/DashboardProvider";
 import DashboardLoader from "../features/dashboard/DashboardLoader";
-import Unauthorized401 from "../components/Unauthorized401";
+import CustomError from "../components/CustomError";
 
 const Dashboard = () => {
   //giving the title of the page
@@ -30,7 +29,7 @@ const Dashboard = () => {
       </div>
     </DashboardProvider>
   ) : (
-    <Unauthorized401 />
+    <CustomError statusCode="401" errorName="Unauthorized" />
   );
 };
 

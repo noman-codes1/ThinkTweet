@@ -21,13 +21,9 @@ const DashboardLoader =  ({ functionToSetLoader }) => {
 
   // making sure the code sleeps if the value is true to avoid quick vanishing
   const testFunc = async () => {
-    console.log("Inside function")
     if (dashboardValues.dataSuccess) {
-      console.log("Inside if block")
-      console.log("About to sleep")
-      await sleep(1000)
+      await sleep(1000) //#tip: this is not a promise, this shoudn't work
       setIsDataServedByServer(dashboardValues.dataSuccess) //will not cause infinite render, because we are controlling the rate of react HMR or whatever the name is 
-      console.log("Value is updated to true")
     }
   }
   testFunc() //running the function to work

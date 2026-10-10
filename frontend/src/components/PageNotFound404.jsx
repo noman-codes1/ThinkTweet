@@ -31,8 +31,8 @@ const PageNotFound404 = () => {
         Oops! <span className="text-brand-tertionary">Page Not Found</span>
       </h1>
       <p className="text-center text-brand-secondary mt-3 mx-50 text-xl xl:mx-0 xl:w-xl max-lg:mx-0 max-lg:w-lg max-md:w-auto">
-        Hey girly! our system couldn't find the page you're looking for. It might
-        have been moved, deleted, or never existed in this timeline.
+        Hey girly! our system couldn't find the page you're looking for. It
+        might have been moved, deleted, or never existed in this timeline.
       </p>
 
       {/* Buttons to perform action */}
@@ -41,7 +41,7 @@ const PageNotFound404 = () => {
           to="/"
           className={twMerge(
             buttonCss,
-            "bg-brand-primary text-white shadow-2xl",
+            "bg-brand-primary text-white shadow-2xl hover:bg-black",
           )}
         >
           <FaArrowLeft />
@@ -52,7 +52,7 @@ const PageNotFound404 = () => {
           target="blank"
           className={twMerge(
             buttonCss,
-            "bg-white text-brand-primary border-brand-fourth shadow-lg",
+            "bg-white text-brand-primary border-brand-fourth shadow-lg hover:border-brand-tertionary",
           )}
         >
           <FaGithub className="text-brand-tertionary" />
